@@ -1,13 +1,15 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
+import NavbarCollapse from "react-bootstrap/esm/NavbarCollapse";
 
-function EducationCard({ isEditable, setIsEditing }) {
+function EducationCard({ education, isEditable, setIsEditing }) {
   return(
     <Card.Text>
         <Row className="align-items-center">
           <Col>
-            <span>땡땡 학교</span>
+            <span>{education.school}</span>
             <br/>
-            <span>땡떙 전공</span>
+            <span>{education.major}{"  "}</span>
+            <span>{education.position}</span>
           </Col>
           {isEditable && (
             <Col xs lg="1">
