@@ -8,7 +8,7 @@ function EducationAddForm({ setIsAdding }) {
 
   return (
     <Form>
-      <Form.Group>
+      <Form.Group controlId="formBasicSchool" className="mt-3">
         <Form.Control 
           type="text"
           placeholder="학교 명"
@@ -17,7 +17,7 @@ function EducationAddForm({ setIsAdding }) {
         />
       </Form.Group>
 
-      <Form.Group>
+      <Form.Group controlId="formBasicMajor" className="mt-3">
         <Form.Control 
           type="text"
           placeholder="전공 명"
