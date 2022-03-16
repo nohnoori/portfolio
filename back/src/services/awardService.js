@@ -14,6 +14,18 @@ class awardService {
 
     return createdNewAward;
   }
+
+  static async getAward({ id }) {
+    const award = await Award.findById({ id })
+
+    if (!award) {
+      const errorMessage = "해당 글은 존재하지 않습니다."
+      return { errorMessage }
+    }
+
+    return award
+  }
+
 }
 
 export { awardService }
