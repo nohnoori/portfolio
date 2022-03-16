@@ -62,10 +62,6 @@ function Portfolio() {
           />
         </Col>
         <Col>
-
-          <div style={{ textAlign: "center" }}>
-            학력 목록, 수상이력 목록, 프로젝트 목록, 자격증 목록 만들기
-          </div>
           <Projects 
             isEditable={portfolioOwner.id === userState.user?.id}
           />

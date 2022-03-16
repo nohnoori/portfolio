@@ -1,12 +1,42 @@
 import React, { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import DatePicker from 'react-datepicker';
+import * as Api from "../../api";
 
-function ProjectEditForm({ currentProject, setIsEditing }) {
+/**
+ * 편집 폼 컴포넌트
+ * @param currentProject Projects -> Project 컴포넌트로부터 전달받은 project 데이터
+ * @param setProjects Projects -> Project 컴포넌트로부터 전달받은 setProjects 함수
+ * @param setIsEditing Project 컴포넌트로부터 전달받은 인자 :  isEditing의 상태 관리 함수 (true일 경우 편집 폼 컴포넌트 보여짐)
+ * @return 프로젝트 제목, 상세내용, 시작일,종료일, 확인/취소 버튼
+ */
+
+function ProjectEditForm({ currentProject, setIsEditing, setProjects }) {
   const [title, setTitle] = useState(currentProject.title);
   const [description, setDescription] = useState(currentProject.description);
   const [startDate, setStartDate] = useState(new Date(currentProject.from_date));
   const [endDate, setEndDate] = useState(new Date(currentProject.to_date));
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+
+    const user_id = currentProject.user_id;
+
+    await Api.put(`projects/${currentProject.id}`, {
+      user_id,
+      title,
+      description,
+      from_date: startDate,
+      to_date: endDate,
+    });
+
+    // ? 1. 수정된 정보 GET요청
+    // ? 2. 수정된 정보 projects에 저장
+    // ? 3. 편집 폼 종료
+    const res = await Api.get("projectlist", user_id);
+    setProjects(res.data);
+    setIsEditing(false);
+  }
 
   return(
     <Form>
