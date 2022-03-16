@@ -1,5 +1,5 @@
-import React from 'react';
-import { Card, Row, Button, Col } from "react-bootstrap";
+import React, {useState} from 'react';
+import { Card, Row, Button, Col, Form } from "react-bootstrap";
 
 function CertificateCard() {
   const certificateCard = {
@@ -12,15 +12,15 @@ function CertificateCard() {
       <Row>
         <Col>
           <span>{certificateCard.title}</span><br />
-          <div class="text-muted">
+          <Form.Text className="text-muted">
             <span>{certificateCard.description}</span><br />
             <span>{certificateCard.date}</span><br />
-          </div>
+          </Form.Text>
         </Col>
         <Col xs lg="1">
           <Button
              variant="outline-info"
-             className='mr-3'
+             className='mr-3 btn-sm'
           >
             편집
           </Button>

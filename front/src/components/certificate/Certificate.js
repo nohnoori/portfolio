@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
-import { useNavigate } from "react-router-dom";
-import { Card, Row, Button, Col } from "react-bootstrap";
+import { Card, Form, Row, Button, Col } from "react-bootstrap";
 import CertificateEditForm from "./CertificateEditForm"
 import CertificateCard from "./CertificateCard"
 
@@ -14,9 +13,9 @@ function Certificate() {
       <Card.Body>
         <Card.Title>자격증</Card.Title>  
         <CertificateCard></CertificateCard>
-        <div class="mt-3 text-center mb-4 row">
+        <Form className="mt-3 text-center mb-4 row">
           <div class="col-sm-20">
-            <button type="button" class="btn btn-primary" onClick={handleClick}>+</button>
+            <Button type="button" className="btn btn-primary" onClick={handleClick}>+</Button>
             <form>
               <div>
                 {plusButton && (
@@ -25,7 +24,7 @@ function Certificate() {
               </div>
             </form>
           </div>  
-        </div>
+        </Form>
       </Card.Body>
 
     </Card>
