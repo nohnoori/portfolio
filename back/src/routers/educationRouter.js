@@ -39,6 +39,7 @@ educationAuthRouter.post("/education/create", async function (req, res, next) {
   }
 });
 
+// Education MVP 조회 API
 educationAuthRouter.get("/educations/:id", async function (req, res, next) {
     try {
       // URL로부터 추출한 education id를 가지고 db에서 education 정보를 찾음
@@ -56,6 +57,19 @@ educationAuthRouter.get("/educations/:id", async function (req, res, next) {
   }
 );
 
+// Education MVP 목록 조회 API
+educationAuthRouter.get("/educationlist/:user_id", async function (req, res, next) {
+  try {
+    // URL로부터 추출한 user_id를 가지고 db에서 education list를 찾음
+    const user_id = req.params.user_id;
+    const educationInfo = await EducationAuthService.getEducationList({ user_id });
+
+    res.status(200).json(educationInfo);
+  } catch (e) {
+    next(e);
+  }
+}
+);
 
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
 educationAuthRouter.get("/afterlogin", function (req, res, next) {

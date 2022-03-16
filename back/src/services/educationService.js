@@ -23,6 +23,11 @@ class EducationAuthService {
 
     return education;
   }
+
+  static async getEducationList({ user_id }) {
+    const educationList = await Education.findByUserId({ user_id });
+    return educationList;
+  }
 }
 
 export { EducationAuthService };

@@ -10,6 +10,11 @@ class Education {
     const education = await EducationModel.findOne({ id });
     return education;
   }
+
+  static async findByUserId({ user_id }) {
+    const educationList = await EducationModel.find({ user_id });
+    return educationList;
+  }
 }
 
 export { Education };
