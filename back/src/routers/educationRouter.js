@@ -39,6 +39,23 @@ educationAuthRouter.post("/education/create", async function (req, res, next) {
   }
 });
 
+educationAuthRouter.get("/educations/:id", async function (req, res, next) {
+    try {
+      // URL로부터 추출한 education id를 가지고 db에서 education 정보를 찾음
+      const id = req.params.id;
+      const educationInfo = await EducationAuthService.getEducationInfo({ id });
+
+      if (educationInfo.errorMessage) {
+        throw new Error(educationInfo.errorMessage);
+      }
+
+      res.status(200).send(educationInfo);
+    } catch (e) {
+      next(e);
+    }
+  }
+);
+
 
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
 educationAuthRouter.get("/afterlogin", function (req, res, next) {
