@@ -57,6 +57,22 @@ awardAuthRouter.get(
   }
 );
 
+awardAuthRouter.get(
+  "/awardlist/:user_id",
+  login_required,
+  async function (req, res, next) {
+    try {
+      const user_id = req.params.user_id
+      // 사용자의 수상 목록을 얻음
+      const awards = await awardService.getAwards({ user_id });
+      res.status(200).json(awards);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
 awardAuthRouter.get("/afterlogin", login_required, function (req, res, next) {
   res
