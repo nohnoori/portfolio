@@ -49,7 +49,7 @@ educationAuthRouter.get("/educations/:id", async function (req, res, next) {
         throw new Error(educationInfo.errorMessage);
       }
 
-      res.status(200).send(educationInfo);
+      res.status(200).json(educationInfo);
     } catch (e) {
       next(e);
     }
