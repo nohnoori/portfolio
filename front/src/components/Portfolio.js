@@ -7,6 +7,7 @@ import * as Api from "../api";
 import User from "./user/User";
 import Certificate from "./certificate/Certificate"
 import CertificateEditForm from "./certificate/CertificateEditForm"
+import Education from "./education/Educations";
 
 function Portfolio() {
   const navigate = useNavigate();
@@ -67,6 +68,10 @@ function Portfolio() {
           <div style={{ textAlign: "left" }}>
             <Certificate></Certificate>
           </div>
+          <Education 
+            portfolioOwnerId={portfolioOwner.id}
+            isEditable={portfolioOwner.id === userState.user?.id}
+          />
 
         </Col>
       </Row>
