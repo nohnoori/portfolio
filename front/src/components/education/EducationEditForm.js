@@ -1,10 +1,40 @@
 import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
+import * as Api from "../../api";
+
+/**
+ * 편집 폼 컴포넌트
+ * @param currentEducation Educations -> Education 컴포넌트로부터 전달받은 education 데이터
+ * @param setEducations Educations -> Education 컴포넌트로부터 전달받은 setEducations 함수
+ * @param setIsEditing Education 컴포넌트로부터 전달받은 인자 :  isEditing의 상태 관리 함수 (true일 경우 편집 폼 컴포넌트 보여짐)
+ * @return 학교 명, 전공 명, 학적 상태, 확인/취소 버튼
+ */
 
 function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
   const [school, setSchool] = useState(currentEducation.school);
   const [major, setMajor] = useState(currentEducation.major);
   const [position, setPosition] = useState(currentEducation.position);
+
+  // TODO : submit하면 서버에 수정된 사항 저장, 나중에 Form태그에 onSubmit 추가
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+
+    const user_id = currentEducation.user_id;
+    // put 요청
+    await Api.put(`educations/${currentEducation.id}`, {
+      user_id,
+      school,
+      major,
+      position,
+    });
+
+    // ? 1. 수정된 정보 GET요청
+    // ? 2. 수정된 정보 educations에 저장
+    // ? 3. 편집 폼 종료
+    const res = await Api.get("educationlist", user_id);
+    setEducations(res.data);
+    setIsEditing(false);
+  };
 
   return(
     <Form>
