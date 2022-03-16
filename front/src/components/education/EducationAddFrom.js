@@ -28,15 +28,15 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId, setEducations }) {
       position,
     });
 
-    const res = await Api.get("educationlist", user_id);
-    // res로 받은 data를 educations으로 설정
-    setEducations(res.data);
-    // 추가 완료 후에는 추가 폼을 닫아줌
+    // const res = await Api.get("educationlist", user_id);
+    // // res로 받은 data를 educations으로 설정
+    // setEducations(res.data);
+    // // 추가 완료 후에는 추가 폼을 닫아줌
     setIsAdding(false);
   }
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formBasicSchool" className="mt-3">
         <Form.Control 
           type="text"
