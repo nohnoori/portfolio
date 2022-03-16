@@ -6,7 +6,7 @@ function CertificateEditForm () {
   const [ awards, setAwards ] = useState('')
 
   return (
-        <Form>
+        <Form className="mb-2">
           <Form.Group className="mt-3">
             <Form.Control 
               type="text"
@@ -26,7 +26,7 @@ function CertificateEditForm () {
           <div style={{ textAlign: "left" }}>
             <input placeholder='03/16/2022'></input>
           </div>
-          <Button variant="primary" size="lg">
+          <Button variant="primary" size="lg" className="me-3">
             확인
           </Button>{' '}
           <Button variant="secondary" size="lg">
