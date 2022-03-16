@@ -57,6 +57,32 @@ educationAuthRouter.get("/educations/:id", async function (req, res, next) {
   }
 );
 
+// Education MVP 수정 API
+educationAuthRouter.put("/educations/:id", async function (req, res, next) {
+  try {
+    // URL로부터 education id를 추출
+    const id = req.params.id;
+
+    // body data 로부터 업데이트할 education 정보를 추출함.
+    const school = req.body.school ?? null;
+    const major = req.body.major ?? null;
+    const position = req.body.position ?? null;
+
+    const toUpdate = { school, major, position };
+
+    const updatedEducation = await EducationAuthService.setEducation({ id, toUpdate });
+
+    if (updatedEducation.errorMessage) {
+      throw new Error(updatedEducation.errorMessage);
+    }
+
+    res.status(200).json(updatedEducation);
+  } catch (e) {
+    next(e);
+  }
+}
+);
+
 // Education MVP 목록 조회 API
 educationAuthRouter.get("/educationlist/:user_id", async function (req, res, next) {
   try {
