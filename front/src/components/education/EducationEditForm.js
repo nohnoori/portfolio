@@ -15,7 +15,8 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
   const [major, setMajor] = useState(currentEducation.major);
   const [position, setPosition] = useState(currentEducation.position);
 
-  // TODO : submit하면 서버에 수정된 사항 저장, 나중에 Form태그에 onSubmit 추가
+  // TODO : try catch 문으로 오류 처리하는 걸로 수정하기
+  // TODO : 기능 제대로 작동되면 useContext로 전환하는 작업 하기
   const handleSubmit = async(e) => {
     e.preventDefault();
 
@@ -37,7 +38,7 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
   };
 
   return(
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Form.Group>
         <Form.Control
           type="text"

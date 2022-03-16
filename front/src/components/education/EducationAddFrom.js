@@ -15,12 +15,13 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId, setEducations }) {
   const [major, setMajor] = useState("");
   const [position, setPosition] = useState("재학중")
   
-  // TODO : 데이터 전송 , 나중에 Form에 onSubmit 집어넣기
+  // TODO : 기능 제대로 작동되면 useContext 사용해보기
+  // TODO : try catch 문으로 오류 처리하기
   const handleSubmit = async(e) => {
     e.preventDefault();
 
     const user_id = portfolioOwnerId;
-  
+    
     await Api.post("education/create", {
       user_id: portfolioOwnerId,
       school,
@@ -28,10 +29,10 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId, setEducations }) {
       position,
     });
 
-    // const res = await Api.get("educationlist", user_id);
-    // // res로 받은 data를 educations으로 설정
-    // setEducations(res.data);
-    // // 추가 완료 후에는 추가 폼을 닫아줌
+    const res = await Api.get("educationlist", user_id);
+    // res로 받은 data를 educations으로 설정
+    setEducations(res.data);
+    // 추가 완료 후에는 추가 폼을 닫아줌
     setIsAdding(false);
   }
 

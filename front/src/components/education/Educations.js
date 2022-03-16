@@ -30,7 +30,6 @@ function Educations({ isEditable, portfolioOwnerId }) {
   //   }
   // ];
   
-  // TODO : 서버에서 데이터 가져오기
   useEffect(() => {
     Api.get("educationlist", portfolioOwnerId)
       .then((res) => setEducations(res.data));
@@ -44,6 +43,7 @@ function Educations({ isEditable, portfolioOwnerId }) {
         <Card.Title>학력</Card.Title>
           {educations.map((education) => (
             <Education 
+              key={education.id}
               education={education}
               setEducations={setEducations}
               isEditable={isEditable}
