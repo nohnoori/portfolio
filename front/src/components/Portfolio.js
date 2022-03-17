@@ -63,7 +63,8 @@ function Portfolio() {
           />
         </Col>
         <Col>
-          <Projects 
+          <Projects
+            portfolioOwnerId={portfolioOwner.id} 
             isEditable={portfolioOwner.id === userState.user?.id}
           />
           <Education 

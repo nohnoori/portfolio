@@ -27,17 +27,17 @@ function ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
       user_id,
       title,
       description,
-      from_data: startDate,
-      to_data: endDate,
+      from_date: startDate,
+      to_date: endDate,
     });
-
-    const res = await Api.get("projectlist", user_id);
-    setProjects(res.data);
-    setIsAdding(false);
+    // FIXME : 나중에 확인
+    // const res = await Api.get("projectlist", user_id);
+    // setProjects(res.data);
+    // setIsAdding(false);
   }
 
   return(
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formBasicTitle" className="mt-3">
         <Form.Control
           type="text"
