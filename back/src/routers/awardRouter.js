@@ -66,6 +66,28 @@ awardAuthRouter.get("/awardlist/:user_id", async function (req, res, next) {
 }
 );
 
+awardAuthRouter.put("/awards/:id", async function (req, res, next) {
+  try {
+    const id = req.params.id;
+
+    const title = req.body.title ?? null;
+    const description = req.body.description ?? null;
+
+    const toUpdate = { title, description };
+
+    // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
+    const updatedAward = await awardService.setAward({ id, toUpdate });
+
+    if (updatedAward.errorMessage) {
+      throw new Error(updatedAward.errorMessage);
+    }
+
+    res.status(200).json(updatedAward);
+  } catch (error) {
+    next(error);
+  }
+}
+);
 
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
 awardAuthRouter.get("/afterlogin", function (req, res, next) {
