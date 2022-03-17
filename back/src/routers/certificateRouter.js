@@ -39,6 +39,24 @@ certificateAuthRouter.post("/certificate/create", async function (req, res, next
   }
 });
 
+// Certificate MVP 조회 API
+certificateAuthRouter.get("/certificates/:id", async function (req, res, next) {
+  try {
+    // URL로부터 추출한 certificate id를 가지고 db에서 certificate 정보를 찾음
+    const id = req.params.id;
+    const certificateInfo = await CertificateAuthService.getCertificateInfo({ id });
+
+    if (certificateInfo.errorMessage) {
+      throw new Error(certificateInfo.errorMessage);
+    }
+
+    res.status(200).json(certificateInfo);
+  } catch (e) {
+    next(e);
+  }
+}
+);
+
 // Certificate MVP 목록 조회 API
 certificateAuthRouter.get("/certificatelist/:user_id", async function (req, res, next) {
   try {
