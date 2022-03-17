@@ -31,6 +31,31 @@ class awardService {
     return awards;
   }
 
+  static async setUser({ id, toUpdate }) {
+    // 우선 해당 id 의 유저가 db에 존재하는지 여부 확인
+    let award = await Award.findById({ id });
+
+    // db에서 찾지 못한 경우, 에러 메시지 반환
+    if (!award) {
+      const errorMessage =
+        "글 내역이 없습니다.";
+      return { errorMessage };
+    }
+
+    if (toUpdate.title) {
+      const fieldToUpdate = "title";
+      const newValue = toUpdate.title;
+      award = await Award.update({ id, fieldToUpdate, newValue });
+    }
+
+    if (toUpdate.description) {
+      const fieldToUpdate = "description";
+      const newValue = toUpdate.description;
+      award = await Award.update({ id, fieldToUpdate, newValue });
+    }
+
+    return award;
+  }
 }
 
 export { awardService }
