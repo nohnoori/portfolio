@@ -5,6 +5,12 @@ class Certificate {
     const createdNewCertificate = await CertificateModel.create(newCertificate);
     return createdNewCertificate;
   }
+
+  static async findByUserId({ user_id }) {
+    const certificateList = await CertificateModel.find({ user_id });
+    return certificateList;
+  }
 }
+
 
 export { Certificate };
