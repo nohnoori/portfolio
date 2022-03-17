@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import EducationCard from "./EducationCard";
 import EducationEditForm from "./EducationEditForm";
+
 
 /**
  * 학력 정보 작은 틀 컴포넌트
@@ -13,7 +14,7 @@ import EducationEditForm from "./EducationEditForm";
 // ? isEditing이 true일 때는 EducationEditForm 컴포넌트가 나타나고, false일 때는 EducationCard 컴포넌트가 나타남
 // ? EducationEditForm과 EducationCard에 setIsEditing을 전달 : 버튼을 누르면 isEditing의 값이 반대로 바뀜 (true <-> false)
 
-function Education({ education, setEducations, isEditable }) {
+function Education({ education, setEducations }) {
   const [isEditing, setIsEditing] = useState(false);
   return(
     <>
@@ -26,7 +27,6 @@ function Education({ education, setEducations, isEditable }) {
       ) : (
         <EducationCard 
           education={education}
-          isEditable={isEditable} 
           setIsEditing={setIsEditing}/>
       )}
     </>

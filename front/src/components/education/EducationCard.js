@@ -1,4 +1,6 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
+import { useContext } from "react";
+import { EducationsContext } from "./Educations"; 
 
 /**
  * 학력 정보를 담고 있는 카드 컴포넌트
@@ -11,7 +13,9 @@ import { Card, Button, Row, Col } from "react-bootstrap";
 // ? 편집 버튼 클릭 시 isEditing의 값이 반대로 바뀜 (true <-> false) 
 // ? : default가 false라 true로 바뀌면서 Card 컴포넌트가 사라지고 편집 폼이 나타남
 
-function EducationCard({ education, isEditable, setIsEditing }) {
+function EducationCard({ education, setIsEditing }) {
+  const { isAuthorized } = useContext(EducationsContext);
+
   return(
     <Card.Text>
         <Row className="align-items-center">
@@ -21,7 +25,7 @@ function EducationCard({ education, isEditable, setIsEditing }) {
             <span>{education.major}{"  "}</span>
             <span>{education.position}</span>
           </Col>
-          {isEditable && (
+          {isAuthorized && (
             <Col xs lg="1">
               <Button
                 variant="outline-info"

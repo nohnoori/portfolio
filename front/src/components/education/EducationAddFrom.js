@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
+import { EducationsContext } from "./Educations";
 
 /**
  * 추가 폼 컴포넌트
@@ -10,30 +11,33 @@ import * as Api from "../../api";
  * @return 학교 명, 전공 명, 학적 상태 입력 폼, 확인 버튼, 취소 버튼
  */
 
-function EducationAddForm({ setIsAdding, portfolioOwnerId, setEducations }) {
+function EducationAddForm({ setIsAdding, setEducations }) {
   const [school, setSchool] = useState("");
   const [major, setMajor] = useState("");
   const [position, setPosition] = useState("재학중")
+  const { portfolioOwnerId } = useContext(EducationsContext);
   
-  // TODO : 기능 제대로 작동되면 useContext 사용해보기
-  // TODO : try catch 문으로 오류 처리하기
   const handleSubmit = async(e) => {
     e.preventDefault();
 
     const user_id = portfolioOwnerId;
-    
-    await Api.post("education/create", {
-      user_id: portfolioOwnerId,
-      school,
-      major,
-      position,
-    });
-
-    const res = await Api.get("educationlist", user_id);
-    // res로 받은 data를 educations으로 설정
-    setEducations(res.data);
-    // 추가 완료 후에는 추가 폼을 닫아줌
-    setIsAdding(false);
+    try {
+      await Api.post("education/create", {
+        user_id: portfolioOwnerId,
+        school,
+        major,
+        position,
+      });
+  
+      const res = await Api.get("educationlist", user_id);
+      // res로 받은 data를 educations으로 설정
+      setEducations(res.data);
+      // 추가 완료 후에는 추가 폼을 닫아줌
+      setIsAdding(false);
+    } catch(error) {
+        alert("학력 추가에 실패하였습니다.");
+        console.log("학력 추가 실패", error)
+    }
   }
 
   return (

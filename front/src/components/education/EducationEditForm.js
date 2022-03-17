@@ -15,26 +15,29 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
   const [major, setMajor] = useState(currentEducation.major);
   const [position, setPosition] = useState(currentEducation.position);
 
-  // TODO : try catch 문으로 오류 처리하는 걸로 수정하기
-  // TODO : 기능 제대로 작동되면 useContext로 전환하는 작업 하기
   const handleSubmit = async(e) => {
     e.preventDefault();
 
     const user_id = currentEducation.user_id;
     // put 요청
-    await Api.put(`educations/${currentEducation.id}`, {
-      user_id,
-      school,
-      major,
-      position,
-    });
-
-    // ? 1. 수정된 정보 GET요청
-    // ? 2. 수정된 정보 educations에 저장
-    // ? 3. 편집 폼 종료
-    const res = await Api.get("educationlist", user_id);
-    setEducations(res.data);
-    setIsEditing(false);
+    try {
+      await Api.put(`educations/${currentEducation.id}`, {
+        user_id,
+        school,
+        major,
+        position,
+      });
+  
+      // ? 1. 수정된 정보 GET요청
+      // ? 2. 수정된 정보 educations에 저장
+      // ? 3. 편집 폼 종료
+      const res = await Api.get("educationlist", user_id);
+      setEducations(res.data);
+      setIsEditing(false);
+    } catch(error) {
+        alert("학력 편집에 실패하였습니다.");
+        console.log("학력 편집 실패", error);
+    }
   };
 
   return(
