@@ -1,49 +1,32 @@
-import React, { useState, useEffect } from "react";
-import { Card, Button, Form } from 'react-bootstrap';
-import AwardCard from './AwardCard'
-import AwardAddForm from './AwardAddForm'
+import React,{ useState } from "react";
+import AwardCard from "./AwardCard";
 import AwardEditForm from "./AwardEditForm";
 
-import * as Api from "../../api";
+// - 각 Award 컴포넌트는 isEditing 상태에 따라, false면 AwardCard, true면 AwardEditForm이 됩니다.
+// - isEditable(포트폴리오 소유자와 현재 로그인한 사용자가 일치할 때)이 true인 경우 편집 버튼이 생깁니다.
 
-function Award({portfolioOwnerId, isEditable}) {
-  // 편집
-  const [isEditing, setIsEditing] = useState(false);
-  // 추가
-  const [isAdding, setIsAdding] = useState(false);
-  // award
-  const [award, setAward] = useState('');
-  
-  console.log(award)
-  
+function Award({isEditable,portfolioOwnerId,award,setAward}) {
+  const [ isEditing , setIsEditing ] = useState(false);
 
   return(
     <>
-    <Card>
-      <Card.Title>수상 이력</Card.Title>
-      <Card.Body>
-        <AwardCard
-          award = {award}
-          isEditable = {isEditable}
-          setIsAdding = {setIsAdding}
+      {isEditing ?(
+        <AwardEditForm
           setIsEditing = {setIsEditing}
+          setAward={setAward}
+          award = {award}
+        />  
+      ) : (
+        <AwardCard
+          setIsEditing = {setIsEditing}
+          isEditable = {isEditable}
+          award={award}
+          portfolioOwnerId = {portfolioOwnerId}
+
         />
-        {isEditing && (
-          <AwardEditForm 
-            setIsEditing = {setIsEditing}
-            isEditable = {isEditable}/>
-          )}
-        
-        {isAdding && (
-          <AwardAddForm 
-            setIsAdding = {setIsAdding}
-            isEditable = {isEditable}
-            setAward = {setAward}
-            award = {award}/>
-        )}
-      </Card.Body>
-    </Card>
+      )}
     </>
   )
-}
+};
+
 export default Award;
