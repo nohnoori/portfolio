@@ -8,7 +8,7 @@ const certificateAuthRouter = Router();
 certificateAuthRouter.use(login_required);
 
 // Certificate MVP 생성 API
-certificateAuthRouter.post("/certificate/create", async function (req, res, next) {
+certificateAuthRouter.post("/certificate/create", async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -40,7 +40,7 @@ certificateAuthRouter.post("/certificate/create", async function (req, res, next
 });
 
 // Certificate MVP 조회 API
-certificateAuthRouter.get("/certificates/:id", async function (req, res, next) {
+certificateAuthRouter.get("/certificates/:id", async (req, res, next) => {
   try {
     // URL로부터 추출한 certificate id를 가지고 db에서 certificate 정보를 찾음
     const id = req.params.id;
@@ -57,7 +57,7 @@ certificateAuthRouter.get("/certificates/:id", async function (req, res, next) {
 });
 
 // Certificate MVP 수정 API
-certificateAuthRouter.put("/certificates/:id", async function (req, res, next) {
+certificateAuthRouter.put("/certificates/:id", async (req, res, next) => {
   try {
     // URL로부터 certificate id를 추출
     const id = req.params.id;
@@ -82,7 +82,7 @@ certificateAuthRouter.put("/certificates/:id", async function (req, res, next) {
 });
 
 // Certificate MVP 목록 조회 API
-certificateAuthRouter.get("/certificatelist/:user_id", async function (req, res, next) {
+certificateAuthRouter.get("/certificatelist/:user_id", async (req, res, next) => {
   try {
     // URL로부터 추출한 user_id를 가지고 db에서 certificate list를 찾음
     const user_id = req.params.user_id;
@@ -95,7 +95,7 @@ certificateAuthRouter.get("/certificatelist/:user_id", async function (req, res,
 });
 
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
-certificateAuthRouter.get("/afterlogin", function (req, res, next) {
+certificateAuthRouter.get("/afterlogin", (req, res, next) => {
   res
     .status(200)
     .send(
