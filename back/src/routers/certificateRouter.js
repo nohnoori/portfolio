@@ -54,8 +54,32 @@ certificateAuthRouter.get("/certificates/:id", async function (req, res, next) {
   } catch (e) {
     next(e);
   }
-}
-);
+});
+
+// Certificate MVP 수정 API
+certificateAuthRouter.put("/certificates/:id", async function (req, res, next) {
+  try {
+    // URL로부터 certificate id를 추출
+    const id = req.params.id;
+
+    // body data 로부터 업데이트할 certificate 정보를 추출함.
+    const title = req.body.title ?? null;
+    const description = req.body.description ?? null;
+    const when_date = req.body.when_date ?? null;
+
+    const toUpdate = { title, description, when_date };
+
+    const updatedCertificate = await CertificateAuthService.setCertificate({ id, toUpdate });
+
+    if (updatedCertificate.errorMessage) {
+      throw new Error(updatedCertificate.errorMessage);
+    }
+
+    res.status(200).json(updatedCertificate);
+  } catch (e) {
+    next(e);
+  }
+});
 
 // Certificate MVP 목록 조회 API
 certificateAuthRouter.get("/certificatelist/:user_id", async function (req, res, next) {
@@ -68,8 +92,7 @@ certificateAuthRouter.get("/certificatelist/:user_id", async function (req, res,
   } catch (e) {
     next(e);
   }
-}
-);
+});
 
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
 certificateAuthRouter.get("/afterlogin", function (req, res, next) {
