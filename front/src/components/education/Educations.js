@@ -15,27 +15,11 @@ import EducationAddForm from "./EducationAddFrom";
 function Educations({ isEditable, portfolioOwnerId }) {
   const [educations, setEducations] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
-
-  // // 임시 데이터
-  // const educationstest = [
-  //   {
-  //   school: "땡땡 학교",
-  //   major: "땡떙 전공",
-  //   position: "학사졸업",
-  //   },
-  //   {
-  //     school: "우리 학교",
-  //     major: "산업공학 전공",
-  //     position: "재학중",
-  //   }
-  // ];
   
   useEffect(() => {
     Api.get("educationlist", portfolioOwnerId)
       .then((res) => setEducations(res.data));
   }, [portfolioOwnerId]);
-  console.log("넘버", portfolioOwnerId);
-  console.log("에듀리스트", educations);
   
   return(
     <Card>
