@@ -33,7 +33,7 @@ educationAuthRouter.post("/education/create", async function (req, res, next) {
       throw new Error(newEducation.errorMessage);
     }
 
-    res.status(201).json(newEducation);
+    res.status(200).json(newEducation);
   } catch (e) {
     next(e);
   }
