@@ -16,8 +16,6 @@ function ProjectEditForm({ currentProject, setIsEditing, setProjects }) {
   const [startDate, setStartDate] = useState(new Date(currentProject.from_date));
   const [endDate, setEndDate] = useState(new Date(currentProject.to_date));
 
-
-  // TODO: 데이터 전송, 나중에 Form에 onSubmit 집어넣기
   const handleSubmit = async(e) => {
     e.preventDefault();
 

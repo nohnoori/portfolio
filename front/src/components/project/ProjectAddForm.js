@@ -17,7 +17,6 @@ function ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
   const [startDate, setStartDate] = useState(new Date()); // 프로젝트 시작일
   const [endDate, setEndDate] = useState(new Date()); // 프로젝트 종료일
 
-  // TODO : 데이터 전송 , 나중에 Form에 onSubmit 집어넣기
   const handleSubmit = async (e) => {
     e.preventDefault();
 
