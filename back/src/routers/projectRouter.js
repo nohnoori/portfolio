@@ -7,7 +7,7 @@ const projectAuthRouter = Router();
 projectAuthRouter.use(login_required);
 
 //project 추가 API
-projectAuthRouter.post("/project/create", async function (req, res, next) {
+projectAuthRouter.post("/project/create", async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -41,7 +41,7 @@ projectAuthRouter.post("/project/create", async function (req, res, next) {
 });
 
 //project 조회 API
-projectAuthRouter.get("/projects/:id", async function (req, res, next) {
+projectAuthRouter.get("/projects/:id", async (req, res, next) => {
   try {
     //:id 값 가져오기
     const id = req.params.id
@@ -63,7 +63,7 @@ projectAuthRouter.get("/projects/:id", async function (req, res, next) {
 );
 
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
-projectAuthRouter.get("/afterlogin", function (req, res, next) {
+projectAuthRouter.get("/afterlogin", (req, res, next) => {
   res
     .status(200)
     .send(
