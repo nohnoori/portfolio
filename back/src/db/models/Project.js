@@ -5,6 +5,10 @@ class Project {
     const createdNewProject = await ProjectModel.create(newProject);
     return createdNewProject;
   }
+  static async findById({ id }) {
+    const project = await ProjectModel.findOne({ id });
+    return project;
+  }
 
 }
 

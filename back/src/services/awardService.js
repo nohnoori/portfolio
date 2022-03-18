@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Award } from "../db"
 
 class awardService {
-  //award
+  //award 추가
   static async addAward({ user_id, title, description }) {
 
     // id 는 유니크 값 부여
@@ -16,7 +16,9 @@ class awardService {
     return createdNewAward;
   }
 
+  //award 조회
   static async getAward({ id }) {
+
     const award = await Award.findById({ id })
 
     if (!award) {
@@ -27,11 +29,13 @@ class awardService {
     return award
   }
 
+  //award 목록 조회
   static async getAwards({ user_id }) {
     const awards = await Award.findByuserId({ user_id });
     return awards;
   }
 
+  //award 수정
   static async setAward({ id, toUpdate }) {
     // 우선 해당 id 의 유저가 db에 존재하는지 여부 확인
     let award = await Award.findById({ id });
