@@ -14,6 +14,16 @@ class projectService {
 
     return createdNewProject;
   }
+  static async getProject({ id }) {
+    const project = await Project.findById({ id })
+
+    if (!project) {
+      const errorMessage = "해당 글은 존재하지 않습니다."
+      return { errorMessage }
+    }
+
+    return project
+  }
 
 }
 

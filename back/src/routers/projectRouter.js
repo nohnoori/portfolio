@@ -39,6 +39,24 @@ projectAuthRouter.post("/project/create", async function (req, res, next) {
   }
 });
 
+projectAuthRouter.get("/projects/:id", async function (req, res, next) {
+  try {
+    const id = req.params.id
+    const currentPrjoectInfo = await projectService.getProject({
+      id,
+    });
+
+    if (currentPrjoectInfo.errorMessage) {
+      throw new Error(currentPrjoectInfo.errorMessage);
+    }
+
+    res.status(200).json(currentPrjoectInfo);
+  } catch (error) {
+    next(error);
+  }
+}
+);
+
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
 projectAuthRouter.get("/afterlogin", function (req, res, next) {
   res
