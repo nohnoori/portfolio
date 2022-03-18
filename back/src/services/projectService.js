@@ -28,6 +28,18 @@ class projectService {
     return project
   }
 
+  //project 목록 조회
+  static async getProjects({ user_id }) {
+    const projects = await Project.findByuserId({ user_id })
+
+    if (!projects) {
+      const errorMessage = "해당 사용자의 글이 존재하지 않습니다."
+      return { errorMessage }
+    }
+
+    return projects
+  }
+
 }
 
 export { projectService }

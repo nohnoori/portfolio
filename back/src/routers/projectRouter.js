@@ -62,6 +62,22 @@ projectAuthRouter.get("/projects/:id", async (req, res, next) => {
 }
 );
 
+//project 목록 조회 API
+projectAuthRouter.get("/projectlist/:user_id", async (req, res, next) => {
+  try {
+    //:user_id 값 가져오기
+    const user_id = req.params.user_id
+
+    // 사용자의 프로젝트 목록을 얻음
+    const projects = await projectService.getProjects({ user_id });
+
+    res.status(200).json(projects);
+  } catch (error) {
+    next(error);
+  }
+}
+);
+
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
 projectAuthRouter.get("/afterlogin", (req, res, next) => {
   res
