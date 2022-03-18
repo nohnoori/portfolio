@@ -40,6 +40,44 @@ class projectService {
     return projects
   }
 
+  //project 수정
+  static async setProject({ id, toUpdate }) {
+    // 우선 해당 id 의 유저가 db에 존재하는지 여부 확인
+    let project = await Project.findById({ id });
+
+    // db에서 찾지 못한 경우, 에러 메시지 반환
+    if (!project) {
+      const errorMessage =
+        "프로젝트 내역이 없습니다.";
+      return { errorMessage };
+    }
+
+    if (toUpdate.title) {
+      const fieldToUpdate = "title";
+      const newValue = toUpdate.title;
+      project = await Project.update({ id, fieldToUpdate, newValue });
+    }
+
+    if (toUpdate.description) {
+      const fieldToUpdate = "description";
+      const newValue = toUpdate.description;
+      project = await Project.update({ id, fieldToUpdate, newValue });
+    }
+
+    if (toUpdate.from_date) {
+      const fieldToUpdate = "from_date";
+      const newValue = toUpdate.from_date;
+      project = await Project.update({ id, fieldToUpdate, newValue });
+    }
+
+    if (toUpdate.to_date) {
+      const fieldToUpdate = "to_date";
+      const newValue = toUpdate.to_date;
+      project = await Project.update({ id, fieldToUpdate, newValue });
+    }
+
+    return project;
+  }
 }
 
 export { projectService }
