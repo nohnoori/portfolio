@@ -32,14 +32,14 @@ function AwardAddForm ({setIsAdding,setAward, portfolioOwnerId}) {
     <Form onSubmit = {handleSubmit}>
       <Form.Group controlId = "awardEditTitle" className="mb-2">
         <Form.Control 
-          className="m-1"
+          className="mb-2"
           type = "title" 
           placeholder = "수상 내역" 
           value = {title||''}
           onChange = {(e) => setTitle(e.target.value)}
            />
         <Form.Control 
-          className="m-1"
+          className="mb-2"
           type = "description" 
           placeholder = "상세 내역" 
           value = {description||''}

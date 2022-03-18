@@ -8,7 +8,7 @@ Awards는 isAdding이 true면 AwardAddForm, false면 그냥 Award들의 모음�
 
 
 import react, {useState, useEffect} from "react";
-import {Form, Button, Card} from 'react-bootstrap';
+import {Row, Button, Card,Col} from 'react-bootstrap';
 import Award from "./Award"
 import AwardAddForm from "./AwardAddForm";
 import * as Api from "../../api";
@@ -23,17 +23,18 @@ function Awards({isEditable, portfolioOwnerId,setIsEditing}) {
     // "awardlist/유저id" 엔드포인트로 GET 요청을 하고, award를 response의 data로 세팅함.
     Api.get("awardlist", portfolioOwnerId).then((res) => setAward(res.data));
   }, [portfolioOwnerId]);
-  console.log(award)
+
 
   return(
     <Card>
-      <Card.Title>수상 이력</Card.Title>
       <Card.Body>
+      <Card.Title className = "mb-3" >수상 이력</Card.Title>
         {/* map을 사용하여 award 컴포넌트 반복 */}
-        {award.map((award) => (
+        {award.map((currentAward) => (
           <Award
             // award 컴포넌트로 정보전달
-            award = {award}
+            key = {currentAward.id}
+            currentAward = {currentAward}
             isEditable = {isEditable}
             setIsEditing = {setIsEditing}
             setAward = {setAward}
@@ -41,9 +42,13 @@ function Awards({isEditable, portfolioOwnerId,setIsEditing}) {
         ))}
 
         { isEditable && (
-          <Button 
-            onClick = { () => setIsAdding(true)}>+
-          </Button>
+          <Row className="text-center">
+            <Col sm={{ span: 20 }}>
+              <Button
+                onClick = { () => setIsAdding(true)}>+
+              </Button>
+            </Col>
+          </Row>
         )}
 
         { isAdding && (

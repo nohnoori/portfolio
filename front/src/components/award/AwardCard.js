@@ -9,12 +9,12 @@ function AwardCard({setIsEditing, isEditable,award,portfoliOwerId}) {
 
   return(
     <>
-      <Row>
+      <Row className = "mb-3">
         <Col>
-          <Card.Title>{award.title}</Card.Title>
-          <Card.Text>{award.description}</Card.Text>
+          <div>{award.title}</div>
+          <div>{award.description}</div>
         </Col>
-        <Col>
+        <Col lg = "1">
           {isEditable && (
             <Button variant="outline-info" size = "sm" 
               onClick = {() => setIsEditing(true)}>편집</Button> ) }
