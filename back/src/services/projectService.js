@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Project } from "../db"
 
 class projectService {
+  //project 추가
   static async addProject({ user_id, title, description, from_date, to_date }) {
 
     // id 는 유니크 값 부여
@@ -14,6 +15,8 @@ class projectService {
 
     return createdNewProject;
   }
+
+  //project 조회
   static async getProject({ id }) {
     const project = await Project.findById({ id })
 

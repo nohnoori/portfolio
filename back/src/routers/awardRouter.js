@@ -6,7 +6,7 @@ import is from "@sindresorhus/is";
 const awardAuthRouter = Router();
 awardAuthRouter.use(login_required);
 
-
+//award 추가 API
 awardAuthRouter.post("/award/create", async function (req, res, next) {
   try {
     if (is.emptyObject(req.body)) {
@@ -36,9 +36,13 @@ awardAuthRouter.post("/award/create", async function (req, res, next) {
   }
 });
 
+//award 조회 API
 awardAuthRouter.get("/awards/:id", async function (req, res, next) {
   try {
+    //:id 값 가져오기
     const id = req.params.id
+
+    //award 정보 가져오기
     const currentAwardInfo = await awardService.getAward({
       id,
     });
@@ -54,11 +58,15 @@ awardAuthRouter.get("/awards/:id", async function (req, res, next) {
 }
 );
 
+//award 목록 조회 API
 awardAuthRouter.get("/awardlist/:user_id", async function (req, res, next) {
   try {
+    //:user_id 값 가져오기
     const user_id = req.params.user_id
+
     // 사용자의 수상 목록을 얻음
     const awards = await awardService.getAwards({ user_id });
+
     res.status(200).json(awards);
   } catch (error) {
     next(error);
@@ -66,10 +74,14 @@ awardAuthRouter.get("/awardlist/:user_id", async function (req, res, next) {
 }
 );
 
+//award 수정 API
 awardAuthRouter.put("/awards/:id", async function (req, res, next) {
   try {
+    //:id 값 가져오기
     const id = req.params.id;
 
+    // req (request) 에서 데이터 가져오기
+    // undefined인 경우 null 대체
     const title = req.body.title ?? null;
     const description = req.body.description ?? null;
 

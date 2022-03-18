@@ -6,6 +6,7 @@ import is from "@sindresorhus/is";
 const projectAuthRouter = Router();
 projectAuthRouter.use(login_required);
 
+//project 추가 API
 projectAuthRouter.post("/project/create", async function (req, res, next) {
   try {
     if (is.emptyObject(req.body)) {
@@ -39,9 +40,13 @@ projectAuthRouter.post("/project/create", async function (req, res, next) {
   }
 });
 
+//project 조회 API
 projectAuthRouter.get("/projects/:id", async function (req, res, next) {
   try {
+    //:id 값 가져오기
     const id = req.params.id
+
+    //project 정보 가져오기
     const currentPrjoectInfo = await projectService.getProject({
       id,
     });
