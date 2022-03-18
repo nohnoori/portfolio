@@ -10,7 +10,7 @@ import EducationAddForm from "./EducationAddFrom";
 export const EducationsContext = createContext();
 
 
-function Educations({ isAuthorized, portfolioOwnerId }) {
+function Educations({ isEditable, portfolioOwnerId }) {
   const [educations, setEducations] = useState([]); // 받아올 데이터
   const [isAdding, setIsAdding] = useState(false); // 추가 폼이 보이는지 여부
 
@@ -28,12 +28,12 @@ function Educations({ isAuthorized, portfolioOwnerId }) {
                 <EducationCard 
                   key={education.id}
                   education={education}
-                  isAuthorized={isAuthorized}
+                  isEditable={isEditable}
                 />
               ))}
 
               {/* 추가 버튼 */}
-              {isAuthorized && (
+              {isEditable && (
                 <Row className="mt-3 text-center mb-4">
                   <Col>
                     <Button onClick={() => setIsAdding(true)}>+</Button>
