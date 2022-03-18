@@ -7,9 +7,9 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing }) {
-  const [certificateName, setCertificateName] = useState(currentCertificate.certificateName);
-  const [detail, setDetail] = useState(currentCertificate.detail);
-  const [startDate, setStartDate] = useState(new Date);
+  const [title, setTitle] = useState(currentCertificate.title);
+  const [description, setDescription] = useState(currentCertificate.description);
+  const [when_date, setWhen_date] = useState(new Date);
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -17,10 +17,10 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
     const user_id = currentCertificate.user_id;
     await Api.put(`certificates/${currentCertificate.id}`, {
       user_id,
-      certificateName,
-      detail,
-      startDate,
-    });
+      title,
+      description,
+      when_date,
+   setWhen_date });
 
     const res = await Api.get("certificatelist", user_id);
     setCertificates(res.data);
@@ -33,8 +33,8 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
         <Form.Control
           type="text"
           placeholder="자격증 내용"
-          value={certificateName}
-          onChange={(e) => setCertificateName(e.target.value)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         >
         </Form.Control>
       </Form.Group>
@@ -43,61 +43,15 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
         <Form.Control
           type="text"
           placeholder="상세내역"
-          value={detail}
-          onChange={(e) => setDetail(e.target.value)}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         >
         </Form.Control>
       </Form.Group>
 
-      {/* <div key={`inline-radio`} className="mb-3 mt-3">
-        <Form.Check 
-          inline
-          label="재학중"
-          id="radio1"
-          type="radio"
-          name="position"
-          value="재학중"
-          checked={position === "재학중"}
-          onChange={(e) => setPosition(e.target.value)}
-        />
-
-        <Form.Check 
-          inline
-          label="학사졸업"
-          id="radio2"
-          type="radio"
-          name="position"
-          value="학사졸업"
-          checked={position === "학사졸업"}
-          onChange={(e) => setPosition(e.target.value)}
-        />
-
-        <Form.Check 
-          inline
-          label="석사졸업"
-          id="radio3"
-          type="radio"
-          name="position"
-          value="석사졸업"
-          checked={position === "석사졸업"}
-          onChange={(e) => setPosition(e.target.value)}
-        />
-
-        <Form.Check 
-          inline
-          label="박사졸업"
-          id="radio4"
-          type="radio"
-          name="position"
-          value="박사졸업"
-          checked={position === "박사졸업"}
-          onChange={(e) => setPosition(e.target.value)}
-        />
-      </div> */}
-
       <Form.Group as={Row} className="mt-3 text-center">
         <div style={{ textAlign: "left" }}>
-          <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+          <DatePicker selected={when_date} setWhen_date={(date) => setWhen_date(date)} />
         </div>
         <Col sm={{ span: 20 }}>
           <Button variant="primary" type="submit" className="me-3">

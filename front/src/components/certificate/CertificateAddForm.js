@@ -6,10 +6,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function CertificateAddForm({ setIsAdding, portfolioOwnerId, setCertificates }) {
-  const [certificateName, setCertificateName] = useState("");
-  const [detail, setDetail] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   
-  const [startDate, setStartDate] = useState(new Date)
+  const [when_date, setWhen_date] = useState(new Date)
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -18,9 +18,9 @@ function CertificateAddForm({ setIsAdding, portfolioOwnerId, setCertificates }) 
     
     await Api.post("certificate/create", {
       user_id: portfolioOwnerId,
-      certificateName,
-      detail,
-      startDate,
+      title,
+      description,
+      when_date,
     });
 
     const res = await Api.get("certificatelist", user_id);
@@ -30,27 +30,27 @@ function CertificateAddForm({ setIsAdding, portfolioOwnerId, setCertificates }) 
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="formBasicCertificateName" className="mt-3">
+      <Form.Group controlId="formBasicTitle" className="mt-3">
         <Form.Control 
           type="text"
           placeholder="자격증 내용"
-          value={certificateName}
-          onChange={(e) => setCertificateName(e.target.value)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
       </Form.Group>
 
-      <Form.Group controlId="formBasicDetail" className="mt-3">
+      <Form.Group controlId="formBasicDescription" className="mt-3">
         <Form.Control 
           type="text"
           placeholder="상세내역"
-          value={detail}
-          onChange={(e) => setDetail(e.target.value)}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         />
       </Form.Group>
 
       <Form.Group as={Row} className="mt-3 text-center">
         <div style={{ textAlign: "left" }}>
-          <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+          <DatePicker selected={when_date} onChange={(date) => setWhen_date(date)} />
         </div>
         <Col sm={{ span: 20 }}>
           <Button variant="primary" type="submit" className="me-3">
