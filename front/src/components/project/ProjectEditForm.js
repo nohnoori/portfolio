@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import DatePicker from 'react-datepicker';
+import DatePicker from "react-datepicker";
 import * as Api from "../../api";
-
 /**
  * 편집 폼 컴포넌트
  * @param currentProject Projects -> Project 컴포넌트로부터 전달받은 project 데이터
@@ -16,6 +15,8 @@ function ProjectEditForm({ currentProject, setIsEditing, setProjects }) {
   const [description, setDescription] = useState(currentProject.description);
   const [startDate, setStartDate] = useState(new Date(currentProject.from_date));
   const [endDate, setEndDate] = useState(new Date(currentProject.to_date));
+
+
   // TODO: 데이터 전송, 나중에 Form에 onSubmit 집어넣기
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -39,7 +40,7 @@ function ProjectEditForm({ currentProject, setIsEditing, setProjects }) {
   }
 
   return(
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formBasicTitle" className="mt-3">
         <Form.Control
           type="text"
@@ -60,10 +61,16 @@ function ProjectEditForm({ currentProject, setIsEditing, setProjects }) {
 
       <Form.Group as={Row} className="mt-3">
         <Col md="auto">
-          <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+          <DatePicker 
+            selected={startDate}
+            dateFormat="yyyy.MM.dd"
+            onChange={(date) => setStartDate(date)} />
         </Col>
         <Col md="auto">
-          <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
+          <DatePicker 
+            selected={endDate}
+            dateFormat="yyyy.MM.dd" 
+            onChange={(date) => setEndDate(date)} />
         </Col>
       </Form.Group>
 

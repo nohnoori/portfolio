@@ -30,10 +30,10 @@ function ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
       from_date: startDate,
       to_date: endDate,
     });
-    // FIXME : 나중에 확인
-    // const res = await Api.get("projectlist", user_id);
-    // setProjects(res.data);
-    // setIsAdding(false);
+
+    const res = await Api.get("projectlist", user_id);
+    setProjects(res.data);
+    setIsAdding(false);
   }
 
   return(

@@ -16,24 +16,6 @@ function Projects({ isEditable, portfolioOwnerId }) {  // portfolioOwner.id === 
   const [projects, setProjects] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
 
-//   // 임시 데이터
-//   const projecttest = [
-//     {
-//       "user_id":"af4ff0af-2a5f-4eea-99f2-d18b42aba419",
-//       "title":"react 프로젝트",
-//       "description":"프론트엔드 역량을 키웠습니다!",
-//       "from_date":"2021-03-20",
-//       "to_date":"2021-04-20"
-//     },
-//     {
-//       "user_id":"980216",
-//       "title":"악성댓글 분류 시스템",
-//       "description":"악성댓글을 자발적으로 줄일 수 있는 방법을 연구하였습니다",
-//       "from_date":"2021-03-10",
-//       "to_date":"2021-03-15"
-//       },
-// ]
-
   useEffect(() => {
     Api.get("projectlist", portfolioOwnerId)
       .then((res) => setProjects(res.data));
