@@ -87,7 +87,7 @@ awardAuthRouter.put("/awards/:id", async (req, res, next) => {
 
     const toUpdate = { title, description };
 
-    // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
+    // 해당 수상 정보 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
     const updatedAward = await awardService.setAward({ id, toUpdate });
 
     if (updatedAward.errorMessage) {
