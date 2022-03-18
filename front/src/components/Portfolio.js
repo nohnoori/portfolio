@@ -64,8 +64,8 @@ function Portfolio() {
         <Col>
 
           <Education 
-            OwnerId={portfolioOwner.id}
-            isEditable={portfolioOwner.id === userState.user?.id}
+            portfolioOwnerId={portfolioOwner.id}
+            isAuthorized={portfolioOwner.id === userState.user?.id}
           />
 
         </Col>
