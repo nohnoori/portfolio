@@ -1,34 +1,25 @@
-import React, {useState} from 'react'
-import { Card, Form, Row, Button, Col } from "react-bootstrap";
-import CertificateEditForm from "./CertificateEditForm"
-import CertificateCard from "./CertificateCard"
+import React, { useState } from "react";
+import CertificateCard from "./CertificateCard";
+import CertificateEditForm from "./CertificateEditForm";
 
-function Certificate() {
-  const [ plusButton, setPlusButton ] = useState(false)
-  const handleClick = () => {
-    setPlusButton(!plusButton)
-  }
-  return (
-    <Card>
-      <Card.Body>
-        <Card.Title>자격증</Card.Title>  
-        <CertificateCard></CertificateCard>
-        <Form className="mt-3 text-center mb-4 row">
-          <div class="col-sm-20">
-            <Button type="button" className="btn btn-primary" onClick={handleClick}>+</Button>
-            <form>
-              <div>
-                {plusButton && (
-                  <CertificateEditForm></CertificateEditForm>
-                )}
-              </div>
-            </form>
-          </div>  
-        </Form>
-      </Card.Body>
-
-    </Card>
+function Certificate({ certificate, setCertificates, isEditable }) {
+  const [isEditing, setIsEditing] = useState(false);
+  return(
+    <>
+      {isEditing ? (
+        <CertificateEditForm 
+          currentCertificate={certificate}
+          setCertificates={setCertificates}
+          setIsEditing={setIsEditing}
+        />
+      ) : (
+        <CertificateCard 
+          certificate={certificate}
+          isEditable={isEditable} 
+          setIsEditing={setIsEditing}/>
+      )}
+    </>
   )
 }
 
-export default Certificate
+export default Certificate;

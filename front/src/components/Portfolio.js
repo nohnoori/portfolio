@@ -5,8 +5,10 @@ import { Container, Col, Row } from "react-bootstrap";
 import { UserStateContext } from "../App";
 import * as Api from "../api";
 import User from "./user/User";
-import Certificate from "./certificate/Certificate"
-import CertificateEditForm from "./certificate/CertificateEditForm"
+// import Certificate from "./certificate/Certificate"
+import Certificate from "./certificate/Certificates"
+
+// import CertificateEditForm from "./certificate/CertificateEditForm"
 import Education from "./education/Educations";
 
 function Portfolio() {
@@ -65,9 +67,13 @@ function Portfolio() {
         </Col>
         <Col>
 
-          <div style={{ textAlign: "left" }}>
+          {/* <div style={{ textAlign: "left" }}>
             <Certificate></Certificate>
-          </div>
+          </div> */}
+          <Certificate 
+            portfolioOwnerId={portfolioOwner.id}
+            isEditable={portfolioOwner.id === userState.user?.id}
+          />
           <Education 
             portfolioOwnerId={portfolioOwner.id}
             isEditable={portfolioOwner.id === userState.user?.id}

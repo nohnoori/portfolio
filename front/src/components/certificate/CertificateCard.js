@@ -1,33 +1,30 @@
-import React, {useState} from 'react';
-import { Card, Row, Button, Col, Form } from "react-bootstrap";
+import { Card, Button, Row, Col } from "react-bootstrap";
 
-function CertificateCard() {
-  const certificateCard = {
-    title: '운전면허증',
-    description: '운전면허증임',
-    date: '2022-03-16'
-  }
-  return (
+function CertificateCard({ certificate, isEditable, setIsEditing }) {
+  return(
     <Card.Text>
-      <Row>
-        <Col>
-          <span>{certificateCard.title}</span><br />
-          <Form.Text className="text-muted">
-            <span>{certificateCard.description}</span><br />
-            <span>{certificateCard.date}</span><br />
-          </Form.Text>
-        </Col>
-        <Col xs lg="1">
-          <Button
-             variant="outline-info"
-             className='mr-3 btn-sm'
-          >
-            편집
-          </Button>
-        </Col>
-      </Row>
+        <Row className="align-items-center">
+          <Col>
+            <span>{certificate.certificateName}</span>
+            <br/>
+            <span>{certificate.detail}{"  "}</span>
+            <span>{certificate.startDate}</span>
+          </Col>
+          {isEditable && (
+            <Col xs lg="1">
+              <Button
+                variant="outline-info"
+                size="sm"
+                onClick={() => setIsEditing((prev) => !prev)}
+                className="mr-3"
+              >
+                편집
+              </Button>
+            </Col>
+          )}
+        </Row>
     </Card.Text>
   )
 }
 
-export default CertificateCard
+export default CertificateCard;
