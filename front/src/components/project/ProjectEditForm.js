@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import * as Api from "../../api";
+
+import { ProjectsContext } from "./Projects";
+
 /**
  * 편집 폼 컴포넌트
  * @param currentProject Projects -> Project 컴포넌트로부터 전달받은 project 데이터
- * @param setProjects Projects -> Project 컴포넌트로부터 전달받은 setProjects 함수
  * @param setIsEditing Project 컴포넌트로부터 전달받은 인자 :  isEditing의 상태 관리 함수 (true일 경우 편집 폼 컴포넌트 보여짐)
  * @return 프로젝트 제목, 상세내용, 시작일,종료일, 확인/취소 버튼
  */
 
-function ProjectEditForm({ currentProject, setIsEditing, setProjects }) {
+function ProjectEditForm({ currentProject, setIsEditing }) {
+  const { setProjects } = useContext(ProjectsContext);
   const [title, setTitle] = useState(currentProject.title);
   const [description, setDescription] = useState(currentProject.description);
   const [startDate, setStartDate] = useState(new Date(currentProject.from_date));

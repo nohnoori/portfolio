@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import DatePicker from 'react-datepicker';
 import * as Api from "../../api";
+
+import { ProjectsContext } from "./Projects";
 
 /**
  * 추가 폼 컴포넌트
  * @param setIsAdding true이면 추가 폼이 보여지고, false이면 추가 폼이 사라짐
  * @param portfolioOwnerId Portfolio -> Projects로부터 전달받은 인자 : {portfolioOwner.id}
- * @param setProjects Projects 컴포넌트로부터 전달받은 인자 : {setProjects} : projects의 상태 관리 함수 
  * @return 프로젝트 제목, 상세내용, 시작날짜,종료날짜, 확인/취소 버튼
  */
 
-function ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
+function ProjectAddForm({ portfolioOwnerId, setIsAdding }) {
+  const { setProjects } = useContext(ProjectsContext);
   const [title, setTitle] = useState(""); // 프로젝트 제목
   const [description, setDescription] = useState(""); // 프로젝트 상세내용
   const [startDate, setStartDate] = useState(new Date()); // 프로젝트 시작일
