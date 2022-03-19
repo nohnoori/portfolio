@@ -7,7 +7,7 @@ Awards는 isAdding이 true면 AwardAddForm, false면 그냥 Award들의 모음�
 
 
 
-import react, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import {Row, Button, Card,Col} from 'react-bootstrap';
 import Award from "./Award"
 import AwardAddForm from "./AwardAddForm";

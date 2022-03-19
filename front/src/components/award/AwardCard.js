@@ -3,7 +3,7 @@
 // - isEditable(포트폴리오 소유자와 현재 로그인한 사용자가 일치할 때)이 true인 경우 편집 버튼이 생깁니다.
 // - 편집버튼을 누르면 isEditing의 상태는 true 변합니다.
 
-import { Card,Row,Col,Button } from "react-bootstrap";
+import { Row,Col,Button } from "react-bootstrap";
 
 function AwardCard({setIsEditing, isEditable,award,portfoliOwerId}) {
 
