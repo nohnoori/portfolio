@@ -16,10 +16,12 @@ function ProjectEditForm({ currentProject, setIsEditing }) {
   const { setProjects } = useContext(ProjectsContext);
   const [title, setTitle] = useState(currentProject.title);
   const [description, setDescription] = useState(currentProject.description);
-  const [startDate, setStartDate] = useState(new Date(currentProject.from_date));
+  const [startDate, setStartDate] = useState(
+    new Date(currentProject.from_date)
+  );
   const [endDate, setEndDate] = useState(new Date(currentProject.to_date));
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const user_id = currentProject.user_id;
@@ -38,9 +40,9 @@ function ProjectEditForm({ currentProject, setIsEditing }) {
     const res = await Api.get("projectlist", user_id);
     setProjects(res.data);
     setIsEditing(false);
-  }
+  };
 
-  return(
+  return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formBasicTitle" className="mt-3">
         <Form.Control
@@ -62,27 +64,33 @@ function ProjectEditForm({ currentProject, setIsEditing }) {
 
       <Form.Group as={Row} className="mt-3">
         <Col md="auto">
-          <DatePicker 
+          <DatePicker
             selected={startDate}
             dateFormat="yyyy.MM.dd"
-            onChange={(date) => setStartDate(date)} />
+            onChange={(date) => setStartDate(date)}
+          />
         </Col>
         <Col md="auto">
-          <DatePicker 
+          <DatePicker
             selected={endDate}
-            dateFormat="yyyy.MM.dd" 
-            onChange={(date) => setEndDate(date)} />
+            dateFormat="yyyy.MM.dd"
+            onChange={(date) => setEndDate(date)}
+          />
         </Col>
       </Form.Group>
 
       <Form.Group as={Row} className="mt-3 text-center">
         <Col>
-          <Button variant="primary" type="submit" className="me-3">확인</Button>
-          <Button variant="secondary" onClick={() => setIsEditing(false)}>취소</Button>
+          <Button variant="primary" type="submit" className="me-3">
+            확인
+          </Button>
+          <Button variant="secondary" onClick={() => setIsEditing(false)}>
+            취소
+          </Button>
         </Col>
       </Form.Group>
     </Form>
-  )
+  );
 }
 
 export default ProjectEditForm;

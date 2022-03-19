@@ -26,7 +26,6 @@ class Award {
     );
     return updatedAward;
   }
-
 }
 
 export { Award };

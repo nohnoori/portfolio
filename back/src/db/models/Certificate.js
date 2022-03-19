@@ -30,5 +30,4 @@ class Certificate {
   }
 }
 
-
 export { Certificate };

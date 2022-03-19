@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import DatePicker from 'react-datepicker';
+import DatePicker from "react-datepicker";
 import * as Api from "../../api";
 
 import { ProjectsContext } from "./Projects";
@@ -35,9 +35,9 @@ function ProjectAddForm({ portfolioOwnerId, setIsAdding }) {
     const res = await Api.get("projectlist", user_id);
     setProjects(res.data);
     setIsAdding(false);
-  }
+  };
 
-  return(
+  return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formBasicTitle" className="mt-3">
         <Form.Control
@@ -59,21 +59,31 @@ function ProjectAddForm({ portfolioOwnerId, setIsAdding }) {
 
       <Form.Group as={Row} className="mt-3">
         <Col md="auto">
-          <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+          />
         </Col>
         <Col md="auto">
-          <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
+          <DatePicker
+            selected={endDate}
+            onChange={(date) => setEndDate(date)}
+          />
         </Col>
       </Form.Group>
 
       <Form.Group as={Row} className="mt-3 text-center">
         <Col>
-          <Button variant="primary" type="submit" className="me-3">확인</Button>
-          <Button variant="secondary" onClick={() => setIsAdding(false)}>취소</Button>
+          <Button variant="primary" type="submit" className="me-3">
+            확인
+          </Button>
+          <Button variant="secondary" onClick={() => setIsAdding(false)}>
+            취소
+          </Button>
         </Col>
       </Form.Group>
     </Form>
-  )
+  );
 }
 
 export default ProjectAddForm;

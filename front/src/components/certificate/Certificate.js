@@ -4,22 +4,23 @@ import CertificateEditForm from "./CertificateEditForm";
 
 function Certificate({ certificate, setCertificates, isEditable }) {
   const [isEditing, setIsEditing] = useState(false);
-  return(
+  return (
     <>
       {isEditing ? (
-        <CertificateEditForm 
+        <CertificateEditForm
           currentCertificate={certificate}
           setCertificates={setCertificates}
           setIsEditing={setIsEditing}
         />
       ) : (
-        <CertificateCard 
+        <CertificateCard
           certificate={certificate}
-          isEditable={isEditable} 
-          setIsEditing={setIsEditing}/>
+          isEditable={isEditable}
+          setIsEditing={setIsEditing}
+        />
       )}
     </>
-  )
+  );
 }
 
 export default Certificate;

@@ -5,13 +5,18 @@ import * as Api from "../../api";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-
-function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing }) {
+function CertificateEditForm({
+  currentCertificate,
+  setCertificates,
+  setIsEditing,
+}) {
   const [title, setTitle] = useState(currentCertificate.title);
-  const [description, setDescription] = useState(currentCertificate.description);
+  const [description, setDescription] = useState(
+    currentCertificate.description
+  );
   const [when_date, setWhen_date] = useState(new Date());
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const user_id = currentCertificate.user_id;
@@ -20,14 +25,15 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
       title,
       description,
       when_date,
-   setWhen_date });
+      setWhen_date,
+    });
 
     const res = await Api.get("certificatelist", user_id);
     setCertificates(res.data);
     setIsEditing(false);
   };
 
-  return(
+  return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formBasicTitle" className="mt-3">
         <Form.Control
@@ -35,8 +41,7 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
           placeholder="자격증 내용"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-        >
-        </Form.Control>
+        ></Form.Control>
       </Form.Group>
 
       <Form.Group controlId="formBasicDescription" className="mt-2">
@@ -45,13 +50,13 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
           placeholder="상세내역"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-        >
-        </Form.Control>
+        ></Form.Control>
       </Form.Group>
       <Form.Group className="mt-3">
         <DatePicker
           selected={when_date}
-          onChange={(date) => setWhen_date(date)} />
+          onChange={(date) => setWhen_date(date)}
+        />
       </Form.Group>
 
       <Form.Group as={Row} className="mt-3 text-center">
@@ -64,9 +69,8 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
           </Button>
         </Col>
       </Form.Group>
-      
     </Form>
-  )
+  );
 }
 
 export default CertificateEditForm;
