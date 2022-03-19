@@ -7,7 +7,6 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:prettier/recommended",
-    "plugin:react/recommended",
     "eslint-config-prettier",
   ],
   parserOptions: {
@@ -17,8 +16,9 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: ["react"],
+  plugins: ["prettier"],
   rules: {
     "no-unused-vars": "warn",
+    "prettier/prettier": ["error", { endOfLine: "auto" }],
   },
 };
