@@ -9,7 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing }) {
   const [title, setTitle] = useState(currentCertificate.title);
   const [description, setDescription] = useState(currentCertificate.description);
-  const [when_date, setWhen_date] = useState(new Date);
+  const [when_date, setWhen_date] = useState(new Date());
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -48,11 +48,15 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
         >
         </Form.Control>
       </Form.Group>
+      <Form.Group className="mt-3">
+        <div style={{ textAlign: "left" }}>
+          <DatePicker
+            selected={when_date}
+            onChange={(date) => setWhen_date(date)} />
+        </div>
+      </Form.Group>
 
       <Form.Group as={Row} className="mt-3 text-center">
-        <div style={{ textAlign: "left" }}>
-          <DatePicker selected={when_date} setWhen_date={(date) => setWhen_date(date)} />
-        </div>
         <Col sm={{ span: 20 }}>
           <Button variant="primary" type="submit" className="me-3">
             확인

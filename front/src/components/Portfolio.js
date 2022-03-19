@@ -66,19 +66,18 @@ function Portfolio() {
           />
         </Col>
         <Col>
-
-          {/* <div style={{ textAlign: "left" }}>
-            <Certificate></Certificate>
-          </div> */}
-          <Certificate 
-            portfolioOwnerId={portfolioOwner.id}
-            isEditable={portfolioOwner.id === userState.user?.id}
-          />
-          <Education 
-            portfolioOwnerId={portfolioOwner.id}
-            isEditable={portfolioOwner.id === userState.user?.id}
-          />
-
+          <Row className="mb-3">
+            <Education
+              portfolioOwnerId={portfolioOwner.id}
+              isEditable={portfolioOwner.id === userState.user?.id}
+            />
+          </Row>
+          <Row>
+            <Certificate
+              portfolioOwnerId={portfolioOwner.id}
+              isEditable={portfolioOwner.id === userState.user?.id}
+            />
+          </Row>
         </Col>
       </Row>
     </Container>

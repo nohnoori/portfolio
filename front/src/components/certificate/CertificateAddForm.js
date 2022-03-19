@@ -9,7 +9,7 @@ function CertificateAddForm({ setIsAdding, portfolioOwnerId, setCertificates }) 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   
-  const [when_date, setWhen_date] = useState(new Date)
+  const [when_date, setWhen_date] = useState(new Date())
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -47,11 +47,15 @@ function CertificateAddForm({ setIsAdding, portfolioOwnerId, setCertificates }) 
           onChange={(e) => setDescription(e.target.value)}
         />
       </Form.Group>
+      <Form.Group className="mt-3">
+        <div style={{ textAlign: "left" }}>
+          <DatePicker
+            selected={when_date}
+            onChange={(date) => setWhen_date(date)} />
+        </div>
+      </Form.Group>
 
       <Form.Group as={Row} className="mt-3 text-center">
-        <div style={{ textAlign: "left" }}>
-          <DatePicker selected={when_date} onChange={(date) => setWhen_date(date)} />
-        </div>
         <Col sm={{ span: 20 }}>
           <Button variant="primary" type="submit" className="me-3">
             확인
