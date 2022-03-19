@@ -44,7 +44,9 @@ certificateAuthRouter.get("/certificates/:id", async (req, res, next) => {
   try {
     // URL로부터 추출한 certificate id를 가지고 db에서 certificate 정보를 찾음
     const id = req.params.id;
-    const certificateInfo = await CertificateAuthService.getCertificateInfo({ id });
+    const certificateInfo = await CertificateAuthService.getCertificateInfo({
+      id,
+    });
 
     if (certificateInfo.errorMessage) {
       throw new Error(certificateInfo.errorMessage);
@@ -69,7 +71,10 @@ certificateAuthRouter.put("/certificates/:id", async (req, res, next) => {
 
     const toUpdate = { title, description, when_date };
 
-    const updatedCertificate = await CertificateAuthService.setCertificate({ id, toUpdate });
+    const updatedCertificate = await CertificateAuthService.setCertificate({
+      id,
+      toUpdate,
+    });
 
     if (updatedCertificate.errorMessage) {
       throw new Error(updatedCertificate.errorMessage);
@@ -82,20 +87,25 @@ certificateAuthRouter.put("/certificates/:id", async (req, res, next) => {
 });
 
 // Certificate MVP 목록 조회 API
-certificateAuthRouter.get("/certificatelist/:user_id", async (req, res, next) => {
-  try {
-    // URL로부터 추출한 user_id를 가지고 db에서 certificate list를 찾음
-    const user_id = req.params.user_id;
-    const certificateInfo = await CertificateAuthService.getCertificateList({ user_id });
+certificateAuthRouter.get(
+  "/certificatelist/:user_id",
+  async (req, res, next) => {
+    try {
+      // URL로부터 추출한 user_id를 가지고 db에서 certificate list를 찾음
+      const user_id = req.params.user_id;
+      const certificateInfo = await CertificateAuthService.getCertificateList({
+        user_id,
+      });
 
-    res.status(200).json(certificateInfo);
-  } catch (e) {
-    next(e);
+      res.status(200).json(certificateInfo);
+    } catch (e) {
+      next(e);
+    }
   }
-});
+);
 
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
-certificateAuthRouter.get("/afterlogin", (req, res, next) => {
+certificateAuthRouter.get("/afterlogin", (req, res) => {
   res
     .status(200)
     .send(

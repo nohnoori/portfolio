@@ -1,12 +1,12 @@
-import { Education } from "../db"; 
+import { Education } from "../db";
 import { v4 as uuidv4 } from "uuid";
 
 class EducationAuthService {
-  static async addEducation({ user_id, school, major, position, }) {
+  static async addEducation({ user_id, school, major, position }) {
     const id = uuidv4();
 
     const newEducation = { id, user_id, school, major, position };
-    const createdNewEducation = await Education.create({newEducation});
+    const createdNewEducation = await Education.create({ newEducation });
 
     return createdNewEducation;
   }
@@ -16,8 +16,7 @@ class EducationAuthService {
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!education) {
-      const errorMessage =
-        "해당 학력이 없습니다. 다시 한 번 확인해 주세요.";
+      const errorMessage = "해당 학력이 없습니다. 다시 한 번 확인해 주세요.";
       return { errorMessage };
     }
 
@@ -30,8 +29,7 @@ class EducationAuthService {
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!education) {
-      const errorMessage =
-        "해당 학력이 없습니다. 다시 한 번 확인해 주세요.";
+      const errorMessage = "해당 학력이 없습니다. 다시 한 번 확인해 주세요.";
       return { errorMessage };
     }
 
