@@ -1,29 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 
-/**
- * 추가 폼 컴포넌트
- * @param setIsAdding true이면 추가 폼이 보여지고, false이면 추가 폼이 사라짐
- * @param portfolioOwnerId Portfolio -> Educations로부터 전달받은 인자 : {portfolioOwner.id}
- * @param setEducations Educations 컴포넌트로부터 전달받은 인자 : {setEducations} : educations의 상태 관리 함수 
- * @return 학교 명, 전공 명, 학적 상태 입력 폼, 확인 버튼, 취소 버튼
- */
+import { EducationsContext } from "./Educations";
 
-function EducationAddForm({ setIsAdding, portfolioOwnerId, setEducations }) {
+function EducationAddForm({ setIsAdding, portfolioOwnerId }) {
+  const { setEducations } = useContext(EducationsContext);
   const [school, setSchool] = useState("");
   const [major, setMajor] = useState("");
-  const [position, setPosition] = useState("재학중")
-  
-  // TODO : 기능 제대로 작동되면 useContext 사용해보기
-  // TODO : try catch 문으로 오류 처리하기
-  const handleSubmit = async(e) => {
+  const [position, setPosition] = useState("재학중");
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const user_id = portfolioOwnerId;
-    
+    console.log("테스트중", portfolioOwnerId);
     await Api.post("education/create", {
-      user_id: portfolioOwnerId,
+      user_id,
       school,
       major,
       position,
@@ -34,12 +27,12 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId, setEducations }) {
     setEducations(res.data);
     // 추가 완료 후에는 추가 폼을 닫아줌
     setIsAdding(false);
-  }
+  };
 
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formBasicSchool" className="mt-3">
-        <Form.Control 
+        <Form.Control
           type="text"
           placeholder="학교 명"
           value={school}
@@ -48,7 +41,7 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId, setEducations }) {
       </Form.Group>
 
       <Form.Group controlId="formBasicMajor" className="mt-3">
-        <Form.Control 
+        <Form.Control
           type="text"
           placeholder="전공 명"
           value={major}
@@ -57,7 +50,7 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId, setEducations }) {
       </Form.Group>
 
       <div key={`inline-radio`} className="mb-3 mt-3">
-        <Form.Check 
+        <Form.Check
           inline
           label="재학중"
           id="radio1"
@@ -68,7 +61,7 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId, setEducations }) {
           onChange={(e) => setPosition(e.target.value)}
         />
 
-        <Form.Check 
+        <Form.Check
           inline
           label="학사졸업"
           id="radio2"
@@ -79,7 +72,7 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId, setEducations }) {
           onChange={(e) => setPosition(e.target.value)}
         />
 
-        <Form.Check 
+        <Form.Check
           inline
           label="석사졸업"
           id="radio3"
@@ -90,7 +83,7 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId, setEducations }) {
           onChange={(e) => setPosition(e.target.value)}
         />
 
-        <Form.Check 
+        <Form.Check
           inline
           label="박사졸업"
           id="radio4"
@@ -101,7 +94,7 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId, setEducations }) {
           onChange={(e) => setPosition(e.target.value)}
         />
       </div>
-      
+
       <Form.Group as={Row} className="mt-3 text-center">
         <Col sm={{ span: 20 }}>
           <Button variant="primary" type="submit" className="me-3">
@@ -113,7 +106,7 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId, setEducations }) {
         </Col>
       </Form.Group>
     </Form>
-  )
+  );
 }
 
 export default EducationAddForm;

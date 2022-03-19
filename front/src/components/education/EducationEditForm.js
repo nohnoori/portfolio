@@ -1,23 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 
-/**
- * 편집 폼 컴포넌트
- * @param currentEducation Educations -> Education 컴포넌트로부터 전달받은 education 데이터
- * @param setEducations Educations -> Education 컴포넌트로부터 전달받은 setEducations 함수
- * @param setIsEditing Education 컴포넌트로부터 전달받은 인자 :  isEditing의 상태 관리 함수 (true일 경우 편집 폼 컴포넌트 보여짐)
- * @return 학교 명, 전공 명, 학적 상태, 확인/취소 버튼
- */
+import { EducationsContext } from "./Educations";
 
-function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
+function EducationEditForm({ currentEducation, setIsEditing }) {
+  const { setEducations } = useContext(EducationsContext);
   const [school, setSchool] = useState(currentEducation.school);
   const [major, setMajor] = useState(currentEducation.major);
   const [position, setPosition] = useState(currentEducation.position);
 
-  // TODO : try catch 문으로 오류 처리하는 걸로 수정하기
-  // TODO : 기능 제대로 작동되면 useContext로 전환하는 작업 하기
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const user_id = currentEducation.user_id;
@@ -37,7 +30,7 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
     setIsEditing(false);
   };
 
-  return(
+  return (
     <Form onSubmit={handleSubmit}>
       <Form.Group>
         <Form.Control
@@ -45,22 +38,20 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
           placeholder="학교 명"
           value={school}
           onChange={(e) => setSchool(e.target.value)}
-        >
-        </Form.Control>
+        ></Form.Control>
       </Form.Group>
 
-      <Form.Group>
+      <Form.Group className="mt-2">
         <Form.Control
           type="text"
           placeholder="전공 명"
           value={major}
           onChange={(e) => setMajor(e.target.value)}
-        >
-        </Form.Control>
+        ></Form.Control>
       </Form.Group>
 
       <div key={`inline-radio`} className="mb-3 mt-3">
-        <Form.Check 
+        <Form.Check
           inline
           label="재학중"
           id="radio1"
@@ -71,7 +62,7 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
           onChange={(e) => setPosition(e.target.value)}
         />
 
-        <Form.Check 
+        <Form.Check
           inline
           label="학사졸업"
           id="radio2"
@@ -82,7 +73,7 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
           onChange={(e) => setPosition(e.target.value)}
         />
 
-        <Form.Check 
+        <Form.Check
           inline
           label="석사졸업"
           id="radio3"
@@ -93,7 +84,7 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
           onChange={(e) => setPosition(e.target.value)}
         />
 
-        <Form.Check 
+        <Form.Check
           inline
           label="박사졸업"
           id="radio4"
@@ -115,9 +106,8 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
           </Button>
         </Col>
       </Form.Group>
-      
     </Form>
-  )
+  );
 }
 
 export default EducationEditForm;
