@@ -7,6 +7,7 @@ import * as Api from "../api";
 import User from "./user/User";
 import Certificate from "./certificate/Certificates"
 
+import Projects from "./project/Projects";
 import Award from "./award/Awards";
 import Education from "./education/Educations";
 
@@ -74,6 +75,12 @@ function Portfolio() {
           <Row className = "mb-3">
             <Award 
               portfolioOwnerId={portfolioOwner.id}
+              isEditable={portfolioOwner.id === userState.user?.id}
+            />
+          </Row>
+          <Row className = "mb-3">
+            <Projects
+              portfolioOwnerId={portfolioOwner.id} 
               isEditable={portfolioOwner.id === userState.user?.id}
             />
           </Row>
