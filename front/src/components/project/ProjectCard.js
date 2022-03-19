@@ -36,6 +36,7 @@ function ProjectCard({ project, isEditable }) {
             {!isEditing ? (
               <Button
                 variant="outline-info"
+                size="sm"
                 onClick={() => setIsEditing((prev) => !prev)}
                 className="mr-3"
               >편집</Button>
