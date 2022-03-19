@@ -19,5 +19,6 @@ module.exports = {
   plugins: ["prettier"],
   rules: {
     "no-unused-vars": "warn",
+    "prettier/prettier": ["error", { endOfLine: "auto" }],
   },
 };
