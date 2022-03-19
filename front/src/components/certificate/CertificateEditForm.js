@@ -29,7 +29,7 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
 
   return(
     <Form onSubmit={handleSubmit}>
-      <Form.Group>
+      <Form.Group controlId="formBasicTitle" className="mt-3">
         <Form.Control
           type="text"
           placeholder="자격증 내용"
@@ -39,7 +39,7 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
         </Form.Control>
       </Form.Group>
 
-      <Form.Group>
+      <Form.Group controlId="formBasicDescription" className="mt-2">
         <Form.Control
           type="text"
           placeholder="상세내역"
@@ -49,11 +49,9 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
         </Form.Control>
       </Form.Group>
       <Form.Group className="mt-3">
-        <div style={{ textAlign: "left" }}>
-          <DatePicker
-            selected={when_date}
-            onChange={(date) => setWhen_date(date)} />
-        </div>
+        <DatePicker
+          selected={when_date}
+          onChange={(date) => setWhen_date(date)} />
       </Form.Group>
 
       <Form.Group as={Row} className="mt-3 text-center">
