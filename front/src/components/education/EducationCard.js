@@ -13,13 +13,12 @@ function EducationCard({ education, isEditable }) {
     <Card.Text>
       <Row className="align-items-center">
         <Col>
-          <span>{education.school}</span>
-          <br />
-          <span>
+          <div>{education.school}</div>
+          <div>
             {education.major}
             {"  "}
-          </span>
-          <span>{education.position}</span>
+          </div>
+          <div>{education.position}</div>
         </Col>
 
         {isEditing && (
@@ -33,7 +32,7 @@ function EducationCard({ education, isEditable }) {
 
         {isEditable && (
           <Col xs lg="1">
-            {!isEditing ? ( // 편집 버튼을 누르면 isEditing이 true가 되면서 편집 버튼이 사라지고 폼만 보임
+            {!isEditing && ( // 편집 버튼을 누르면 isEditing이 true가 되면서 편집 버튼이 사라지고 폼만 보임
               <Button
                 variant="outline-info"
                 size="sm"
@@ -42,8 +41,6 @@ function EducationCard({ education, isEditable }) {
               >
                 편집
               </Button>
-            ) : (
-              <div>{}</div>
             )}
           </Col>
         )}
