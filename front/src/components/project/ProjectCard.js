@@ -12,28 +12,24 @@ function ProjectCard({ project, isEditable }) {
   return (
     <Card.Text>
       <Row className="align-items-center">
-        <Col>
-          <span>{project.title}</span>
-          <br />
-          <span>{project.description}</span>
-          <br />
-          <span>
-            {project.from_date.slice(0, 10)} ~ {project.to_date.slice(0, 10)}
-          </span>
-        </Col>
-
-        {isEditing && (
-          <Row className="mt-3">
-            <ProjectEditForm
-              currentProject={project}
-              setIsEditing={setIsEditing}
-            />
-          </Row>
+        {isEditing ? (
+          <ProjectEditForm
+            currentProject={project}
+            setIsEditing={setIsEditing}
+          />
+        ) : (
+          <Col>
+            <div>{project.title}</div>
+            <div>{project.description}</div>
+            <div>
+              {project.from_date.slice(0, 10)} ~ {project.to_date.slice(0, 10)}
+            </div>
+          </Col>
         )}
 
         {isEditable && (
           <Col xs lg="1">
-            {!isEditing ? (
+            {!isEditing && (
               <Button
                 variant="outline-info"
                 size="sm"
@@ -42,8 +38,6 @@ function ProjectCard({ project, isEditable }) {
               >
                 편집
               </Button>
-            ) : (
-              <div>{}</div>
             )}
           </Col>
         )}

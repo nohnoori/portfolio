@@ -53,7 +53,6 @@ function Projects({ isEditable, portfolioOwnerId }) {
           {isAdding && (
             <ProjectAddForm
               portfolioOwnerId={portfolioOwnerId}
-              setProjects={setProjects}
               setIsAdding={setIsAdding} // 추가 폼을 닫을 때 setIsAdding을 false로 변경하기 위해 전달
             />
           )}

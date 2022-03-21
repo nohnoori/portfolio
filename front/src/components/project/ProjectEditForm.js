@@ -44,7 +44,7 @@ function ProjectEditForm({ currentProject, setIsEditing }) {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="formBasicTitle" className="mt-3">
+      <Form.Group controlId="formBasicTitle" className="mt-1">
         <Form.Control
           type="text"
           placeholder="프로젝트 제목"
