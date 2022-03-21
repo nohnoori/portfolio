@@ -12,22 +12,20 @@ function EducationCard({ education, isEditable }) {
   return (
     <Card.Text>
       <Row className="align-items-center">
-        <Col>
-          <div>{education.school}</div>
-          <div>
-            {education.major}
-            {"  "}
-          </div>
-          <div>{education.position}</div>
-        </Col>
-
-        {isEditing && (
-          <Row className="mt-5">
-            <EducationEditForm
-              currentEducation={education}
-              setIsEditing={setIsEditing}
-            />
-          </Row>
+        {isEditing ? (
+          <EducationEditForm
+            currentEducation={education}
+            setIsEditing={setIsEditing}
+          />
+        ) : (
+          <Col>
+            <div>{education.school}</div>
+            <div>
+              {education.major}
+              {"  "}
+            </div>
+            <div>{education.position}</div>
+          </Col>
         )}
 
         {isEditable && (

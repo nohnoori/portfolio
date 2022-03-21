@@ -13,16 +13,16 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const user_id = portfolioOwnerId;
-    console.log("테스트중", portfolioOwnerId);
+    const userId = portfolioOwnerId;
+
     await Api.post("education/create", {
-      user_id,
+      user_id: userId,
       school,
       major,
       position,
     });
 
-    const res = await Api.get("educationlist", user_id);
+    const res = await Api.get("educationlist", userId);
     // res로 받은 data를 educations으로 설정
     setEducations(res.data);
     // 추가 완료 후에는 추가 폼을 닫아줌
