@@ -98,6 +98,20 @@ awardAuthRouter.put("/awards/:id", async (req, res, next) => {
   }
 });
 
+//award 삭제
+awardAuthRouter.delete("/award/:id", async (req, res, next) => {
+  try {
+    //:id 값 가져오기
+    const id = req.params.id;
+
+    const award = await awardService.deleteAward({ id });
+
+    res.status(200).json(award);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
 awardAuthRouter.get("/afterlogin", (req, res) => {
   res

@@ -58,6 +58,12 @@ class awardService {
 
     return award;
   }
+
+  //award 삭제
+  static async deleteAward({ id }) {
+    const award = await Award.delete({ id });
+    return award;
+  }
 }
 
 export { awardService };
