@@ -7,7 +7,7 @@ const awardAuthRouter = Router();
 awardAuthRouter.use(login_required);
 
 //award 추가 API
-awardAuthRouter.post("/award/create", async (req, res, next) => {
+awardAuthRouter.post("/award", async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
