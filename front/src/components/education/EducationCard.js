@@ -1,20 +1,28 @@
 import { Card, Button, Row, Col, Modal } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import * as Api from "../../api";
 // 하위 컴포넌트
 import EducationEditForm from "./EducationEditForm";
+import { EducationsContext } from "./Educations";
 
 // ? 편집 버튼 클릭 시 isEditing의 값이 반대로 바뀜 (true <-> false)
 // ? : default가 false라 true로 바뀌면서 Card 컴포넌트가 사라지고 편집 폼이 나타남
 
-function EducationCard({ education, isEditable }) {
+function EducationCard({ education, isEditable, portfolioOwnerId }) {
+  const { setEducations } = useContext(EducationsContext);
   const [isEditing, setIsEditing] = useState(false); // 편집 폼이 보이는지 여부
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleDelete = async () => {
-    await Api.delete(`educations/${education.id}`);
+    const userId = portfolioOwnerId;
+
+    await Api.delete(`education/${education.id}`);
+
+    const res = await Api.get("educations", userId);
+    // res로 받은 data를 educations으로 설정
+    setEducations(res.data);
   };
 
   return (

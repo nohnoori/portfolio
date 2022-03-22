@@ -15,7 +15,7 @@ function EducationEditForm({ currentEducation, setIsEditing }) {
 
     const userId = currentEducation.user_id;
     // put 요청
-    await Api.put(`educations/${currentEducation.id}`, {
+    await Api.put(`education/${currentEducation.id}`, {
       user_id: userId,
       school,
       major,
@@ -25,7 +25,7 @@ function EducationEditForm({ currentEducation, setIsEditing }) {
     // ? 1. 수정된 정보 GET요청
     // ? 2. 수정된 정보 educations에 저장
     // ? 3. 편집 폼 종료
-    const res = await Api.get("educationlist", userId);
+    const res = await Api.get("educations", userId);
     setEducations(res.data);
     setIsEditing(false);
   };

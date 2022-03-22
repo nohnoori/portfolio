@@ -15,14 +15,14 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId }) {
 
     const userId = portfolioOwnerId;
 
-    await Api.post("education/create", {
+    await Api.post("education", {
       user_id: userId,
       school,
       major,
       position,
     });
 
-    const res = await Api.get("educationlist", userId);
+    const res = await Api.get("educations", userId);
     // res로 받은 data를 educations으로 설정
     setEducations(res.data);
     // 추가 완료 후에는 추가 폼을 닫아줌
