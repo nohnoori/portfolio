@@ -5,33 +5,37 @@ import * as Api from "../../api";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-function CertificateAddForm({ setIsAdding, portfolioOwnerId, setCertificates }) {
+function CertificateAddForm({
+  setIsAdding,
+  portfolioOwnerId,
+  setCertificates,
+}) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  
-  const [when_date, setWhen_date] = useState(new Date())
 
-  const handleSubmit = async(e) => {
+  const [whenDate, setWhenDate] = useState(new Date());
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const user_id = portfolioOwnerId;
-    
+    const userId = portfolioOwnerId;
+
     await Api.post("certificate/create", {
-      user_id: portfolioOwnerId,
+      user_id: userId,
       title,
       description,
-      when_date,
+      when_date: whenDate,
     });
 
-    const res = await Api.get("certificatelist", user_id);
+    const res = await Api.get("certificatelist", userId);
     setCertificates(res.data);
     setIsAdding(false);
-  }
+  };
 
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formBasicTitle" className="mt-3">
-        <Form.Control 
+        <Form.Control
           type="text"
           placeholder="자격증 내용"
           value={title}
@@ -40,7 +44,7 @@ function CertificateAddForm({ setIsAdding, portfolioOwnerId, setCertificates }) 
       </Form.Group>
 
       <Form.Group controlId="formBasicDescription" className="mt-2">
-        <Form.Control 
+        <Form.Control
           type="text"
           placeholder="상세내역"
           value={description}
@@ -49,8 +53,9 @@ function CertificateAddForm({ setIsAdding, portfolioOwnerId, setCertificates }) 
       </Form.Group>
       <Form.Group className="mt-3">
         <DatePicker
-          selected={when_date}
-          onChange={(date) => setWhen_date(date)} />
+          selected={whenDate}
+          onChange={(date) => setWhenDate(date)}
+        />
       </Form.Group>
 
       <Form.Group as={Row} className="mt-3 text-center">
@@ -64,7 +69,7 @@ function CertificateAddForm({ setIsAdding, portfolioOwnerId, setCertificates }) 
         </Col>
       </Form.Group>
     </Form>
-  )
+  );
 }
 
 export default CertificateAddForm;
