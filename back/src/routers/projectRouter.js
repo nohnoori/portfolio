@@ -7,7 +7,7 @@ const projectAuthRouter = Router();
 projectAuthRouter.use(login_required);
 
 //project 추가 API
-projectAuthRouter.post("/project/create", async (req, res, next) => {
+projectAuthRouter.post("/project", async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -98,6 +98,20 @@ projectAuthRouter.put("/projects/:id", async (req, res, next) => {
     }
 
     res.status(200).json(updatedProject);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//project 삭제
+projectAuthRouter.delete("/projects/:id", async (req, res, next) => {
+  try {
+    //:id 값 가져오기
+    const id = req.params.id;
+
+    const project = await projectService.deleteProject({ id });
+
+    res.status(200).json(project);
   } catch (error) {
     next(error);
   }
