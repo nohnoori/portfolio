@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
-import { awardService } from "../services/awardService";
+import { AwardAuthService } from "../services/awardService";
 import is from "@sindresorhus/is";
 
 const awardAuthRouter = Router();
@@ -20,7 +20,7 @@ awardAuthRouter.post("/award", async (req, res, next) => {
     const title = req.body.title;
     const description = req.body.description;
 
-    const newAward = await awardService.addAward({
+    const newAward = await AwardAuthService.addAward({
       user_id,
       title,
       description,
@@ -43,15 +43,15 @@ awardAuthRouter.get("/award/:id", async (req, res, next) => {
     const id = req.params.id;
 
     //award 정보 가져오기
-    const currentAwardInfo = await awardService.getAward({
+    const award = await AwardAuthService.getAward({
       id,
     });
 
-    if (currentAwardInfo.errorMessage) {
-      throw new Error(currentAwardInfo.errorMessage);
+    if (award.errorMessage) {
+      throw new Error(award.errorMessage);
     }
 
-    res.status(200).json(currentAwardInfo);
+    res.status(200).json(award);
   } catch (error) {
     next(error);
   }
@@ -64,7 +64,7 @@ awardAuthRouter.get("/awards/:user_id", async (req, res, next) => {
     const user_id = req.params.user_id;
 
     // 사용자의 수상 목록을 얻음
-    const awards = await awardService.getAwards({ user_id });
+    const awards = await AwardAuthService.getAwards({ user_id });
 
     res.status(200).json(awards);
   } catch (error) {
@@ -82,7 +82,7 @@ awardAuthRouter.put("/award/:id", async (req, res, next) => {
     const toUpdate = { ...req.body };
 
     // 해당 수상 정보 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
-    const updatedAward = await awardService.setAward({ id, toUpdate });
+    const updatedAward = await AwardAuthService.setAward({ id, toUpdate });
 
     if (updatedAward.errorMessage) {
       throw new Error(updatedAward.errorMessage);
@@ -100,9 +100,9 @@ awardAuthRouter.delete("/award/:id", async (req, res, next) => {
     //:id 값 가져오기
     const id = req.params.id;
 
-    const award = await awardService.deleteAward({ id });
+    const deletedAward = await AwardAuthService.deleteAward({ id });
 
-    res.status(200).json(award);
+    res.status(200).json(deletedAward);
   } catch (error) {
     next(error);
   }

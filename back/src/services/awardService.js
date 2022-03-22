@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { Award } from "../db";
 
-class awardService {
+class AwardAuthService {
   //award 추가
   static async addAward({ user_id, title, description }) {
     // id 는 유니크 값 부여
@@ -72,4 +72,4 @@ class awardService {
   }
 }
 
-export { awardService };
+export { AwardAuthService };
