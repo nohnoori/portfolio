@@ -1,5 +1,6 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { useState } from "react";
+import * as Api from "../../api";
 // 하위 컴포넌트
 import ProjectEditForm from "./ProjectEditForm";
 
@@ -8,6 +9,10 @@ import ProjectEditForm from "./ProjectEditForm";
 
 function ProjectCard({ project, isEditable }) {
   const [isEditing, setIsEditing] = useState(false);
+
+  const handleDelete = async () => {
+    await Api.delete(`projects/${project.id}`);
+  };
 
   return (
     <Card.Text>
@@ -28,16 +33,29 @@ function ProjectCard({ project, isEditable }) {
         )}
 
         {isEditable && (
-          <Col xs lg="1">
+          <Col xs lg="2">
             {!isEditing && (
-              <Button
-                variant="outline-info"
-                size="sm"
-                onClick={() => setIsEditing((prev) => !prev)}
-                className="mr-3"
-              >
-                편집
-              </Button>
+              <>
+                <Button
+                  variant="outline-info"
+                  size="sm"
+                  onClick={() => setIsEditing((prev) => !prev)}
+                  className="mr-3"
+                >
+                  편집
+                </Button>{" "}
+                <Button
+                  variant="outline-danger"
+                  size="sm"
+                  onClick={() => {
+                    alert("정말로 삭제하시겠습니까?");
+                    handleDelete();
+                  }}
+                  className="mr-3"
+                >
+                  삭제
+                </Button>
+              </>
             )}
           </Col>
         )}
