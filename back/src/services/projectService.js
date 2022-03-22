@@ -76,6 +76,12 @@ class projectService {
 
     return project;
   }
+
+  //project 삭제
+  static async deleteProject({ id }) {
+    const project = await Project.delete({ id });
+    return project;
+  }
 }
 
 export { projectService };
