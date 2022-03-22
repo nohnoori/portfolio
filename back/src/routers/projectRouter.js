@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
-import { projectService } from "../services/projectService";
+import { ProjectAuthService } from "../services/projectService";
 import is from "@sindresorhus/is";
 
 const projectAuthRouter = Router();
@@ -22,7 +22,7 @@ projectAuthRouter.post("/project", async (req, res, next) => {
     const from_date = req.body.from_date;
     const to_date = req.body.to_date;
 
-    const newProject = await projectService.addProject({
+    const newProject = await ProjectAuthService.addProject({
       user_id,
       title,
       description,
@@ -47,15 +47,15 @@ projectAuthRouter.get("/project/:id", async (req, res, next) => {
     const id = req.params.id;
 
     //project 정보 가져오기
-    const currentPrjoectInfo = await projectService.getProject({
+    const project = await ProjectAuthService.getProject({
       id,
     });
 
-    if (currentPrjoectInfo.errorMessage) {
-      throw new Error(currentPrjoectInfo.errorMessage);
+    if (project.errorMessage) {
+      throw new Error(project.errorMessage);
     }
 
-    res.status(200).json(currentPrjoectInfo);
+    res.status(200).json(project);
   } catch (error) {
     next(error);
   }
@@ -68,7 +68,7 @@ projectAuthRouter.get("/projects/:user_id", async (req, res, next) => {
     const user_id = req.params.user_id;
 
     // 사용자의 프로젝트 목록을 얻음
-    const projects = await projectService.getProjects({ user_id });
+    const projects = await ProjectAuthService.getProjects({ user_id });
 
     res.status(200).json(projects);
   } catch (error) {
@@ -85,7 +85,10 @@ projectAuthRouter.put("/project/:id", async (req, res, next) => {
     const toUpdate = { ...req.body };
 
     // 해당 프로젝트 정보 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
-    const updatedProject = await projectService.setProject({ id, toUpdate });
+    const updatedProject = await ProjectAuthService.setProject({
+      id,
+      toUpdate,
+    });
 
     if (updatedProject.errorMessage) {
       throw new Error(updatedProject.errorMessage);
@@ -103,9 +106,9 @@ projectAuthRouter.delete("/project/:id", async (req, res, next) => {
     //:id 값 가져오기
     const id = req.params.id;
 
-    const project = await projectService.deleteProject({ id });
+    const deletedProject = await ProjectAuthService.deleteProject({ id });
 
-    res.status(200).json(project);
+    res.status(200).json(deletedProject);
   } catch (error) {
     next(error);
   }
