@@ -7,7 +7,7 @@ const projectAuthRouter = Router();
 projectAuthRouter.use(login_required);
 
 //project 추가 API
-projectAuthRouter.post("/project/create", async (req, res, next) => {
+projectAuthRouter.post("/project", async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
