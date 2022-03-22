@@ -26,7 +26,7 @@ function EducationCard({ education, isEditable, portfolioOwnerId }) {
   };
 
   return (
-    <Card.Text>
+    <Card.Text as="div">
       <Row className="align-items-center">
         {isEditing ? (
           <EducationEditForm
