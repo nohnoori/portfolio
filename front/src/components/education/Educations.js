@@ -14,7 +14,7 @@ function Educations({ isEditable, portfolioOwnerId }) {
   const [isAdding, setIsAdding] = useState(false); // 추가 폼이 보이는지 여부
 
   useEffect(() => {
-    Api.get("educationlist", portfolioOwnerId).then((res) =>
+    Api.get("educations", portfolioOwnerId).then((res) =>
       setEducations(res.data)
     );
   }, [portfolioOwnerId]);
@@ -29,6 +29,7 @@ function Educations({ isEditable, portfolioOwnerId }) {
               key={education.id}
               education={education}
               isEditable={isEditable}
+              portfolioOwnerId={portfolioOwnerId}
             />
           ))}
 

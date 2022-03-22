@@ -22,17 +22,17 @@ function ProjectAddForm({ portfolioOwnerId, setIsAdding }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const user_id = portfolioOwnerId;
+    const userId = portfolioOwnerId;
 
-    await Api.post("project/create", {
-      user_id,
+    await Api.post("project", {
+      user_id: userId,
       title,
       description,
       from_date: startDate,
       to_date: endDate,
     });
 
-    const res = await Api.get("projectlist", user_id);
+    const res = await Api.get("projects", userId);
     setProjects(res.data);
     setIsAdding(false);
   };
