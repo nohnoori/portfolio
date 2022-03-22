@@ -28,7 +28,11 @@ class Certificate {
     const certificateList = await CertificateModel.find({ user_id });
     return certificateList;
   }
-}
 
+  static async delete({ id }) {
+    const deletedCertificate = await CertificateModel.deleteOne({ id });
+    return deletedCertificate;
+  }
+}
 
 export { Certificate };

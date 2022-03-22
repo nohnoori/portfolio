@@ -7,7 +7,7 @@ const awardAuthRouter = Router();
 awardAuthRouter.use(login_required);
 
 //award 추가 API
-awardAuthRouter.post("/award/create", async (req, res, next) => {
+awardAuthRouter.post("/award", async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -16,7 +16,7 @@ awardAuthRouter.post("/award/create", async (req, res, next) => {
     }
 
     // req (request) 에서 데이터 가져오기
-    const user_id = req.body.user_id
+    const user_id = req.body.user_id;
     const title = req.body.title;
     const description = req.body.description;
 
@@ -24,7 +24,7 @@ awardAuthRouter.post("/award/create", async (req, res, next) => {
       user_id,
       title,
       description,
-    })
+    });
 
     if (newAward.errorMessage) {
       throw new Error(newAward.errorMessage);
@@ -37,10 +37,10 @@ awardAuthRouter.post("/award/create", async (req, res, next) => {
 });
 
 //award 조회 API
-awardAuthRouter.get("/awards/:id", async (req, res, next) => {
+awardAuthRouter.get("/award/:id", async (req, res, next) => {
   try {
     //:id 값 가져오기
-    const id = req.params.id
+    const id = req.params.id;
 
     //award 정보 가져오기
     const currentAwardInfo = await awardService.getAward({
@@ -55,14 +55,13 @@ awardAuthRouter.get("/awards/:id", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}
-);
+});
 
 //award 목록 조회 API
-awardAuthRouter.get("/awardlist/:user_id", async (req, res, next) => {
+awardAuthRouter.get("/awards/:user_id", async (req, res, next) => {
   try {
     //:user_id 값 가져오기
-    const user_id = req.params.user_id
+    const user_id = req.params.user_id;
 
     // 사용자의 수상 목록을 얻음
     const awards = await awardService.getAwards({ user_id });
@@ -71,11 +70,10 @@ awardAuthRouter.get("/awardlist/:user_id", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}
-);
+});
 
 //award 수정 API
-awardAuthRouter.put("/awards/:id", async (req, res, next) => {
+awardAuthRouter.put("/award/:id", async (req, res, next) => {
   try {
     //:id 값 가져오기
     const id = req.params.id;
@@ -98,11 +96,24 @@ awardAuthRouter.put("/awards/:id", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}
-);
+});
+
+//award 삭제
+awardAuthRouter.delete("/award/:id", async (req, res, next) => {
+  try {
+    //:id 값 가져오기
+    const id = req.params.id;
+
+    const award = await awardService.deleteAward({ id });
+
+    res.status(200).json(award);
+  } catch (error) {
+    next(error);
+  }
+});
 
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
-awardAuthRouter.get("/afterlogin", (req, res, next) => {
+awardAuthRouter.get("/afterlogin", (req, res) => {
   res
     .status(200)
     .send(

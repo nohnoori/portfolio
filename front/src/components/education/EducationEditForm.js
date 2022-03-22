@@ -4,20 +4,19 @@ import * as Api from "../../api";
 
 import { EducationsContext } from "./Educations";
 
-
 function EducationEditForm({ currentEducation, setIsEditing }) {
   const { setEducations } = useContext(EducationsContext);
   const [school, setSchool] = useState(currentEducation.school);
   const [major, setMajor] = useState(currentEducation.major);
   const [position, setPosition] = useState(currentEducation.position);
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const user_id = currentEducation.user_id;
+    const userId = currentEducation.user_id;
     // put 요청
-    await Api.put(`educations/${currentEducation.id}`, {
-      user_id,
+    await Api.put(`education/${currentEducation.id}`, {
+      user_id: userId,
       school,
       major,
       position,
@@ -26,12 +25,12 @@ function EducationEditForm({ currentEducation, setIsEditing }) {
     // ? 1. 수정된 정보 GET요청
     // ? 2. 수정된 정보 educations에 저장
     // ? 3. 편집 폼 종료
-    const res = await Api.get("educationlist", user_id);
+    const res = await Api.get("educations", userId);
     setEducations(res.data);
     setIsEditing(false);
   };
 
-  return(
+  return (
     <Form onSubmit={handleSubmit}>
       <Form.Group>
         <Form.Control
@@ -39,8 +38,7 @@ function EducationEditForm({ currentEducation, setIsEditing }) {
           placeholder="학교 명"
           value={school}
           onChange={(e) => setSchool(e.target.value)}
-        >
-        </Form.Control>
+        ></Form.Control>
       </Form.Group>
 
       <Form.Group className="mt-2">
@@ -49,12 +47,11 @@ function EducationEditForm({ currentEducation, setIsEditing }) {
           placeholder="전공 명"
           value={major}
           onChange={(e) => setMajor(e.target.value)}
-        >
-        </Form.Control>
+        ></Form.Control>
       </Form.Group>
 
       <div key={`inline-radio`} className="mb-3 mt-3">
-        <Form.Check 
+        <Form.Check
           inline
           label="재학중"
           id="radio1"
@@ -65,7 +62,7 @@ function EducationEditForm({ currentEducation, setIsEditing }) {
           onChange={(e) => setPosition(e.target.value)}
         />
 
-        <Form.Check 
+        <Form.Check
           inline
           label="학사졸업"
           id="radio2"
@@ -76,7 +73,7 @@ function EducationEditForm({ currentEducation, setIsEditing }) {
           onChange={(e) => setPosition(e.target.value)}
         />
 
-        <Form.Check 
+        <Form.Check
           inline
           label="석사졸업"
           id="radio3"
@@ -87,7 +84,7 @@ function EducationEditForm({ currentEducation, setIsEditing }) {
           onChange={(e) => setPosition(e.target.value)}
         />
 
-        <Form.Check 
+        <Form.Check
           inline
           label="박사졸업"
           id="radio4"
@@ -109,9 +106,8 @@ function EducationEditForm({ currentEducation, setIsEditing }) {
           </Button>
         </Col>
       </Form.Group>
-      
     </Form>
-  )
+  );
 }
 
 export default EducationEditForm;

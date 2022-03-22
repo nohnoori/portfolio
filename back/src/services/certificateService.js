@@ -1,12 +1,12 @@
-import { Certificate } from "../db"; 
+import { Certificate } from "../db";
 import { v4 as uuidv4 } from "uuid";
 
 class CertificateAuthService {
-  static async addCertificate({ user_id, title, description, when_date, }) {
+  static async addCertificate({ user_id, title, description, when_date }) {
     const id = uuidv4();
 
     const newCertificate = { id, user_id, title, description, when_date };
-    const createdNewCertificate = await Certificate.create({newCertificate});
+    const createdNewCertificate = await Certificate.create({ newCertificate });
 
     return createdNewCertificate;
   }
@@ -16,8 +16,7 @@ class CertificateAuthService {
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!certificate) {
-      const errorMessage =
-        "해당 자격증이 없습니다. 다시 한 번 확인해 주세요.";
+      const errorMessage = "해당 자격증이 없습니다. 다시 한 번 확인해 주세요.";
       return { errorMessage };
     }
 
@@ -30,8 +29,7 @@ class CertificateAuthService {
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!certificate) {
-      const errorMessage =
-        "해당 자격증이 없습니다. 다시 한 번 확인해 주세요.";
+      const errorMessage = "해당 자격증이 없습니다. 다시 한 번 확인해 주세요.";
       return { errorMessage };
     }
 
@@ -60,6 +58,11 @@ class CertificateAuthService {
   static async getCertificateList({ user_id }) {
     const certificateList = await Certificate.findByUserId({ user_id });
     return certificateList;
+  }
+
+  static async deleteCertificate({ id }) {
+    const certificate = await Certificate.delete({ id });
+    return certificate;
   }
 }
 

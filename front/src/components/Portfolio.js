@@ -5,7 +5,7 @@ import { Container, Col, Row } from "react-bootstrap";
 import { UserStateContext } from "../App";
 import * as Api from "../api";
 import User from "./user/User";
-import Certificate from "./certificate/Certificates"
+import Certificate from "./certificate/Certificates";
 
 import Projects from "./project/Projects";
 import Award from "./award/Awards";
@@ -59,33 +59,33 @@ function Portfolio() {
   return (
     <Container fluid>
       <Row>
-        <Col md="3" lg="3" mb="3">
+        <Col md="3" lg="3">
           <User
             portfolioOwnerId={portfolioOwner.id}
             isEditable={portfolioOwner.id === userState.user?.id}
           />
         </Col>
         <Col>
-          <Row className = "mb-3">
-            <Education 
+          <Row className="mb-3">
+            <Education
               portfolioOwnerId={portfolioOwner.id}
               isEditable={portfolioOwner.id === userState.user?.id}
             />
           </Row>
-          <Row className = "mb-3">
-            <Award 
+          <Row className="mb-3">
+            <Award
               portfolioOwnerId={portfolioOwner.id}
               isEditable={portfolioOwner.id === userState.user?.id}
             />
           </Row>
-          <Row className = "mb-3">
+          <Row className="mb-3">
             <Projects
-              portfolioOwnerId={portfolioOwner.id} 
+              portfolioOwnerId={portfolioOwner.id}
               isEditable={portfolioOwner.id === userState.user?.id}
             />
           </Row>
-          <Row className = "mb-3">
-            <Certificate 
+          <Row className="mb-3">
+            <Certificate
               portfolioOwnerId={portfolioOwner.id}
               isEditable={portfolioOwner.id === userState.user?.id}
             />
