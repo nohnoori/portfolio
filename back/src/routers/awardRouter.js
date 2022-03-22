@@ -37,7 +37,7 @@ awardAuthRouter.post("/award", async (req, res, next) => {
 });
 
 //award 조회 API
-awardAuthRouter.get("/awards/:id", async (req, res, next) => {
+awardAuthRouter.get("/award/:id", async (req, res, next) => {
   try {
     //:id 값 가져오기
     const id = req.params.id;
@@ -73,7 +73,7 @@ awardAuthRouter.get("/awards/:user_id", async (req, res, next) => {
 });
 
 //award 수정 API
-awardAuthRouter.put("/awards/:id", async (req, res, next) => {
+awardAuthRouter.put("/award/:id", async (req, res, next) => {
   try {
     //:id 값 가져오기
     const id = req.params.id;
@@ -99,7 +99,7 @@ awardAuthRouter.put("/awards/:id", async (req, res, next) => {
 });
 
 //award 삭제
-awardAuthRouter.delete("/awards/:id", async (req, res, next) => {
+awardAuthRouter.delete("/award/:id", async (req, res, next) => {
   try {
     //:id 값 가져오기
     const id = req.params.id;
