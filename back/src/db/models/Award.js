@@ -9,7 +9,7 @@ class Award {
     const award = await AwardModel.findOne({ id });
     return award;
   }
-  static async findByuserId({ user_id }) {
+  static async findByUserId({ user_id }) {
     const awards = await AwardModel.find({ user_id });
     return awards;
   }
