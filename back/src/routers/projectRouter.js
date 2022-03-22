@@ -82,13 +82,7 @@ projectAuthRouter.put("/project/:id", async (req, res, next) => {
     //:id 값 가져오기
     const id = req.params.id;
 
-    //req.body 값 가져오기
-    const title = req.body.title ?? null;
-    const description = req.body.description ?? null;
-    const from_date = req.body.from_date ?? null;
-    const to_date = req.body.to_date ?? null;
-
-    const toUpdate = { title, description, from_date, to_date };
+    const toUpdate = { ...req.body };
 
     // 해당 프로젝트 정보 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
     const updatedProject = await projectService.setProject({ id, toUpdate });
