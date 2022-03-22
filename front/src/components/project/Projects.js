@@ -22,9 +22,7 @@ function Projects({ isEditable, portfolioOwnerId }) {
   const [isAdding, setIsAdding] = useState(false); // 추가 폼이 보이는지 여부
 
   useEffect(() => {
-    Api.get("projectlist", portfolioOwnerId).then((res) =>
-      setProjects(res.data)
-    );
+    Api.get("projects", portfolioOwnerId).then((res) => setProjects(res.data));
   }, [portfolioOwnerId]);
 
   return (
@@ -37,6 +35,7 @@ function Projects({ isEditable, portfolioOwnerId }) {
               key={project.id}
               project={project}
               isEditable={isEditable}
+              portfolioOwnerId={portfolioOwnerId}
             />
           ))}
 
@@ -53,7 +52,6 @@ function Projects({ isEditable, portfolioOwnerId }) {
           {isAdding && (
             <ProjectAddForm
               portfolioOwnerId={portfolioOwnerId}
-              setProjects={setProjects}
               setIsAdding={setIsAdding} // 추가 폼을 닫을 때 setIsAdding을 false로 변경하기 위해 전달
             />
           )}
