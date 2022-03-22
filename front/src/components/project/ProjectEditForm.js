@@ -26,7 +26,7 @@ function ProjectEditForm({ currentProject, setIsEditing }) {
 
     const userId = currentProject.user_id;
 
-    await Api.put(`projects/${currentProject.id}`, {
+    await Api.put(`project/${currentProject.id}`, {
       user_id: userId,
       title,
       description,
@@ -37,7 +37,7 @@ function ProjectEditForm({ currentProject, setIsEditing }) {
     // ? 1. 수정된 정보 GET요청
     // ? 2. 수정된 정보 projects에 저장
     // ? 3. 편집 폼 종료
-    const res = await Api.get("projectlist", userId);
+    const res = await Api.get("projects", userId);
     setProjects(res.data);
     setIsEditing(false);
   };

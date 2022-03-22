@@ -22,9 +22,7 @@ function Projects({ isEditable, portfolioOwnerId }) {
   const [isAdding, setIsAdding] = useState(false); // 추가 폼이 보이는지 여부
 
   useEffect(() => {
-    Api.get("projectlist", portfolioOwnerId).then((res) =>
-      setProjects(res.data)
-    );
+    Api.get("projects", portfolioOwnerId).then((res) => setProjects(res.data));
   }, [portfolioOwnerId]);
 
   return (

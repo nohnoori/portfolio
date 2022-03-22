@@ -24,7 +24,7 @@ function ProjectAddForm({ portfolioOwnerId, setIsAdding }) {
 
     const userId = portfolioOwnerId;
 
-    await Api.post("project/create", {
+    await Api.post("projects", {
       user_id: userId,
       title,
       description,
@@ -32,7 +32,7 @@ function ProjectAddForm({ portfolioOwnerId, setIsAdding }) {
       to_date: endDate,
     });
 
-    const res = await Api.get("projectlist", userId);
+    const res = await Api.get("projects", userId);
     setProjects(res.data);
     setIsAdding(false);
   };
