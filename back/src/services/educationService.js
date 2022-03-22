@@ -59,6 +59,11 @@ class EducationAuthService {
     const educationList = await Education.findByUserId({ user_id });
     return educationList;
   }
+
+  static async deleteEducation({ id }) {
+    const education = await Education.delete({ id });
+    return education;
+  }
 }
 
 export { EducationAuthService };

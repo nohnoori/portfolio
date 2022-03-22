@@ -41,7 +41,7 @@ projectAuthRouter.post("/project", async (req, res, next) => {
 });
 
 //project 조회 API
-projectAuthRouter.get("/projects/:id", async (req, res, next) => {
+projectAuthRouter.get("/project/:id", async (req, res, next) => {
   try {
     //:id 값 가져오기
     const id = req.params.id;
@@ -77,7 +77,7 @@ projectAuthRouter.get("/projects/:user_id", async (req, res, next) => {
 });
 
 //project 수정 API
-projectAuthRouter.put("/projects/:id", async (req, res, next) => {
+projectAuthRouter.put("/project/:id", async (req, res, next) => {
   try {
     //:id 값 가져오기
     const id = req.params.id;
@@ -104,7 +104,7 @@ projectAuthRouter.put("/projects/:id", async (req, res, next) => {
 });
 
 //project 삭제
-projectAuthRouter.delete("/projects/:id", async (req, res, next) => {
+projectAuthRouter.delete("/project/:id", async (req, res, next) => {
   try {
     //:id 값 가져오기
     const id = req.params.id;
