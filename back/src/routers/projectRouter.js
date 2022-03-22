@@ -62,7 +62,7 @@ projectAuthRouter.get("/projects/:id", async (req, res, next) => {
 });
 
 //project 목록 조회 API
-projectAuthRouter.get("/projectlist/:user_id", async (req, res, next) => {
+projectAuthRouter.get("/projects/:user_id", async (req, res, next) => {
   try {
     //:user_id 값 가져오기
     const user_id = req.params.user_id;
