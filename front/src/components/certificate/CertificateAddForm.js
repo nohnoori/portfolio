@@ -20,14 +20,15 @@ function CertificateAddForm({
 
     const userId = portfolioOwnerId;
 
-    await Api.post("certificate/create", {
+    await Api.post("certificate", {
+      // certificate/create
       user_id: userId,
       title,
       description,
       when_date: whenDate,
     });
 
-    const res = await Api.get("certificatelist", userId);
+    const res = await Api.get("certificates", userId); // certificatelist
     setCertificates(res.data);
     setIsAdding(false);
   };

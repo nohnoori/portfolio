@@ -10,28 +10,27 @@ function CertificateEditForm({
   setCertificates,
   setIsEditing,
 }) {
-  // let date = certificate.when_date.substring(0, 10); // 추가
-  // let setDate = certificate.setWhen_date.substring(0, 10) // 추가
   const [title, setTitle] = useState(currentCertificate.title);
   const [description, setDescription] = useState(
     currentCertificate.description
   );
   const [whenDate, setWhenDate] = useState(
     new Date(currentCertificate.when_date)
-  ); // 여긴...
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const userId = currentCertificate.user_id;
-    await Api.put(`certificates/${currentCertificate.id}`, {
+    await Api.put(`certificate/${currentCertificate.id}`, {
+      // certificates
       user_id: userId,
       title,
       description,
-      when_date: whenDate, // 여기
+      when_date: whenDate,
     });
 
-    const res = await Api.get("certificatelist", userId);
+    const res = await Api.get("certificates", userId); // certificatelist
     setCertificates(res.data);
     setIsEditing(false);
   };
@@ -57,8 +56,8 @@ function CertificateEditForm({
       </Form.Group>
       <Form.Group className="mt-3">
         <DatePicker
-          selected={whenDate} // 여기
-          onChange={(date) => setWhenDate(date)} // 여기
+          selected={whenDate}
+          onChange={(date) => setWhenDate(date)}
         />
       </Form.Group>
 
