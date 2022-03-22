@@ -35,6 +35,7 @@ function Projects({ isEditable, portfolioOwnerId }) {
               key={project.id}
               project={project}
               isEditable={isEditable}
+              portfolioOwnerId={portfolioOwnerId}
             />
           ))}
 

@@ -1,20 +1,27 @@
 import { Card, Button, Row, Col, Modal } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import * as Api from "../../api";
 // 하위 컴포넌트
 import ProjectEditForm from "./ProjectEditForm";
+import { ProjectsContext } from "./Projects";
 
 // ? 편집 버튼 클릭 시 isEditing의 값이 반대로 바뀜 (true <-> false)
 // ? : default가 false라 true로 바뀌면서 Card 컴포넌트가 사라지고 편집 폼이 나타남
 
-function ProjectCard({ project, isEditable }) {
+function ProjectCard({ project, isEditable, portfolioOwnerId }) {
+  const { setProjects } = useContext(ProjectsContext);
   const [isEditing, setIsEditing] = useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const userId = portfolioOwnerId;
+
   const handleDelete = async () => {
-    await Api.delete(`projects/${project.id}`);
+    await Api.delete(`project/${project.id}`);
+
+    const res = await Api.get("projects", userId);
+    setProjects(res.data);
   };
 
   return (
