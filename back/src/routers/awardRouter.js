@@ -78,12 +78,8 @@ awardAuthRouter.put("/award/:id", async (req, res, next) => {
     //:id 값 가져오기
     const id = req.params.id;
 
-    // req (request) 에서 데이터 가져오기
-    // undefined인 경우 null 대체
-    const title = req.body.title ?? null;
-    const description = req.body.description ?? null;
-
-    const toUpdate = { title, description };
+    //req.body 값 spread
+    const toUpdate = { ...req.body };
 
     // 해당 수상 정보 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
     const updatedAward = await awardService.setAward({ id, toUpdate });
