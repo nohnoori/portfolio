@@ -99,7 +99,7 @@ awardAuthRouter.put("/awards/:id", async (req, res, next) => {
 });
 
 //award 삭제
-awardAuthRouter.delete("/award/:id", async (req, res, next) => {
+awardAuthRouter.delete("/awards/:id", async (req, res, next) => {
   try {
     //:id 값 가져오기
     const id = req.params.id;
