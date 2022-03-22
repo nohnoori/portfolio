@@ -1,4 +1,4 @@
-import { Card, Button, Row, Col } from "react-bootstrap";
+import { Card, Button, Row, Col, Modal } from "react-bootstrap";
 import { useState } from "react";
 import * as Api from "../../api";
 // 하위 컴포넌트
@@ -9,6 +9,9 @@ import ProjectEditForm from "./ProjectEditForm";
 
 function ProjectCard({ project, isEditable }) {
   const [isEditing, setIsEditing] = useState(false);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const handleDelete = async () => {
     await Api.delete(`projects/${project.id}`);
@@ -47,14 +50,38 @@ function ProjectCard({ project, isEditable }) {
                 <Button
                   variant="outline-danger"
                   size="sm"
-                  onClick={() => {
-                    alert("정말로 삭제하시겠습니까?");
-                    handleDelete();
-                  }}
+                  onClick={() => handleShow()}
                   className="mr-3"
                 >
                   삭제
                 </Button>
+                <Modal
+                  show={show}
+                  onHide={handleClose}
+                  backdrop="static"
+                  keyboard={false}
+                >
+                  <Modal.Header closeButton>
+                    <strong>정말 삭제하시겠습니까?</strong>
+                  </Modal.Header>
+                  <Modal.Body>
+                    삭제를 하시는 경우 복구가 불가능합니다.
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button
+                      variant="danger"
+                      onClick={() => {
+                        handleDelete();
+                        handleClose();
+                      }}
+                    >
+                      삭제
+                    </Button>
+                    <Button variant="secondary" onClick={handleClose}>
+                      취소
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
               </>
             )}
           </Col>
