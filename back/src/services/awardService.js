@@ -30,6 +30,12 @@ class awardService {
   //award 목록 조회
   static async getAwards({ user_id }) {
     const awards = await Award.findByuserId({ user_id });
+
+    if (!awards) {
+      const errorMessage = "해당 유저는 존재하지 않습니다.";
+      return { errorMessage };
+    }
+
     return awards;
   }
 
