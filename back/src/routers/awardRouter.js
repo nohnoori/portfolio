@@ -58,7 +58,7 @@ awardAuthRouter.get("/awards/:id", async (req, res, next) => {
 });
 
 //award 목록 조회 API
-awardAuthRouter.get("/awardlist/:user_id", async (req, res, next) => {
+awardAuthRouter.get("/awards/:user_id", async (req, res, next) => {
   try {
     //:user_id 값 가져오기
     const user_id = req.params.user_id;
