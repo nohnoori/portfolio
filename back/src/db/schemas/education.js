@@ -16,7 +16,7 @@ const EducationSchema = new Schema(
     },
     major: {
       type: String,
-      required: true,
+      required: false,
     },
     position: {
       type: String,
