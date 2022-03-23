@@ -15,9 +15,10 @@ function Certificate({ certificate, setCertificates, isEditable }) {
       ) : (
         <CertificateCard
           certificate={certificate}
-          // setCertificates={setCertificates}
           isEditable={isEditable}
+          setCertificates={setCertificates}
           setIsEditing={setIsEditing}
+          currentCertificate={certificate}
         />
       )}
     </>

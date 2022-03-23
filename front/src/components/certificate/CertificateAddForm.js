@@ -27,7 +27,7 @@ function CertificateAddForm({
       when_date: whenDate,
     });
 
-    const res = await Api.get("certificates", userId); // certificatelist
+    const res = await Api.get("certificates", userId);
     setCertificates(res.data);
     setIsAdding(false);
   };
