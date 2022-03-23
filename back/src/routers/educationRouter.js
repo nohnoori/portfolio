@@ -20,6 +20,7 @@ educationAuthRouter.post("/education", async (req, res, next) => {
     const school = req.body.school;
     const major = req.body.major;
     const position = req.body.position;
+    const schoolLevel = req.body.schoolLevel;
 
     // 위 데이터를 Education db에 추가하기
     const newEducation = await EducationAuthService.addEducation({
@@ -27,6 +28,7 @@ educationAuthRouter.post("/education", async (req, res, next) => {
       school,
       major,
       position,
+      schoolLevel,
     });
 
     if (newEducation.errorMessage) {
