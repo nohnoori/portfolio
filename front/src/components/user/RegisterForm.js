@@ -7,6 +7,8 @@ import * as Api from "../../api";
 function RegisterForm() {
   const navigate = useNavigate();
 
+  // 유저/회사 구분하기 위한 classifier 상태 생성
+  const [classifier, setClassifier] = useState("");
   //useState로 email 상태를 생성함.
   const [email, setEmail] = useState("");
   //useState로 password 상태를 생성함.
@@ -40,19 +42,22 @@ function RegisterForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (classifier === "user") {
+      try {
+        // "user/register" 엔드포인트로 post요청함.
+        await Api.post("user/register", {
+          email,
+          password,
+          name,
+        });
 
-    try {
-      // "user/register" 엔드포인트로 post요청함.
-      await Api.post("user/register", {
-        email,
-        password,
-        name,
-      });
-
-      // 로그인 페이지로 이동함.
-      navigate("/login");
-    } catch (err) {
-      console.log("회원가입에 실패하였습니다.", err);
+        // 로그인 페이지로 이동함.
+        navigate("/login");
+      } catch (err) {
+        console.log("회원가입에 실패하였습니다.", err);
+      }
+    } else {
+      alert("회사 로그인은 아직 미구현입니다.");
     }
   };
 
@@ -61,6 +66,27 @@ function RegisterForm() {
       <Row className="justify-content-md-center mt-5">
         <Col lg={8}>
           <Form onSubmit={handleSubmit}>
+            <div key={`inline-radio`} className="mb-3">
+              <Form.Check
+                inline
+                type="radio"
+                id="user"
+                label="유저"
+                value="user"
+                checked={classifier === "user"}
+                onChange={(e) => setClassifier(e.target.value)}
+              />
+              <Form.Check
+                inline
+                type="radio"
+                id="company"
+                label="회사"
+                value="company"
+                checked={classifier === "company"}
+                onChange={(e) => setClassifier(e.target.value)}
+              />
+            </div>
+
             <Form.Group controlId="registerEmail">
               <Form.Label>이메일 주소</Form.Label>
               <Form.Control
