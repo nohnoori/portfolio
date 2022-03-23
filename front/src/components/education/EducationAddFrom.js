@@ -21,6 +21,7 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId }) {
       school,
       major,
       position,
+      schoolLevel,
     });
 
     const res = await Api.get("educations", userId);

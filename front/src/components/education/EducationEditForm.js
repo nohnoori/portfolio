@@ -6,7 +6,7 @@ import { EducationsContext } from "./Educations";
 
 function EducationEditForm({ currentEducation, setIsEditing }) {
   const { setEducations } = useContext(EducationsContext);
-  const [schoolLevel, setSchoolLevel] = useState("고등학교");
+  const [schoolLevel, setSchoolLevel] = useState(currentEducation.schoolLevel);
   const [school, setSchool] = useState(currentEducation.school);
   const [major, setMajor] = useState(currentEducation.major);
   const [position, setPosition] = useState(currentEducation.position);
@@ -27,6 +27,7 @@ function EducationEditForm({ currentEducation, setIsEditing }) {
       school,
       major,
       position,
+      schoolLevel,
     });
 
     // ? 1. 수정된 정보 GET요청
