@@ -33,7 +33,7 @@ function ProjectCard({ project, isEditable, portfolioOwnerId }) {
             setIsEditing={setIsEditing}
           />
         ) : (
-          <Col>
+          <Col className="mb-4">
             <div>{project.title}</div>
             <div>{project.description}</div>
             <div>
