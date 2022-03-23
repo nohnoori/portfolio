@@ -35,6 +35,7 @@ careerAuthRouter.post("/career", async (req, res, next) => {
   }
 });
 
+//career 상세 조회 API
 careerAuthRouter.get("/career/:id", async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -48,6 +49,23 @@ careerAuthRouter.get("/career/:id", async (req, res, next) => {
     }
 
     res.status(200).json(career);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//career 목록 조회 API
+careerAuthRouter.get("/careers/:user_id", async (req, res, next) => {
+  try {
+    const user_id = req.params.user_id;
+
+    const careers = await CareerAuthService.getCareers({ user_id });
+
+    if (careers.errorMessage) {
+      throw new Error(careers.errorMessage);
+    }
+
+    res.status(200).json(careers);
   } catch (error) {
     next(error);
   }

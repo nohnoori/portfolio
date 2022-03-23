@@ -9,6 +9,10 @@ class Career {
     const career = await CareerModel.findOne({ id });
     return career;
   }
+  static async findByUserId({ user_id }) {
+    const career = await CareerModel.find({ user_id });
+    return career;
+  }
 }
 
 export { Career };
