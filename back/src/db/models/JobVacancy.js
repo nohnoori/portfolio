@@ -5,6 +5,10 @@ class JobVacancy {
     const createdNewJobVacancy = await JobVacancyModel.create(newJobVacancy);
     return createdNewJobVacancy;
   }
+  static async findAll() {
+    const jobVacancies = await JobVacancyModel.find({});
+    return jobVacancies;
+  }
 }
 
 export { JobVacancy };

@@ -6,6 +6,7 @@ import is from "@sindresorhus/is";
 const jobVacancyAuthRouter = Router();
 jobVacancyAuthRouter.use(login_required);
 
+//jobVacancy 추가 API
 jobVacancyAuthRouter.post("/jobVacancy", async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
@@ -33,6 +34,17 @@ jobVacancyAuthRouter.post("/jobVacancy", async (req, res, next) => {
     }
 
     res.status(200).json(newJobVacancy);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//jobVacancy 전체 조회 API
+jobVacancyAuthRouter.get("/jobVacancies", async (req, res, next) => {
+  try {
+    const jobVacancies = await JobVacancyAuthService.getAll();
+
+    res.status(200).json(jobVacancies);
   } catch (error) {
     next(error);
   }

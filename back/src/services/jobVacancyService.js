@@ -13,5 +13,11 @@ class JobVacancyAuthService {
 
     return createdNewJobVacancy;
   }
+
+  //jobVacancy 전체 조회
+  static async getAll() {
+    const jobVacancies = await JobVacancy.findAll();
+    return jobVacancies;
+  }
 }
 export { JobVacancyAuthService };
