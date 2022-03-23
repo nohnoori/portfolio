@@ -71,6 +71,12 @@ class CareerAuthService {
 
     return career;
   }
+
+  //career 삭제
+  static async deleteCareer({ id }) {
+    const career = await Career.delete({ id });
+    return career;
+  }
 }
 
 export { CareerAuthService };

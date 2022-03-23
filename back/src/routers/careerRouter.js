@@ -94,6 +94,19 @@ careerAuthRouter.put("/career/:id", async (req, res, next) => {
   }
 });
 
+//career 삭제 API
+careerAuthRouter.delete("/career/:id", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    const deletedCareer = await CareerAuthService.deleteCareer({ id });
+
+    res.status(200).json(deletedCareer);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
 careerAuthRouter.get("/afterlogin", (req, res) => {
   res

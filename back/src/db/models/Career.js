@@ -25,6 +25,10 @@ class Career {
     );
     return updatedCareer;
   }
+  static async delete({ id }) {
+    const deletedCareer = await CareerModel.deleteOne({ id });
+    return deletedCareer;
+  }
 }
 
 export { Career };
