@@ -19,7 +19,7 @@ function CertificateCard({ certificate, isEditable, setIsEditing }) {
           <span>{date}</span>
         </Col>
         {isEditable && (
-          <Col xs="auto">
+          <Col xs lg="2">
             <Button
               variant="outline-info"
               size="sm"
@@ -47,7 +47,12 @@ function CertificateCard({ certificate, isEditable, setIsEditing }) {
               </Modal.Header>
               <Modal.Body>삭제를 하시는 경우 복구가 불가능합니다.</Modal.Body>
               <Modal.Footer>
-                <Button variant="danger" onClick={handleClose}>
+                <Button
+                  variant="danger"
+                  onClick={() => {
+                    handleClose();
+                  }}
+                >
                   삭제
                 </Button>
                 <Button variant="secondary" onClick={handleClose}>
