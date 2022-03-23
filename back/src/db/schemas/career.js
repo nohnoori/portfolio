@@ -6,25 +6,17 @@ const CareerSchema = new Schema(
       type: String,
       required: true,
     },
-    company_id: {
+    user_id: {
       type: String,
       required: true,
     },
-    jobname: {
+    title: {
       type: String,
       required: true,
     },
     description: {
       type: String,
       required: true,
-    },
-    tags: {
-      type: [String],
-      required: true,
-    },
-    open: {
-      type: Boolean,
-      required: false,
     },
   },
   {

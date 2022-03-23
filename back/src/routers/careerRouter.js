@@ -15,18 +15,14 @@ careerAuthRouter.post("/career", async (req, res, next) => {
       );
     }
 
-    const company_id = req.body.company_id;
-    const jobname = req.body.jobname;
+    const user_id = req.body.user_id;
+    const title = req.body.title;
     const description = req.body.description;
-    const tags = req.body.tags;
-    const open = req.body.open;
 
     const newCareer = await CareerAuthService.addCareer({
-      company_id,
-      jobname,
+      user_id,
+      title,
       description,
-      tags,
-      open,
     });
 
     if (newCareer.errorMessage) {

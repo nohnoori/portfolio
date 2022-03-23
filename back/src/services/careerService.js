@@ -3,14 +3,17 @@ import { Career } from "../db/models/Career";
 
 class CareerAuthService {
   //career 추가
-  static async addCareer({ company_id, jobname, description, tags, open }) {
+  static async addCareer({ user_id, title, description }) {
     const id = uuidv4();
-    const newCareer = { id, company_id, jobname, description, tags, open };
+    const newCareer = { id, user_id, title, description };
 
     //db에 저장
     const createdNewCareer = await Career.create({ newCareer });
     return createdNewCareer;
   }
+
+  //career 상세 조회
+  static async;
 }
 
 export { CareerAuthService };
