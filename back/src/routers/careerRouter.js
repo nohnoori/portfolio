@@ -35,6 +35,24 @@ careerAuthRouter.post("/career", async (req, res, next) => {
   }
 });
 
+careerAuthRouter.get("/career/:id", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    const career = await CareerAuthService.getCareer({
+      id,
+    });
+
+    if (career.errorMessage) {
+      throw new Error(career.errorMessage);
+    }
+
+    res.status(200).json(career);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
 careerAuthRouter.get("/afterlogin", (req, res) => {
   res

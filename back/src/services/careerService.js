@@ -13,7 +13,16 @@ class CareerAuthService {
   }
 
   //career 상세 조회
-  static async;
+  static async getCareer({ id }) {
+    const career = await Career.findById({ id });
+
+    if (!career) {
+      const errorMessage = "해당 글은 존재하지 않습니다.";
+      return { errorMessage };
+    }
+
+    return career;
+  }
 }
 
 export { CareerAuthService };
