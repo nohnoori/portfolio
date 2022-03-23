@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 
-function AwardAddForm({ setIsAdding, setAward, portfolioOwnerId }) {
+function AwardAddForm({ setIsAdding, setAwards, portfolioOwnerId }) {
   // 수상 내역
   const [title, setTitle] = useState("");
   // 상세 내역
@@ -11,18 +11,18 @@ function AwardAddForm({ setIsAdding, setAward, portfolioOwnerId }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // user_id는 현재 사용자의 portfolioOwnerId.
-    const user_id = portfolioOwnerId;
+    const userId = portfolioOwnerId;
 
     // "award/create" 엔드포인트로 post요청함.
-    await Api.post("award/create", {
-      user_id,
+    await Api.post("award", {
+      user_id: userId,
       title,
       description,
     });
 
     // 유저 id를 가지고 "awardlist/유저id" 엔드포인트로 요청해 사용자 정보를 불러옴.
     // 가져온 사용자 정보를 award에 넣음.
-    await Api.get("awardlist", user_id).then((res) => setAward(res.data));
+    await Api.get("awards", userId).then((res) => setAwards(res.data));
 
     // award 편집 끝!
     setIsAdding(false);
@@ -34,14 +34,14 @@ function AwardAddForm({ setIsAdding, setAward, portfolioOwnerId }) {
           className="mb-2"
           type="title"
           placeholder="수상 내역"
-          value={title || ""}
+          value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
         <Form.Control
           className="mb-2"
           type="description"
           placeholder="상세 내역"
-          value={description || ""}
+          value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
       </Form.Group>

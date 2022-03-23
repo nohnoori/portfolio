@@ -8,7 +8,7 @@ import User from "./user/User";
 import Certificate from "./certificate/Certificates";
 
 import Projects from "./project/Projects";
-import Award from "./award/Awards";
+import Awards from "./award/Awards";
 import Education from "./education/Educations";
 
 function Portfolio() {
@@ -73,7 +73,7 @@ function Portfolio() {
             />
           </Row>
           <Row className="mb-3">
-            <Award
+            <Awards
               portfolioOwnerId={portfolioOwner.id}
               isEditable={portfolioOwner.id === userState.user?.id}
             />
