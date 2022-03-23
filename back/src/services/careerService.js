@@ -3,9 +3,9 @@ import { Career } from "../db/models/Career";
 
 class CareerAuthService {
   //career 추가
-  static async addCareer({ user_id, title, description }) {
+  static async addCareer({ user_id, title, description, from_date, to_date }) {
     const id = uuidv4();
-    const newCareer = { id, user_id, title, description };
+    const newCareer = { id, user_id, title, description, from_date, to_date };
 
     //db에 저장
     const createdNewCareer = await Career.create({ newCareer });
@@ -41,7 +41,7 @@ class CareerAuthService {
     let career = await Career.findById({ id });
 
     if (!career) {
-      const errorMessage = "경력 내역이 없습니다.";
+      const errorMessage = "해당 글은 존재하지 않습니다.";
       return { errorMessage };
     }
 
@@ -54,6 +54,18 @@ class CareerAuthService {
     if (toUpdate.description) {
       const fieldToUpdate = "description";
       const newValue = toUpdate.description;
+      career = await Career.update({ id, fieldToUpdate, newValue });
+    }
+
+    if (toUpdate.from_date) {
+      const fieldToUpdate = "from_date";
+      const newValue = toUpdate.from_date;
+      career = await Career.update({ id, fieldToUpdate, newValue });
+    }
+
+    if (toUpdate.to_date) {
+      const fieldToUpdate = "to_date";
+      const newValue = toUpdate.to_date;
       career = await Career.update({ id, fieldToUpdate, newValue });
     }
 

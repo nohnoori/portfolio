@@ -19,6 +19,14 @@ const CareerSchema = new Schema(
       required: false,
       default: "설명이 아직 없습니다. 추가해 주세요.",
     },
+    from_date: {
+      type: String,
+      required: true,
+    },
+    to_date: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

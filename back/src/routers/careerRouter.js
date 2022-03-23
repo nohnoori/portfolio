@@ -18,11 +18,15 @@ careerAuthRouter.post("/career", async (req, res, next) => {
     const user_id = req.body.user_id;
     const title = req.body.title;
     const description = req.body.description;
+    const from_date = req.body.from_date;
+    const to_date = req.body.to_date;
 
     const newCareer = await CareerAuthService.addCareer({
       user_id,
       title,
       description,
+      from_date,
+      to_date,
     });
 
     if (newCareer.errorMessage) {
