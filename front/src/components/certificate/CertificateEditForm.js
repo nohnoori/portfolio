@@ -23,14 +23,13 @@ function CertificateEditForm({
 
     const userId = currentCertificate.user_id;
     await Api.put(`certificate/${currentCertificate.id}`, {
-      // certificates
       user_id: userId,
       title,
       description,
       when_date: whenDate,
     });
 
-    const res = await Api.get("certificates", userId); // certificatelist
+    const res = await Api.get("certificates", userId);
     setCertificates(res.data);
     setIsEditing(false);
   };
