@@ -6,7 +6,7 @@ import { EducationsContext } from "./Educations";
 
 function EducationAddForm({ setIsAdding, portfolioOwnerId }) {
   const { setEducations } = useContext(EducationsContext);
-  const [level, setLevel] = useState("고등학교");
+  const [schoolLevel, setSchoolLevel] = useState("고등학교");
   const [school, setSchool] = useState("");
   const [major, setMajor] = useState("");
   const [position, setPosition] = useState("재학중");
@@ -40,8 +40,8 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId }) {
           type="checkbox"
           name="level"
           value="고등학교"
-          checked={level === "고등학교"}
-          onChange={(e) => setLevel(e.target.value)}
+          checked={schoolLevel === "고등학교"}
+          onChange={(e) => setSchoolLevel(e.target.value)}
         />
 
         <Form.Check
@@ -51,12 +51,12 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId }) {
           type="checkbox"
           name="level"
           value="대학교/대학원"
-          checked={level === "대학교/대학원"}
-          onChange={(e) => setLevel(e.target.value)}
+          checked={schoolLevel === "대학교/대학원"}
+          onChange={(e) => setSchoolLevel(e.target.value)}
         />
       </div>
 
-      {level === "고등학교" && (
+      {schoolLevel === "고등학교" && (
         <>
           <Form.Group className="mb-2">
             <Form.Control
@@ -92,7 +92,7 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId }) {
           </div>
         </>
       )}
-      {level === "대학교/대학원" && (
+      {schoolLevel === "대학교/대학원" && (
         <>
           <Form.Group>
             <Form.Control
