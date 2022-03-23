@@ -5,6 +5,8 @@ import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import * as Api from "../../api";
 import { DispatchContext } from "../../App";
 
+import "../../index.css";
+
 function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
@@ -60,9 +62,25 @@ function LoginForm() {
   };
 
   return (
-    <Container>
+    <Container style={{ marginTop: "100px" }}>
       <Row className="justify-content-md-center mt-5">
-        <Col lg={8}>
+        <Col lg={5}>
+          <div id="loginTitle">
+            <h1
+              style={{
+                fontSize: "50px",
+                fontWeight: "bolder",
+                color: "#191c1f",
+              }}
+            >
+              <div>Portfolio</div>
+              <div>Share-Service</div>
+            </h1>
+            <div>Welcome Team 11's service</div>
+          </div>
+        </Col>
+
+        <Col lg={6}>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="loginEmail">
               <Form.Label>이메일 주소</Form.Label>
