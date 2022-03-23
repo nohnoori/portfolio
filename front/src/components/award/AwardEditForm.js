@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 
-function AwardEditForm({ currentAward, setIsEditing, setAward }) {
+function AwardEditForm({ currentAward, setIsEditing, setAwards }) {
   // 상 이름
   const [title, setTitle] = useState(currentAward.title);
   // 상 내용
@@ -10,16 +10,16 @@ function AwardEditForm({ currentAward, setIsEditing, setAward }) {
 
   // "awards/유저id" 엔드포인트로 PUT 요청함.
   const handleSubmit = async (e) => {
-    const user_id = currentAward.user_id;
+    const userId = currentAward.user_id;
     e.preventDefault();
-    await Api.put(`awards/${currentAward.id}`, {
-      user_id,
+    await Api.put(`award/${currentAward.id}`, {
+      user_id: userId,
       title,
       description,
     });
 
-    const res = await Api.get("awardlist", user_id);
-    setAward(res.data);
+    const res = await Api.get("awards", userId);
+    setAwards(res.data);
     // award 편집 끝!
     setIsEditing(false);
   };

@@ -13,13 +13,13 @@ import AwardCard from "./AwardCard";
 
 function Awards({ isEditable, portfolioOwnerId }) {
   // award 정보
-  const [award, setAward] = useState([]);
+  const [awards, setAwards] = useState([]);
   //award 추가
   const [isAdding, setIsAdding] = useState(false);
 
   useEffect(() => {
     // "awardlist/유저id" 엔드포인트로 GET 요청을 하고, award를 response의 data로 세팅함.
-    Api.get("awardlist", portfolioOwnerId).then((res) => setAward(res.data));
+    Api.get("awards", portfolioOwnerId).then((res) => setAwards(res.data));
   }, [portfolioOwnerId]);
 
   return (
@@ -27,13 +27,13 @@ function Awards({ isEditable, portfolioOwnerId }) {
       <Card.Body>
         <Card.Title className="mb-3">수상 이력</Card.Title>
         {/* map을 사용하여 award 컴포넌트 반복 */}
-        {award.map((currentAward) => (
+        {awards.map((currentAward) => (
           <AwardCard
             // AwardCard 컴포넌트로 정보전달
             key={currentAward.id}
             currentAward={currentAward}
             isEditable={isEditable}
-            setAward={setAward}
+            setAwards={setAwards}
           />
         ))}
 
@@ -48,7 +48,7 @@ function Awards({ isEditable, portfolioOwnerId }) {
         {isAdding && (
           <AwardAddForm
             setIsAdding={setIsAdding}
-            setAward={setAward}
+            setAwards={setAwards}
             portfolioOwnerId={portfolioOwnerId}
           />
         )}
