@@ -22,6 +22,10 @@ const EducationSchema = new Schema(
       type: String,
       required: true,
     },
+    schoolLevel: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

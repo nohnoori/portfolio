@@ -25,7 +25,7 @@ function ProjectCard({ project, isEditable, portfolioOwnerId }) {
   };
 
   return (
-    <Card.Text>
+    <Card.Text as="div">
       <Row className="align-items-center">
         {isEditing ? (
           <ProjectEditForm
@@ -33,7 +33,7 @@ function ProjectCard({ project, isEditable, portfolioOwnerId }) {
             setIsEditing={setIsEditing}
           />
         ) : (
-          <Col>
+          <Col className="mb-4">
             <div>{project.title}</div>
             <div>{project.description}</div>
             <div>
