@@ -35,6 +35,30 @@ class CareerAuthService {
 
     return careers;
   }
+
+  //career 수정
+  static async setCareer({ id, toUpdate }) {
+    let career = await Career.findById({ id });
+
+    if (!career) {
+      const errorMessage = "경력 내역이 없습니다.";
+      return { errorMessage };
+    }
+
+    if (toUpdate.title) {
+      const fieldToUpdate = "title";
+      const newValue = toUpdate.title;
+      career = await Career.update({ id, fieldToUpdate, newValue });
+    }
+
+    if (toUpdate.description) {
+      const fieldToUpdate = "description";
+      const newValue = toUpdate.description;
+      career = await Career.update({ id, fieldToUpdate, newValue });
+    }
+
+    return career;
+  }
 }
 
 export { CareerAuthService };
