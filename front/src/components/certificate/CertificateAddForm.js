@@ -13,21 +13,21 @@ function CertificateAddForm({
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const [when_date, setWhen_date] = useState(new Date());
+  const [whenDate, setWhenDate] = useState(new Date());
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const user_id = portfolioOwnerId;
+    const userId = portfolioOwnerId;
 
-    await Api.post("certificate/create", {
-      user_id: portfolioOwnerId,
+    await Api.post("certificate", {
+      user_id: userId,
       title,
       description,
-      when_date,
+      when_date: whenDate,
     });
 
-    const res = await Api.get("certificatelist", user_id);
+    const res = await Api.get("certificates", userId); // certificatelist
     setCertificates(res.data);
     setIsAdding(false);
   };
@@ -53,8 +53,8 @@ function CertificateAddForm({
       </Form.Group>
       <Form.Group className="mt-3">
         <DatePicker
-          selected={when_date}
-          onChange={(date) => setWhen_date(date)}
+          selected={whenDate}
+          onChange={(date) => setWhenDate(date)}
         />
       </Form.Group>
 

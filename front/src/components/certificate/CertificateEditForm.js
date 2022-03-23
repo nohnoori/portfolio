@@ -14,21 +14,23 @@ function CertificateEditForm({
   const [description, setDescription] = useState(
     currentCertificate.description
   );
-  const [when_date, setWhen_date] = useState(new Date());
+  const [whenDate, setWhenDate] = useState(
+    new Date(currentCertificate.when_date)
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const user_id = currentCertificate.user_id;
-    await Api.put(`certificates/${currentCertificate.id}`, {
-      user_id,
+    const userId = currentCertificate.user_id;
+    await Api.put(`certificate/${currentCertificate.id}`, {
+      // certificates
+      user_id: userId,
       title,
       description,
-      when_date,
-      setWhen_date,
+      when_date: whenDate,
     });
 
-    const res = await Api.get("certificatelist", user_id);
+    const res = await Api.get("certificates", userId); // certificatelist
     setCertificates(res.data);
     setIsEditing(false);
   };
@@ -54,8 +56,8 @@ function CertificateEditForm({
       </Form.Group>
       <Form.Group className="mt-3">
         <DatePicker
-          selected={when_date}
-          onChange={(date) => setWhen_date(date)}
+          selected={whenDate}
+          onChange={(date) => setWhenDate(date)}
         />
       </Form.Group>
 
