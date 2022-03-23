@@ -44,15 +44,15 @@ certificateAuthRouter.get("/certificate/:id", async (req, res, next) => {
   try {
     // URL로부터 추출한 certificate id를 가지고 db에서 certificate 정보를 찾음
     const id = req.params.id;
-    const certificateInfo = await CertificateAuthService.getCertificateInfo({
+    const certificate = await CertificateAuthService.getCertificate({
       id,
     });
 
-    if (certificateInfo.errorMessage) {
-      throw new Error(certificateInfo.errorMessage);
+    if (certificate.errorMessage) {
+      throw new Error(certificate.errorMessage);
     }
 
-    res.status(200).json(certificateInfo);
+    res.status(200).json(certificate);
   } catch (e) {
     next(e);
   }
@@ -64,12 +64,7 @@ certificateAuthRouter.put("/certificate/:id", async (req, res, next) => {
     // URL로부터 certificate id를 추출
     const id = req.params.id;
 
-    // body data 로부터 업데이트할 certificate 정보를 추출함.
-    const title = req.body.title ?? null;
-    const description = req.body.description ?? null;
-    const when_date = req.body.when_date ?? null;
-
-    const toUpdate = { title, description, when_date };
+    const toUpdate = { ...req.body };
 
     const updatedCertificate = await CertificateAuthService.setCertificate({
       id,
@@ -91,11 +86,11 @@ certificateAuthRouter.get("/certificates/:user_id", async (req, res, next) => {
   try {
     // URL로부터 추출한 user_id를 가지고 db에서 certificate list를 찾음
     const user_id = req.params.user_id;
-    const certificateInfo = await CertificateAuthService.getCertificateList({
+    const certificates = await CertificateAuthService.getCertificates({
       user_id,
     });
 
-    res.status(200).json(certificateInfo);
+    res.status(200).json(certificates);
   } catch (e) {
     next(e);
   }
@@ -107,9 +102,11 @@ certificateAuthRouter.delete("/certificate/:id", async (req, res, next) => {
     // URL로부터 certificate id를 추출
     const id = req.params.id;
     // 해당 certificate 삭제
-    const certificate = await CertificateAuthService.deleteCertificate({ id });
+    const deletedCertificate = await CertificateAuthService.deleteCertificate({
+      id,
+    });
 
-    res.status(200).json(certificate);
+    res.status(200).json(deletedCertificate);
   } catch (error) {
     next(error);
   }

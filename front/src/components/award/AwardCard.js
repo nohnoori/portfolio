@@ -4,40 +4,75 @@
 // - 편집버튼을 누르면 isEditing의 상태는 true 변합니다.
 import React, { useState } from "react";
 import AwardEditForm from "./AwardEditForm";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, Modal } from "react-bootstrap";
+import * as Api from "../../api";
 
-function AwardCard({ isEditable, currentAward, setAward }) {
+function AwardCard({ isEditable, currentAward, setAwards }) {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const [isEditing, setIsEditing] = useState(false);
 
-  return (
-    <>
-      <Row className="mb-3">
-        {isEditing ? (
-          <AwardEditForm
-            setIsEditing={setIsEditing}
-            setAward={setAward}
-            currentAward={currentAward}
-          />
-        ) : (
-          <Col>
-            <div>{currentAward.title}</div>
-            <div>{currentAward.description}</div>
-          </Col>
-        )}
+  const handleDelete = async (e) => {
+    const userId = currentAward.user_id;
+    e.preventDefault();
+    await Api.delete(`award/${currentAward.id}`);
 
-        <Col lg="1">
-          {isEditable && isEditing == false && (
-            <Button
-              variant="outline-info"
-              size="sm"
-              onClick={() => setIsEditing(true)}
-            >
-              편집
-            </Button>
-          )}
+    const res = await Api.get("awards", userId);
+    setAwards(res.data);
+  };
+
+  return (
+    <Row className="mb-3">
+      {isEditing ? (
+        <AwardEditForm
+          setIsEditing={setIsEditing}
+          setAwards={setAwards}
+          currentAward={currentAward}
+        />
+      ) : (
+        <Col>
+          <div>{currentAward.title}</div>
+          <div>{currentAward.description}</div>
         </Col>
-      </Row>
-    </>
+      )}
+
+      {isEditable && isEditing === false && (
+        <Col lg="2">
+          <Button
+            className="m-1"
+            variant="outline-info"
+            size="sm"
+            onClick={() => setIsEditing(true)}
+          >
+            편집
+          </Button>
+          <Button variant="outline-danger" size="sm" onClick={handleShow}>
+            삭제
+          </Button>
+          <Modal
+            show={show}
+            onHide={handleClose}
+            backdrop="static"
+            keyboard={false}
+          >
+            <Modal.Header closeButton>
+              <strong>정말 삭제하시겠습니까?</strong>
+            </Modal.Header>
+            <Modal.Body>삭제를 하시는 경우 복구가 불가능합니다.</Modal.Body>
+            <Modal.Footer>
+              <Button variant="danger" size="sm" onClick={handleDelete}>
+                삭제
+              </Button>
+              <Button variant="secondary" size="sm" onClick={handleClose}>
+                취소
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </Col>
+      )}
+    </Row>
   );
 }
 
