@@ -9,7 +9,7 @@ class Project {
     const project = await ProjectModel.findOne({ id });
     return project;
   }
-  static async findByuserId({ user_id }) {
+  static async findByUserId({ user_id }) {
     const projects = await ProjectModel.find({ user_id });
     return projects;
   }

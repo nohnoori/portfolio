@@ -11,7 +11,7 @@ class EducationAuthService {
     return createdNewEducation;
   }
 
-  static async getEducationInfo({ id }) {
+  static async getEducation({ id }) {
     const education = await Education.findById({ id });
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
@@ -55,9 +55,9 @@ class EducationAuthService {
     return education;
   }
 
-  static async getEducationList({ user_id }) {
-    const educationList = await Education.findByUserId({ user_id });
-    return educationList;
+  static async getEducations({ user_id }) {
+    const educations = await Education.findByUserId({ user_id });
+    return educations;
   }
 
   static async deleteEducation({ id }) {

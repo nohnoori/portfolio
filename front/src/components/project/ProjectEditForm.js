@@ -24,10 +24,10 @@ function ProjectEditForm({ currentProject, setIsEditing }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const user_id = currentProject.user_id;
+    const userId = currentProject.user_id;
 
-    await Api.put(`projects/${currentProject.id}`, {
-      user_id,
+    await Api.put(`project/${currentProject.id}`, {
+      user_id: userId,
       title,
       description,
       from_date: startDate,
@@ -37,14 +37,14 @@ function ProjectEditForm({ currentProject, setIsEditing }) {
     // ? 1. 수정된 정보 GET요청
     // ? 2. 수정된 정보 projects에 저장
     // ? 3. 편집 폼 종료
-    const res = await Api.get("projectlist", user_id);
+    const res = await Api.get("projects", userId);
     setProjects(res.data);
     setIsEditing(false);
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="formBasicTitle" className="mt-3">
+      <Form.Group controlId="formBasicTitle" className="mt-1">
         <Form.Control
           type="text"
           placeholder="프로젝트 제목"
