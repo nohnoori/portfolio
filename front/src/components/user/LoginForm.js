@@ -11,6 +11,8 @@ function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
 
+  // 유저/회사 구분하기 위한 classifier 상태 생성
+  const [classifier, setClassifier] = useState("");
   //useState로 email 상태를 생성함.
   const [email, setEmail] = useState("");
   //useState로 password 상태를 생성함.
@@ -36,28 +38,32 @@ function LoginForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      // "user/login" 엔드포인트로 post요청함.
-      const res = await Api.post("user/login", {
-        email,
-        password,
-      });
-      // 유저 정보는 response의 data임.
-      const user = res.data;
-      // JWT 토큰은 유저 정보의 token임.
-      const jwtToken = user.token;
-      // sessionStorage에 "userToken"이라는 키로 JWT 토큰을 저장함.
-      sessionStorage.setItem("userToken", jwtToken);
-      // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
-      dispatch({
-        type: "LOGIN_SUCCESS",
-        payload: user,
-      });
+    if (classifier === "user") {
+      try {
+        // "user/login" 엔드포인트로 post요청함.
+        const res = await Api.post("user/login", {
+          email,
+          password,
+        });
+        // 유저 정보는 response의 data임.
+        const user = res.data;
+        // JWT 토큰은 유저 정보의 token임.
+        const jwtToken = user.token;
+        // sessionStorage에 "userToken"이라는 키로 JWT 토큰을 저장함.
+        sessionStorage.setItem("userToken", jwtToken);
+        // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: user,
+        });
 
-      // 기본 페이지로 이동함.
-      navigate("/", { replace: true });
-    } catch (err) {
-      console.log("로그인에 실패하였습니다.\n", err);
+        // 기본 페이지로 이동함.
+        navigate("/", { replace: true });
+      } catch (err) {
+        console.log("로그인에 실패하였습니다.\n", err);
+      }
+    } else {
+      alert("회사로 로그인하는것 구현 예정입니다.");
     }
   };
 
@@ -82,6 +88,26 @@ function LoginForm() {
 
         <Col lg={6}>
           <Form onSubmit={handleSubmit}>
+            <div key={`inline-radio`} className="mb-3">
+              <Form.Check
+                inline
+                type="radio"
+                id="user"
+                label="유저"
+                value="user"
+                checked={classifier === "user"}
+                onChange={(e) => setClassifier(e.target.value)}
+              />
+              <Form.Check
+                inline
+                type="radio"
+                id="company"
+                label="회사"
+                value="company"
+                checked={classifier === "company"}
+                onChange={(e) => setClassifier(e.target.value)}
+              />
+            </div>
             <Form.Group controlId="loginEmail">
               <Form.Label>이메일 주소</Form.Label>
               <Form.Control
