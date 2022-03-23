@@ -11,7 +11,7 @@ class CertificateAuthService {
     return createdNewCertificate;
   }
 
-  static async getCertificateInfo({ id }) {
+  static async getCertificate({ id }) {
     const certificate = await Certificate.findById({ id });
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
@@ -55,9 +55,9 @@ class CertificateAuthService {
     return certificate;
   }
 
-  static async getCertificateList({ user_id }) {
-    const certificateList = await Certificate.findByUserId({ user_id });
-    return certificateList;
+  static async getCertificates({ user_id }) {
+    const certificates = await Certificate.findByUserId({ user_id });
+    return certificates;
   }
 
   static async deleteCertificate({ id }) {

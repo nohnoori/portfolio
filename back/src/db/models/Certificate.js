@@ -25,8 +25,8 @@ class Certificate {
   }
 
   static async findByUserId({ user_id }) {
-    const certificateList = await CertificateModel.find({ user_id });
-    return certificateList;
+    const certificates = await CertificateModel.find({ user_id });
+    return certificates;
   }
 
   static async delete({ id }) {

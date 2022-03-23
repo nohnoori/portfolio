@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { Project } from "../db";
 
-class projectService {
+class ProjectAuthService {
   //project 추가
   static async addProject({ user_id, title, description, from_date, to_date }) {
     // id 는 유니크 값 부여
@@ -29,7 +29,7 @@ class projectService {
 
   //project 목록 조회
   static async getProjects({ user_id }) {
-    const projects = await Project.findByuserId({ user_id });
+    const projects = await Project.findByUserId({ user_id });
 
     if (!projects) {
       const errorMessage = "해당 사용자의 글이 존재하지 않습니다.";
@@ -84,4 +84,4 @@ class projectService {
   }
 }
 
-export { projectService };
+export { ProjectAuthService };
