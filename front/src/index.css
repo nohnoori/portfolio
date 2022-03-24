@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+#loginTitle {
+  font-family: "Poppins", sans-serif;
+}
+
+#navbar__title {
+  font-family: "Poppins", sans-serif;
+  font-weight: bolder;
+}
+
+body {
+  background-color: #f3f5f7 !important;
+}
