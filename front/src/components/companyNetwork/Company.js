@@ -6,6 +6,7 @@ function Company() {
     <Card>
       <Card.Body>
         <Card.Title>공고 정보</Card.Title>
+        <Card.Text>공고 상제 정보~~~~</Card.Text>
       </Card.Body>
     </Card>
   );
