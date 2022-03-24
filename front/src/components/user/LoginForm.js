@@ -45,6 +45,7 @@ function LoginForm() {
           email,
           password,
         });
+
         // 유저 정보는 response의 data임.
         const user = res.data;
         // JWT 토큰은 유저 정보의 token임.
@@ -60,10 +61,10 @@ function LoginForm() {
         // 기본 페이지로 이동함.
         navigate("/", { replace: true });
       } catch (err) {
-        console.log("로그인에 실패하였습니다.\n", err);
+        console.log("유저 로그인에 실패하였습니다.\n", err);
       }
     } else {
-      alert("회사로 로그인하는것 구현 예정입니다.");
+      alert("회사 로그인 미구현");
     }
   };
 
