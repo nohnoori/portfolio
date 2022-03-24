@@ -80,6 +80,38 @@ class companyAuthService {
 
     return company;
   }
+
+  static async setCompany({ companyId, toUpdate }) {
+    // 우선 해당 id 의 회사가 db에 존재하는지 여부 확인
+    let company = await Company.findById({ companyId });
+
+    // db에서 찾지 못한 경우, 에러 메시지 반환
+    if (!company) {
+      const errorMessage = "가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
+      return { errorMessage };
+    }
+
+    // 업데이트 대상에 name이 있다면, 즉 name 값이 null 이 아니라면 업데이트 진행
+    if (toUpdate.name) {
+      const fieldToUpdate = "name";
+      const newValue = toUpdate.name;
+      company = await Company.update({ companyId, fieldToUpdate, newValue });
+    }
+    // 업데이트 대상에 password이 있다면, 즉 password 값이 null 이 아니라면 업데이트 진행
+    if (toUpdate.password) {
+      const fieldToUpdate = "password";
+      const newValue = toUpdate.password;
+      company = await Company.update({ companyId, fieldToUpdate, newValue });
+    }
+    // 업데이트 대상에 description이 있다면, 즉 description 값이 null 이 아니라면 업데이트 진행
+    if (toUpdate.description) {
+      const fieldToUpdate = "description";
+      const newValue = toUpdate.description;
+      company = await Company.update({ companyId, fieldToUpdate, newValue });
+    }
+
+    return company;
+  }
 }
 
 export { companyAuthService };
