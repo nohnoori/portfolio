@@ -19,35 +19,37 @@ const CompanySchema = new Schema(
       required: true,
     },
     description: {
-      img: {
-        type: String,
-        required: false,
-        default: "default-profile.png",
-      },
-      location: {
-        type: String,
-        required: true,
-      },
-      headCount: {
-        type: Number,
-        required: true,
-      },
-      homepage: {
-        type: String,
-        required: false,
-        default: "설정 된 홈페이지가 없습니다.",
-      },
-      summary: {
-        type: String,
-        required: true,
-      },
-      benefit: {
-        type: String,
-        required: true,
-      },
-      detail: {
-        type: String,
-        required: true,
+      type: {
+        img: {
+          type: String,
+          required: false,
+          default: "default-profile.png",
+        },
+        location: {
+          type: String,
+          required: true,
+        },
+        headCount: {
+          type: Number,
+          required: true,
+        },
+        homepage: {
+          type: String,
+          required: false,
+          default: "설정 된 홈페이지가 없습니다.",
+        },
+        summary: {
+          type: String,
+          required: true,
+        },
+        benefit: {
+          type: String,
+          required: true,
+        },
+        detail: {
+          type: String,
+          required: true,
+        },
       },
       required: false,
     },
