@@ -1,12 +1,27 @@
 import { Card, Button, Row, Col, Modal } from "react-bootstrap";
 import { useState } from "react";
+import * as Api from "../../api";
 
-function CertificateCard({ certificate, isEditable, setIsEditing }) {
+function CertificateCard({
+  certificate,
+  isEditable,
+  setIsEditing,
+  setCertificates,
+  currentCertificate,
+}) {
   const date = certificate.when_date.substring(0, 10);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleDelete = async () => {
+    const userId = currentCertificate.user_id;
+    await Api.delete(`certificate/${certificate.id}`);
+
+    const res = await Api.get("certificates", userId);
+    setCertificates(res.data);
+  };
 
   return (
     <Card.Text>
@@ -23,7 +38,7 @@ function CertificateCard({ certificate, isEditable, setIsEditing }) {
             <Button
               variant="outline-info"
               size="sm"
-              className="mr-8"
+              className="mr-3"
               onClick={() => setIsEditing((prev) => !prev)}
             >
               편집
@@ -31,7 +46,7 @@ function CertificateCard({ certificate, isEditable, setIsEditing }) {
             <Button
               variant="outline-danger"
               size="sm"
-              className="mr-8"
+              className="mr-3"
               onClick={handleShow}
             >
               삭제
@@ -50,6 +65,7 @@ function CertificateCard({ certificate, isEditable, setIsEditing }) {
                 <Button
                   variant="danger"
                   onClick={() => {
+                    handleDelete();
                     handleClose();
                   }}
                 >

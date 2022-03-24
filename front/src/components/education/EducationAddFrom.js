@@ -6,6 +6,7 @@ import { EducationsContext } from "./Educations";
 
 function EducationAddForm({ setIsAdding, portfolioOwnerId }) {
   const { setEducations } = useContext(EducationsContext);
+  const [schoolLevel, setSchoolLevel] = useState("고등학교");
   const [school, setSchool] = useState("");
   const [major, setMajor] = useState("");
   const [position, setPosition] = useState("재학중");
@@ -20,6 +21,7 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId }) {
       school,
       major,
       position,
+      schoolLevel,
     });
 
     const res = await Api.get("educations", userId);
@@ -31,69 +33,133 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId }) {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="formBasicSchool" className="mt-3">
-        <Form.Control
-          type="text"
-          placeholder="학교 명"
-          value={school}
-          onChange={(e) => setSchool(e.target.value)}
-        />
-      </Form.Group>
-
-      <Form.Group controlId="formBasicMajor" className="mt-3">
-        <Form.Control
-          type="text"
-          placeholder="전공 명"
-          value={major}
-          onChange={(e) => setMajor(e.target.value)}
-        />
-      </Form.Group>
-
       <div key={`inline-radio`} className="mb-3 mt-3">
         <Form.Check
           inline
-          label="재학중"
-          id="radio1"
-          type="radio"
-          name="position"
-          value="재학중"
-          checked={position === "재학중"}
-          onChange={(e) => setPosition(e.target.value)}
+          label="고등학교"
+          id="level1"
+          type="checkbox"
+          name="level"
+          value="고등학교"
+          checked={schoolLevel === "고등학교"}
+          onChange={(e) => setSchoolLevel(e.target.value)}
         />
 
         <Form.Check
           inline
-          label="학사졸업"
-          id="radio2"
-          type="radio"
-          name="position"
-          value="학사졸업"
-          checked={position === "학사졸업"}
-          onChange={(e) => setPosition(e.target.value)}
-        />
-
-        <Form.Check
-          inline
-          label="석사졸업"
-          id="radio3"
-          type="radio"
-          name="position"
-          value="석사졸업"
-          checked={position === "석사졸업"}
-          onChange={(e) => setPosition(e.target.value)}
-        />
-
-        <Form.Check
-          inline
-          label="박사졸업"
-          id="radio4"
-          type="radio"
-          name="position"
-          value="박사졸업"
-          checked={position === "박사졸업"}
-          onChange={(e) => setPosition(e.target.value)}
+          label="대학교/대학원"
+          id="level2"
+          type="checkbox"
+          name="level"
+          value="대학교/대학원"
+          checked={schoolLevel === "대학교/대학원"}
+          onChange={(e) => setSchoolLevel(e.target.value)}
         />
       </div>
+
+      {schoolLevel === "고등학교" && (
+        <>
+          <Form.Group className="mb-2">
+            <Form.Control
+              type="text"
+              placeholder="학교 명"
+              value={school}
+              onChange={(e) => setSchool(e.target.value)}
+            />
+          </Form.Group>
+
+          <div key={`inline-radio`} className="mb-3 mt-3">
+            <Form.Check
+              inline
+              label="재학중"
+              id="radio1"
+              type="radio"
+              name="position"
+              value="재학중"
+              checked={position === "재학중"}
+              onChange={(e) => setPosition(e.target.value)}
+            />
+
+            <Form.Check
+              inline
+              label="졸업"
+              id="radio2"
+              type="radio"
+              name="position"
+              value="졸업"
+              checked={position === "졸업"}
+              onChange={(e) => setPosition(e.target.value)}
+            />
+          </div>
+        </>
+      )}
+      {schoolLevel === "대학교/대학원" && (
+        <>
+          <Form.Group>
+            <Form.Control
+              type="text"
+              placeholder="학교 명"
+              value={school}
+              onChange={(e) => setSchool(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
+
+          <Form.Group className="mt-2">
+            <Form.Control
+              type="text"
+              placeholder="전공 명"
+              value={major}
+              onChange={(e) => setMajor(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
+
+          <div key={`inline-radio`} className="mb-3 mt-3">
+            <Form.Check
+              inline
+              label="재학중"
+              id="radio1"
+              type="radio"
+              name="position"
+              value="재학중"
+              checked={position === "재학중"}
+              onChange={(e) => setPosition(e.target.value)}
+            />
+
+            <Form.Check
+              inline
+              label="학사졸업"
+              id="radio2"
+              type="radio"
+              name="position"
+              value="학사졸업"
+              checked={position === "학사졸업"}
+              onChange={(e) => setPosition(e.target.value)}
+            />
+
+            <Form.Check
+              inline
+              label="석사졸업"
+              id="radio3"
+              type="radio"
+              name="position"
+              value="석사졸업"
+              checked={position === "석사졸업"}
+              onChange={(e) => setPosition(e.target.value)}
+            />
+
+            <Form.Check
+              inline
+              label="박사졸업"
+              id="radio4"
+              type="radio"
+              name="position"
+              value="박사졸업"
+              checked={position === "박사졸업"}
+              onChange={(e) => setPosition(e.target.value)}
+            />
+          </div>
+        </>
+      )}
 
       <Form.Group as={Row} className="mt-3 text-center">
         <Col sm={{ span: 20 }}>
