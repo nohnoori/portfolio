@@ -50,6 +50,67 @@ jobVacancyAuthRouter.get("/jobVacancies", async (req, res, next) => {
   }
 });
 
+//jobVacancy 상세 조회 API
+jobVacancyAuthRouter.get("/jobVacancy/:id", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    const jobVacancy = await JobVacancyAuthService.getJobVacancy({ id });
+
+    if (jobVacancy.errorMessage) {
+      throw new Error(jobVacancy.errorMessage);
+    }
+
+    res.status(200).json(jobVacancy);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//jobVacancy 목록 조회 API
+jobVacancyAuthRouter.get(
+  "/jobVacancies/:company_id",
+  async (req, res, next) => {
+    try {
+      const company_id = req.params.company_id;
+
+      const jobVacancies = await JobVacancyAuthService.getJobVacancies({
+        company_id,
+      });
+
+      if (jobVacancies.errorMessage) {
+        throw new Error(jobVacancies.errorMessage);
+      }
+
+      res.status(200).json(jobVacancies);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+//jobVacancy 수정 API
+jobVacancyAuthRouter.put("/jobVacancy/:id", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    const toUpdate = { ...req.body };
+
+    const jobVacancy = await JobVacancyAuthService.setJobVacancy({
+      id,
+      toUpdate,
+    });
+
+    if (jobVacancy.errorMessage) {
+      throw new Error(jobVacancy.errorMessage);
+    }
+
+    res.status(200).json(jobVacancy);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
 jobVacancyAuthRouter.get("/afterlogin", (req, res) => {
   res
