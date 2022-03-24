@@ -8,9 +8,8 @@ import User from "./user/User";
 import Certificate from "./certificate/Certificates";
 
 import Company from "./company/Company";
-import CompanyNetwork from "./companyNetwork/Company";
-import CompanySimpleInfo from "./companyNetwork/CompanySimpleInfo";
 
+import Careers from "./career/Careers";
 import Projects from "./project/Projects";
 import Awards from "./award/Awards";
 import Education from "./education/Educations";
@@ -75,12 +74,6 @@ function Portfolio() {
                 isEditable={portfolioOwner.id === userState.user?.id}
               />
             </Col>
-            {/* <Col>
-              <CompanyNetwork></CompanyNetwork>
-            </Col>
-            <Col>
-              <CompanySimpleInfo></CompanySimpleInfo>
-            </Col> */}
           </Row>
         </Container>
       ) : (
@@ -113,6 +106,12 @@ function Portfolio() {
               </Row>
               <Row className="mb-3">
                 <Certificate
+                  portfolioOwnerId={portfolioOwner.id}
+                  isEditable={portfolioOwner.id === userState.user?.id}
+                />
+              </Row>
+              <Row className="mb-3">
+                <Careers
                   portfolioOwnerId={portfolioOwner.id}
                   isEditable={portfolioOwner.id === userState.user?.id}
                 />
