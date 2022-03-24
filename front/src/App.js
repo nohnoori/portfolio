@@ -9,25 +9,34 @@ import LoginForm from "./components/user/LoginForm";
 import Network from "./components/user/Network";
 import RegisterForm from "./components/user/RegisterForm";
 import Portfolio from "./components/Portfolio";
+import CompanyPortfolio from "./components/CompanyPortfolio";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
+export const ClassifierContext = createContext(null);
 
 function App() {
   // useReducer 훅을 통해 userState 상태와 dispatch함수를 생성함.
   const [userState, dispatch] = useReducer(loginReducer, {
     user: null,
   });
+  const [userType, setUserType] = useState("user"); //FiXME 밑에 return에도 나중에 고치기
 
   // 아래의 fetchCurrentUser 함수가 실행된 다음에 컴포넌트가 구현되도록 함.
   // 아래 코드를 보면 isFetchCompleted 가 true여야 컴포넌트가 구현됨.
   const [isFetchCompleted, setIsFetchCompleted] = useState(false);
 
   const fetchCurrentUser = async () => {
+    const apiUrl = userType === "user" ? "user/current" : "company/current";
+    console.log("새로고침 후 setUserType값: ", userType);
+    console.log("새로고침 후 apiUrl값: ", apiUrl); //FIXME
     try {
       // 이전에 발급받은 토큰이 있다면, 이를 가지고 유저 정보를 받아옴.
-      const res = await Api.get("user/current");
+      console.log("새로고침하면 함수 실행!"); // FIXME
+      const res = await Api.get(apiUrl);
       const currentUser = res.data;
+      console.log("currentUser 값: ", currentUser); //FIXME
+      console.log("새로고침 후 userType 값: ", userType); //FIXME
 
       // dispatch 함수를 통해 로그인 성공 상태로 만듦.
       dispatch({
@@ -46,7 +55,7 @@ function App() {
   // useEffect함수를 통해 fetchCurrentUser 함수를 실행함.
   useEffect(() => {
     fetchCurrentUser();
-  }, []);
+  }, []); // 한번만 실행하게 됨
 
   if (!isFetchCompleted) {
     return "loading...";
@@ -55,17 +64,25 @@ function App() {
   return (
     <DispatchContext.Provider value={dispatch}>
       <UserStateContext.Provider value={userState}>
-        <Router>
-          <Header />
-          <Routes>
-            <Route path="/" exact element={<Portfolio />} />
-            <Route path="/login" element={<LoginForm />} />
-            <Route path="/register" element={<RegisterForm />} />
-            <Route path="/users/:userId" element={<Portfolio />} />
-            <Route path="/network" element={<Network />} />
-            <Route path="*" element={<Portfolio />} />
-          </Routes>
-        </Router>
+        <ClassifierContext.Provider value={setUserType}>
+          <Router>
+            <Header />
+            <Routes>
+              <Route
+                path="/"
+                exact
+                element={
+                  userType === "user" ? <Portfolio /> : <CompanyPortfolio />
+                }
+              />
+              <Route path="/login" element={<LoginForm />} />
+              <Route path="/register" element={<RegisterForm />} />
+              <Route path="/users/:userId" element={<Portfolio />} />
+              <Route path="/network" element={<Network />} />
+              <Route path="*" element={<Portfolio />} />
+            </Routes>
+          </Router>
+        </ClassifierContext.Provider>
       </UserStateContext.Provider>
     </DispatchContext.Provider>
   );
