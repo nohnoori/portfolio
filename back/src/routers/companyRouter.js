@@ -76,4 +76,50 @@ companyAuthRouter.get(
   }
 );
 
+companyAuthRouter.get(
+  "/company/:id",
+  login_required,
+  async function (req, res, next) {
+    try {
+      const companyId = req.params.id;
+      const company = await companyAuthService.getCompanyInfo({ companyId });
+
+      if (company.errorMessage) {
+        throw new Error(company.errorMessage);
+      }
+
+      res.status(200).json(company);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+companyAuthRouter.put(
+  "/company/:id",
+  login_required,
+  async function (req, res, next) {
+    try {
+      // URL로부터 company id를 추출함.
+      const companyId = req.params.id;
+      // body data 로부터 업데이트할 사용자 정보를 추출함.
+      const toUpdate = { ...req.body };
+
+      // 해당 company 아이디로 회사 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
+      const updatedCompany = await companyAuthService.setCompany({
+        companyId,
+        toUpdate,
+      });
+
+      if (updatedCompany.errorMessage) {
+        throw new Error(updatedCompany.errorMessage);
+      }
+
+      res.status(200).json(updatedCompany);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 export { companyAuthRouter };
