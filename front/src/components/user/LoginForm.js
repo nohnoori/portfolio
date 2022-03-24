@@ -64,7 +64,30 @@ function LoginForm() {
         console.log("유저 로그인에 실패하였습니다.\n", err);
       }
     } else {
-      alert("회사 로그인 미구현");
+      try {
+        // "company/login" 엔드포인트로 post요청함.
+        const res = await Api.post("company/login", {
+          email,
+          password,
+        });
+
+        // 회사 정보는 response의 data임.
+        const company = res.data;
+        // JWT 토큰은 회사 정보의 token임.
+        const jwtToken = company.token;
+        // sessionStorage에 "companyToken"이라는 키로 JWT 토큰을 저장함.
+        sessionStorage.setItem("companyToken", jwtToken);
+        // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: company,
+        });
+
+        // 기본 페이지로 이동함.
+        navigate("/", { replace: true });
+      } catch (err) {
+        console.log("회사 로그인에 실패하였습니다.\n", err);
+      }
     }
   };
 
