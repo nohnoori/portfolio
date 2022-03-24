@@ -36,7 +36,7 @@ const CompanySchema = new Schema(
         homepage: {
           type: String,
           required: false,
-          default: "설정 된 홈페이지가 없습니다.",
+          default: "홈페이지가 아직 설정되지 않았습니다. 추가해주세요.",
         },
         summary: {
           type: String,
@@ -52,6 +52,13 @@ const CompanySchema = new Schema(
         },
       },
       required: false,
+      default: {
+        location: "위치가 아직 설정되지 않았습니다. 추가해주세요.",
+        headCount: 0,
+        summary: "간단 설명이 아직 설정되지 않았습니다. 추가해주세요.",
+        benefit: "복지가 아직 설정되지 않았습니다. 추가해주세요.",
+        detail: "상세 설명이 아직 설정되지 않았습니다. 추가해주세요.",
+      },
     },
   },
   {
