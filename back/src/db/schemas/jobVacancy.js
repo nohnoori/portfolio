@@ -26,6 +26,7 @@ const JobVacancySchema = new Schema(
     open: {
       type: Boolean,
       required: false,
+      default: true,
     },
   },
   {

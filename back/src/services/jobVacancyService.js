@@ -43,5 +43,38 @@ class JobVacancyAuthService {
 
     return jobVacancies;
   }
+
+  //jobVacancy 수정
+  static async setJobVacancy({ id, toUpdate }) {
+    let jobVacancy = await JobVacancy.findById({ id });
+
+    if (!jobVacancy) {
+      const errorMessage = "채용공고 내역이 없습니다.";
+      return { errorMessage };
+    }
+
+    if (toUpdate.jobname) {
+      const fieldToUpdate = "jobname";
+      const newValue = toUpdate.jobname;
+      jobVacancy = await JobVacancy.update({ id, fieldToUpdate, newValue });
+    }
+    if (toUpdate.description) {
+      const fieldToUpdate = "description";
+      const newValue = toUpdate.description;
+      jobVacancy = await JobVacancy.update({ id, fieldToUpdate, newValue });
+    }
+    if (toUpdate.tags) {
+      const fieldToUpdate = "tags";
+      const newValue = toUpdate.tags;
+      jobVacancy = await JobVacancy.update({ id, fieldToUpdate, newValue });
+    }
+    if (toUpdate.open) {
+      const fieldToUpdate = "open";
+      const newValue = toUpdate.open;
+      jobVacancy = await JobVacancy.update({ id, fieldToUpdate, newValue });
+    }
+
+    return jobVacancy;
+  }
 }
 export { JobVacancyAuthService };
