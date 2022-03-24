@@ -67,6 +67,28 @@ jobVacancyAuthRouter.get("/jobVacancy/:id", async (req, res, next) => {
   }
 });
 
+//jobVacancy 목록 조회 API
+jobVacancyAuthRouter.get(
+  "/jobVacancies/:company_id",
+  async (req, res, next) => {
+    try {
+      const company_id = req.params.company_id;
+
+      const jobVacancies = await JobVacancyAuthService.getJobVacancies({
+        company_id,
+      });
+
+      if (jobVacancies.errorMessage) {
+        throw new Error(jobVacancies.errorMessage);
+      }
+
+      res.status(200).json(jobVacancies);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
 jobVacancyAuthRouter.get("/afterlogin", (req, res) => {
   res

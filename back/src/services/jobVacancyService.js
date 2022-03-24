@@ -31,5 +31,17 @@ class JobVacancyAuthService {
 
     return jobVacancy;
   }
+
+  //jobVacancy 목록 조회
+  static async getJobVacancies({ company_id }) {
+    const jobVacancies = await JobVacancy.findByCompanyId({ company_id });
+
+    if (!jobVacancies) {
+      const errorMessage = "해당 유저의 채용 공고가 존재하지 않습니다.";
+      return { errorMessage };
+    }
+
+    return jobVacancies;
+  }
 }
 export { JobVacancyAuthService };

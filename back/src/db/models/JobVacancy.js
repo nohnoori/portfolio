@@ -13,6 +13,10 @@ class JobVacancy {
     const jobVacancy = await JobVacancyModel.findOne({ id });
     return jobVacancy;
   }
+  static async findByCompanyId({ company_id }) {
+    const jobVacancies = await JobVacancyModel.find({ company_id });
+    return jobVacancies;
+  }
 }
 
 export { JobVacancy };
