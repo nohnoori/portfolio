@@ -24,6 +24,7 @@ const EducationSchema = new Schema(
     },
     schoolLevel: {
       type: String,
+      enum: ["UNIV", "HIGH"],
       required: true,
     },
   },
