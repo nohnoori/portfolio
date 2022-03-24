@@ -20,6 +20,7 @@ educationAuthRouter.post("/education", async (req, res, next) => {
     const school = req.body.school;
     const major = req.body.major;
     const position = req.body.position;
+    const schoolLevel = req.body.schoolLevel;
 
     // 위 데이터를 Education db에 추가하기
     const newEducation = await EducationAuthService.addEducation({
@@ -27,6 +28,7 @@ educationAuthRouter.post("/education", async (req, res, next) => {
       school,
       major,
       position,
+      schoolLevel,
     });
 
     if (newEducation.errorMessage) {
@@ -44,13 +46,13 @@ educationAuthRouter.get("/education/:id", async (req, res, next) => {
   try {
     // URL로부터 추출한 education id를 가지고 db에서 education 정보를 찾음
     const id = req.params.id;
-    const educationInfo = await EducationAuthService.getEducationInfo({ id });
+    const education = await EducationAuthService.getEducation({ id });
 
-    if (educationInfo.errorMessage) {
-      throw new Error(educationInfo.errorMessage);
+    if (education.errorMessage) {
+      throw new Error(education.errorMessage);
     }
 
-    res.status(200).json(educationInfo);
+    res.status(200).json(education);
   } catch (e) {
     next(e);
   }
@@ -62,12 +64,7 @@ educationAuthRouter.put("/education/:id", async (req, res, next) => {
     // URL로부터 education id를 추출
     const id = req.params.id;
 
-    // body data 로부터 업데이트할 education 정보를 추출함.
-    const school = req.body.school ?? null;
-    const major = req.body.major ?? null;
-    const position = req.body.position ?? null;
-
-    const toUpdate = { school, major, position };
+    const toUpdate = { ...req.body };
 
     const updatedEducation = await EducationAuthService.setEducation({
       id,
@@ -89,11 +86,11 @@ educationAuthRouter.get("/educations/:user_id", async (req, res, next) => {
   try {
     // URL로부터 추출한 user_id를 가지고 db에서 education list를 찾음
     const user_id = req.params.user_id;
-    const educationInfo = await EducationAuthService.getEducationList({
+    const educations = await EducationAuthService.getEducations({
       user_id,
     });
 
-    res.status(200).json(educationInfo);
+    res.status(200).json(educations);
   } catch (e) {
     next(e);
   }
@@ -105,9 +102,9 @@ educationAuthRouter.delete("/education/:id", async (req, res, next) => {
     // URL로부터 education id를 추출
     const id = req.params.id;
     // 해당 education 삭제
-    const education = await EducationAuthService.deleteEducation({ id });
+    const deletedEducation = await EducationAuthService.deleteEducation({ id });
 
-    res.status(200).json(education);
+    res.status(200).json(deletedEducation);
   } catch (error) {
     next(error);
   }

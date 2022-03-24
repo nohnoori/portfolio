@@ -2,16 +2,16 @@ import { Education } from "../db";
 import { v4 as uuidv4 } from "uuid";
 
 class EducationAuthService {
-  static async addEducation({ user_id, school, major, position }) {
+  static async addEducation({ user_id, school, major, position, schoolLevel }) {
     const id = uuidv4();
 
-    const newEducation = { id, user_id, school, major, position };
+    const newEducation = { id, user_id, school, major, position, schoolLevel };
     const createdNewEducation = await Education.create({ newEducation });
 
     return createdNewEducation;
   }
 
-  static async getEducationInfo({ id }) {
+  static async getEducation({ id }) {
     const education = await Education.findById({ id });
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
@@ -51,13 +51,19 @@ class EducationAuthService {
       const newValue = toUpdate.position;
       education = await Education.update({ id, fieldToUpdate, newValue });
     }
+    // 업데이트 대상에 schoolLevel이 있다면, 즉 schoolLevel 값이 null 이 아니라면 업데이트 진행
+    if (toUpdate.schoolLevel) {
+      const fieldToUpdate = "schoolLevel";
+      const newValue = toUpdate.schoolLevel;
+      education = await Education.update({ id, fieldToUpdate, newValue });
+    }
 
     return education;
   }
 
-  static async getEducationList({ user_id }) {
-    const educationList = await Education.findByUserId({ user_id });
-    return educationList;
+  static async getEducations({ user_id }) {
+    const educations = await Education.findByUserId({ user_id });
+    return educations;
   }
 
   static async deleteEducation({ id }) {
