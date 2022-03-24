@@ -8,6 +8,8 @@ import User from "./user/User";
 import Certificate from "./certificate/Certificates";
 
 import Company from "./company/Company";
+import CompanyNetwork from "./companyNetwork/Company";
+import CompanySimpleInfo from "./companyNetwork/CompanySimpleInfo";
 
 import Projects from "./project/Projects";
 import Awards from "./award/Awards";
@@ -73,6 +75,12 @@ function Portfolio() {
                 isEditable={portfolioOwner.id === userState.user?.id}
               />
             </Col>
+            {/* <Col>
+              <CompanyNetwork></CompanyNetwork>
+            </Col>
+            <Col>
+              <CompanySimpleInfo></CompanySimpleInfo>
+            </Col> */}
           </Row>
         </Container>
       ) : (

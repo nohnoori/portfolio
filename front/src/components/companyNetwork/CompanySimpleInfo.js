@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Col, Row, Card } from "react-bootstrap";
 
-function CompanyInfo() {
+function CompanySimpleInfo() {
   return (
     <Card>
       <Card.Body>
@@ -11,4 +11,4 @@ function CompanyInfo() {
   );
 }
 
-export default CompanyInfo;
+export default CompanySimpleInfo;
