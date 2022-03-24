@@ -19,5 +19,17 @@ class JobVacancyAuthService {
     const jobVacancies = await JobVacancy.findAll();
     return jobVacancies;
   }
+
+  //jobVacancy 상세 조회
+  static async getJobVacancy({ id }) {
+    const jobVacancy = await JobVacancy.findById({ id });
+
+    if (!jobVacancy) {
+      const errorMessage = "해당 글은 존재하지 않습니다.";
+      return { errorMessage };
+    }
+
+    return jobVacancy;
+  }
 }
 export { JobVacancyAuthService };
