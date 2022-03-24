@@ -1,18 +1,68 @@
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Row, Button, Col } from "react-bootstrap";
+import "../../index.css";
+import AWS from "aws-sdk";
 
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const navigate = useNavigate();
+
+  const imgRef = useRef(null);
+  AWS.config.update({
+    region: "ap-northeast-2", // 버킷이 존재하는 리전을 문자열로 입력합니다. (Ex. "ap-northeast-2")
+    credentials: new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: "ap-northeast-2:ab728621-f9a4-43d8-8b6a-26672cce00ea", // cognito 인증 풀에서 받아온 키를 문자열로 입력합니다. (Ex. "ap-northeast-2...")
+    }),
+  });
+
+  const handleFileInput = (e) => {
+    // input 태그를 통해 선택한 파일 객체
+    const file = e.target.files[0];
+
+    const upload = new AWS.S3.ManagedUpload({
+      params: {
+        Bucket: "pss-image", // 버킷 이름
+        Key: user.id + ".png", // 유저 아이디
+        Body: file, // 파일 객체
+      },
+    });
+
+    const promise = upload.promise();
+
+    promise.then(
+      function (data) {
+        alert("이미지 업로드에 성공했습니다.");
+        window.location.reload();
+      },
+      function (err) {
+        return console.log("오류가 발생했습니다: ", err);
+      }
+    );
+  };
+
   return (
     <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
       <Card.Body>
         <Row className="justify-content-md-center">
-          <Card.Img
-            style={{ width: "10rem", height: "8rem" }}
-            className="mb-3"
-            src="http://placekitten.com/200/200"
-            alt="랜덤 고양이 사진 (http://placekitten.com API 사용)"
+          <input
+            type="file"
+            id="upload"
+            className="image-upload"
+            onChange={handleFileInput}
+            disabled={!isEditable}
           />
+          <label htmlFor="upload" className="image-upload-wrapper">
+            <img
+              alt="profile"
+              className="profile-img"
+              ref={imgRef}
+              src={`https://pss-image.s3.ap-northeast-2.amazonaws.com/${user?.id}.png`}
+              onError={() => {
+                return (imgRef.current.src =
+                  "https://pss-image.s3.ap-northeast-2.amazonaws.com/default-profile.png");
+              }}
+            />
+          </label>
         </Row>
         <Card.Title>{user?.name}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
