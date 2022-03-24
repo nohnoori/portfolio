@@ -11,11 +11,11 @@ export const CareersContext = createContext();
 
 function Careers({ isEditable, portfolioOwnerId }) {
   // portfolioOwner.id === userState.user?.id일 경우 isEditable은 true
-  const [Careers, setCareers] = useState([]); // 받아올 데이터(전역상태관리)
+  const [careers, setCareers] = useState([]); // 받아올 데이터(전역상태관리)
   const [isAdding, setIsAdding] = useState(false); // 추가 폼이 보이는지 여부
 
   useEffect(() => {
-    Api.get("careerlist", portfolioOwnerId).then((res) => setCareers(res.data));
+    Api.get("careers", portfolioOwnerId).then((res) => setCareers(res.data));
   }, [portfolioOwnerId]);
 
   return (
@@ -23,10 +23,10 @@ function Careers({ isEditable, portfolioOwnerId }) {
       <Card>
         <Card.Body>
           <Card.Title>경력</Card.Title>
-          {Careers.map((Career) => (
+          {careers.map((currentCareer) => (
             <CareerCard
-              key={Career.id}
-              Career={Career}
+              key={currentCareer.id}
+              currentCareer={currentCareer}
               isEditable={isEditable}
             />
           ))}

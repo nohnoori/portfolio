@@ -17,7 +17,7 @@ function CareerAddForm({ portfolioOwnerId, setIsAdding }) {
 
     const userId = portfolioOwnerId;
 
-    await Api.post("career/create", {
+    await Api.post("career", {
       user_id: userId,
       title,
       description,
@@ -25,7 +25,7 @@ function CareerAddForm({ portfolioOwnerId, setIsAdding }) {
       to_date: endDate,
     });
 
-    const res = await Api.get("careerlist", userId);
+    const res = await Api.get("careers", userId);
     setCareers(res.data);
     setIsAdding(false);
   };

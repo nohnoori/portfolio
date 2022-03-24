@@ -17,7 +17,7 @@ function CareerEditForm({ currentCareer, setIsEditing }) {
 
     const userId = currentCareer.user_id;
 
-    await Api.put(`careers/${currentCareer.id}`, {
+    await Api.put(`career/${currentCareer.id}`, {
       user_id: userId,
       title,
       description,
@@ -28,7 +28,7 @@ function CareerEditForm({ currentCareer, setIsEditing }) {
     // ? 1. 수정된 정보 GET요청
     // ? 2. 수정된 정보 careers에 저장
     // ? 3. 편집 폼 종료
-    const res = await Api.get("careerlist", userId);
+    const res = await Api.get("careers", userId);
     setCareers(res.data);
     setIsEditing(false);
   };
