@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { Container, Col, Row, Form, Button } from "react-bootstrap";
 
 import * as Api from "../../api";
-import { DispatchContext } from "../../App";
+import { DispatchContext, ClassifierContext } from "../../App";
 
 import "../../index.css";
 
 function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
+  const setUserType = useContext(ClassifierContext); //FIXME
 
   // 유저/회사 구분하기 위한 classifier 상태 생성
   const [classifier, setClassifier] = useState("");
@@ -38,56 +39,35 @@ function LoginForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (classifier === "user") {
-      try {
-        // "user/login" 엔드포인트로 post요청함.
-        const res = await Api.post("user/login", {
-          email,
-          password,
-        });
+    // 유저 계정인지 회사 계정인지 구분
+    const apiUrl = classifier === "user" ? "user/login" : "company/login";
+    console.log("로그인 시 classifier값: ", classifier); //FIXME
+    const userType = classifier === "user" ? "user" : "company";
+    setUserType(userType); //FIXME
+    console.log("로그인 시 setUserType 설정 값: ", userType); //FIXME
+    try {
+      // "user/login" 엔드포인트로 post요청함.
+      const res = await Api.post(apiUrl, {
+        email,
+        password,
+      });
 
-        // 유저 정보는 response의 data임.
-        const user = res.data;
-        // JWT 토큰은 유저 정보의 token임.
-        const jwtToken = user.token;
-        // sessionStorage에 "userToken"이라는 키로 JWT 토큰을 저장함.
-        sessionStorage.setItem("userToken", jwtToken);
-        // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
-        dispatch({
-          type: "LOGIN_SUCCESS",
-          payload: user,
-        });
+      // 유저 정보는 response의 data임.
+      const user = res.data;
+      // JWT 토큰은 유저 정보의 token임.
+      const jwtToken = user.token;
+      // sessionStorage에 "userToken"이라는 키로 JWT 토큰을 저장함.
+      sessionStorage.setItem("userToken", jwtToken);
+      // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
+      dispatch({
+        type: "LOGIN_SUCCESS",
+        payload: user,
+      });
 
-        // 기본 페이지로 이동함.
-        navigate("/", { replace: true });
-      } catch (err) {
-        console.log("유저 로그인에 실패하였습니다.\n", err);
-      }
-    } else {
-      try {
-        // "company/login" 엔드포인트로 post요청함.
-        const res = await Api.post("company/login", {
-          email,
-          password,
-        });
-
-        // 회사 정보는 response의 data임.
-        const company = res.data;
-        // JWT 토큰은 회사 정보의 token임.
-        const jwtToken = company.token;
-        // sessionStorage에 "companyToken"이라는 키로 JWT 토큰을 저장함.
-        sessionStorage.setItem("companyToken", jwtToken);
-        // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
-        dispatch({
-          type: "LOGIN_SUCCESS",
-          payload: company,
-        });
-
-        // 기본 페이지로 이동함.
-        navigate("/", { replace: true });
-      } catch (err) {
-        console.log("회사 로그인에 실패하였습니다.\n", err);
-      }
+      // 기본 페이지로 이동함.
+      navigate("/", { replace: true });
+    } catch (err) {
+      console.log("유저 로그인에 실패하였습니다.\n", err);
     }
   };
 
