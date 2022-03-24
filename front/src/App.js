@@ -7,8 +7,10 @@ import { loginReducer } from "./reducer";
 import Header from "./components/Header";
 import LoginForm from "./components/user/LoginForm";
 import Network from "./components/user/Network";
+import CompanyNetwork from "./components/company2/CompanyNetwork";
 import RegisterForm from "./components/user/RegisterForm";
 import Portfolio from "./components/Portfolio";
+import CompanyPortfolio from "./components/CompanyPortfolio";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -63,6 +65,8 @@ function App() {
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/users/:userId" element={<Portfolio />} />
             <Route path="/network" element={<Network />} />
+            <Route path="/companyNetwork" element={<CompanyNetwork />} />
+            {/* <Route path="/companys/:companyId" element={<CompanyPortfolio />} /> // companyPortpolio로 갈 필요가 없어짐 */}
             <Route path="*" element={<Portfolio />} />
           </Routes>
         </Router>

@@ -34,6 +34,11 @@ function Header() {
       <Nav.Item>
         <Nav.Link onClick={() => navigate("/network")}>네트워크</Nav.Link>
       </Nav.Item>
+      <Nav.Item>
+        <Nav.Link onClick={() => navigate("/companyNetwork")}>
+          회사공고 네트워크
+        </Nav.Link>
+      </Nav.Item>
       {isLogin && (
         <Nav.Item>
           <Nav.Link onClick={logout}>로그아웃</Nav.Link>
