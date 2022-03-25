@@ -106,8 +106,9 @@ class companyAuthService {
     }
     // 업데이트 대상에 description이 있다면, 즉 description 값이 null 이 아니라면 업데이트 진행
     if (toUpdate.description) {
+      const { detail } = company.description;
       const fieldToUpdate = "description";
-      const newValue = toUpdate.description;
+      const newValue = { ...toUpdate.description, detail };
       company = await Company.update({ companyId, fieldToUpdate, newValue });
     }
 
