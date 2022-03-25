@@ -28,7 +28,6 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
     });
 
     const promise = upload.promise();
-
     promise.then(
       function (data) {
         alert("이미지 업로드에 성공했습니다.");
