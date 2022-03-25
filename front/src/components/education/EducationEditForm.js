@@ -18,7 +18,7 @@ function EducationEditForm({ currentEducation, setIsEditing }) {
     if (schoolLevel === "UNIV") {
       setIsMajorValid(major.length > 0);
     } else {
-      setMajor(null);
+      setMajor("");
       setIsMajorValid(true);
     }
   }, [schoolLevel, major]);
