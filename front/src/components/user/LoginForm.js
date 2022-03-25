@@ -66,6 +66,9 @@ function LoginForm() {
       // 기본 페이지로 이동함.
       navigate("/", { replace: true });
     } catch (err) {
+      alert(
+        `유저 로그인에 실패했습니다.\n이메일 혹은 비밀번호를 다시 확인해주세요.`
+      );
       console.log("유저 로그인에 실패하였습니다.\n", err);
     }
   };
@@ -148,7 +151,13 @@ function LoginForm() {
                 </Button>
               </Col>
             </Form.Group>
-
+            <Form.Group as={Row} className="mt-3 text-center">
+              <Col sm={{ span: 20 }}>
+                <Button variant="primary" onClick={() => navigate("/reset")}>
+                  비밀번호 찾기
+                </Button>
+              </Col>
+            </Form.Group>
             <Form.Group as={Row} className="mt-3 text-center">
               <Col sm={{ span: 20 }}>
                 <Button variant="light" onClick={() => navigate("/register")}>

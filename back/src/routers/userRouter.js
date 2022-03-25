@@ -2,6 +2,7 @@ import is from "@sindresorhus/is";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import { userAuthService } from "../services/userService";
+import nodemailer from "nodemailer";
 
 const userAuthRouter = Router();
 
@@ -104,7 +105,7 @@ userAuthRouter.put(
       const description = req.body.description ?? null;
 
       const toUpdate = { name, email, password, description };
-
+      console.log(toUpdate);
       // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
       const updatedUser = await userAuthService.setUser({ user_id, toUpdate });
 
@@ -137,6 +138,59 @@ userAuthRouter.get(
     }
   }
 );
+
+//비밀번호 찾기 API
+userAuthRouter.post("/user/reset_password", async (req, res, next) => {
+  try {
+    const email = req.body.email;
+
+    console.log(email);
+    const generatedAuthNumber = Math.floor(Math.random() * 10 ** 8)
+      .toString()
+      .padStart(8, "0");
+
+    const toUpdate = { password: generatedAuthNumber };
+    const resetPassword = await userAuthService.setPassword({
+      email,
+      toUpdate,
+    });
+
+    if (resetPassword.errorMessage) {
+      throw new Error(resetPassword.errorMessage);
+    }
+
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.NODEMAILER_USER,
+        pass: process.env.NODEMAILER_PASS,
+      },
+    });
+
+    // send mail with defined transport object
+    let info = await transporter.sendMail({
+      from: `"nuri" <${process.env.NODEMAILER_USER}>`,
+      to: email,
+      subject: "비밀번호 변경입니다",
+      text: generatedAuthNumber,
+      html: `<b>${generatedAuthNumber}</b>`,
+    });
+
+    console.log("Message sent: %s", info.messageId);
+    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+    res.status(200).json({
+      status: "Success",
+      code: 200,
+      message: "Sent Auth Email",
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
 userAuthRouter.get("/afterlogin", login_required, function (req, res, next) {
