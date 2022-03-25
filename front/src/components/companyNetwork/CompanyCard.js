@@ -1,10 +1,13 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Row } from "react-bootstrap";
 import "../jobvancacy/Tag.css";
 import Tag from "../jobvancacy/Tag";
+import * as Api from "../../api";
 
 function CompanyCard({ company, isCompanyNetwork }) {
   const navigate = useNavigate();
+
   return (
     <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
       <Card.Body>
@@ -37,7 +40,9 @@ function CompanyCard({ company, isCompanyNetwork }) {
           <Card.Link
             className="mt-3"
             href="#"
-            onClick={() => navigate(`/companys/${company.id}`)}
+            onClick={() => {
+              navigate(`/companys/${company.id}`);
+            }}
           >
             공고상세보기
           </Card.Link>
