@@ -89,6 +89,22 @@ jobVacancyAuthRouter.get(
   }
 );
 
+//jobVacancy 삭제
+jobVacancyAuthRouter.delete("/jobVacancy/:id", async (req, res, next) => {
+  try {
+    //:id 값 가져오기
+    const id = req.params.id;
+
+    const deletedJobVacancy = await JobVacancyAuthService.deleteJobVacancy({
+      id,
+    });
+
+    res.status(200).json(deletedJobVacancy);
+  } catch (error) {
+    next(error);
+  }
+});
+
 //jobVacancy 수정 API
 jobVacancyAuthRouter.put("/jobVacancy/:id", async (req, res, next) => {
   try {
