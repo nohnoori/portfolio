@@ -11,11 +11,17 @@ function EducationEditForm({ currentEducation, setIsEditing }) {
   const [major, setMajor] = useState(currentEducation.major);
   const [position, setPosition] = useState(currentEducation.position);
 
+  // 대학교/대학원 선택 시 전공을 작성하였는지 여부 확인
+  const [isMajorValid, setIsMajorValid] = useState(true);
+
   useEffect(() => {
-    if (schoolLevel === "고등학교") {
-      setMajor(" ");
+    if (schoolLevel === "UNIV") {
+      setIsMajorValid(major.length > 0);
+    } else {
+      setMajor("");
+      setIsMajorValid(true);
     }
-  }, [schoolLevel]);
+  }, [schoolLevel, major]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,9 +36,6 @@ function EducationEditForm({ currentEducation, setIsEditing }) {
       schoolLevel,
     });
 
-    // ? 1. 수정된 정보 GET요청
-    // ? 2. 수정된 정보 educations에 저장
-    // ? 3. 편집 폼 종료
     const res = await Api.get("educations", userId);
     setEducations(res.data);
     setIsEditing(false);
@@ -47,8 +50,8 @@ function EducationEditForm({ currentEducation, setIsEditing }) {
           id="level1"
           type="checkbox"
           name="level"
-          value="고등학교"
-          checked={schoolLevel === "고등학교"}
+          value="HIGH"
+          checked={schoolLevel === "HIGH"}
           onChange={(e) => setSchoolLevel(e.target.value)}
         />
 
@@ -58,13 +61,13 @@ function EducationEditForm({ currentEducation, setIsEditing }) {
           id="level2"
           type="checkbox"
           name="level"
-          value="대학교/대학원"
-          checked={schoolLevel === "대학교/대학원"}
+          value="UNIV"
+          checked={schoolLevel === "UNIV"}
           onChange={(e) => setSchoolLevel(e.target.value)}
         />
       </div>
 
-      {schoolLevel === "고등학교" && (
+      {schoolLevel === "HIGH" && (
         <>
           <Form.Group className="mb-2">
             <Form.Control
@@ -101,7 +104,7 @@ function EducationEditForm({ currentEducation, setIsEditing }) {
         </>
       )}
 
-      {schoolLevel === "대학교/대학원" && (
+      {schoolLevel === "UNIV" && (
         <>
           <Form.Group>
             <Form.Control
@@ -119,6 +122,11 @@ function EducationEditForm({ currentEducation, setIsEditing }) {
               value={major}
               onChange={(e) => setMajor(e.target.value)}
             ></Form.Control>
+            {!isMajorValid && (
+              <Form.Text className="text-success">
+                전공을 입력해주세요
+              </Form.Text>
+            )}
           </Form.Group>
 
           <div key={`inline-radio`} className="mb-3 mt-3">
@@ -171,7 +179,12 @@ function EducationEditForm({ currentEducation, setIsEditing }) {
 
       <Form.Group as={Row} className="mt-3 text-center">
         <Col sm={{ span: 20 }}>
-          <Button variant="primary" type="submit" className="me-3">
+          <Button
+            variant="primary"
+            type="submit"
+            className="me-3"
+            disabled={!isMajorValid}
+          >
             확인
           </Button>
           <Button variant="secondary" onClick={() => setIsEditing(false)}>
