@@ -25,9 +25,6 @@ function Portfolio() {
   // 아래 코드를 보면, isFetchCompleted가 false이면 "loading..."만 반환되어서, 화면에 이 로딩 문구만 뜨게 됨.
   const [isFetchCompleted, setIsFetchCompleted] = useState(false);
 
-  // 임시로 둔 회사 구별 코드
-  const [isCompany, setIsCompany] = useState(true);
-
   const userState = useContext(UserStateContext);
 
   const fetchPorfolioOwner = async (ownerId) => {
@@ -67,75 +64,48 @@ function Portfolio() {
 
   return (
     <>
-      {isCompany ? (
-        <Container fluid>
-          <Row>
-            <Col md="3" lg="3">
-              <Company
+      <Container fluid>
+        <Row>
+          <Col md="3" lg="3">
+            <User
+              portfolioOwnerId={portfolioOwner.id}
+              isEditable={portfolioOwner.id === userState.user?.id}
+            />
+          </Col>
+          <Col>
+            <Row className="mb-3">
+              <Education
                 portfolioOwnerId={portfolioOwner.id}
                 isEditable={portfolioOwner.id === userState.user?.id}
               />
-            </Col>
-            <Col>
-              <Row>
-                <JobVancancy
-                  portfolioOwnerId={portfolioOwner.id}
-                  isEditable={portfolioOwner.id === userState.user?.id}
-                />
-              </Row>
-              <Row>
-                <CompanyDetail
-                  portfolioOwnerId={portfolioOwner.id}
-                  isEditable={portfolioOwner.id === userState.user?.id}
-                />
-              </Row>
-            </Col>
-          </Row>
-        </Container>
-      ) : (
-        <Container fluid>
-          <Row>
-            <Col md="3" lg="3">
-              <User
+            </Row>
+            <Row className="mb-3">
+              <Awards
                 portfolioOwnerId={portfolioOwner.id}
                 isEditable={portfolioOwner.id === userState.user?.id}
               />
-            </Col>
-            <Col>
-              <Row className="mb-3">
-                <Education
-                  portfolioOwnerId={portfolioOwner.id}
-                  isEditable={portfolioOwner.id === userState.user?.id}
-                />
-              </Row>
-              <Row className="mb-3">
-                <Awards
-                  portfolioOwnerId={portfolioOwner.id}
-                  isEditable={portfolioOwner.id === userState.user?.id}
-                />
-              </Row>
-              <Row className="mb-3">
-                <Projects
-                  portfolioOwnerId={portfolioOwner.id}
-                  isEditable={portfolioOwner.id === userState.user?.id}
-                />
-              </Row>
-              <Row className="mb-3">
-                <Certificate
-                  portfolioOwnerId={portfolioOwner.id}
-                  isEditable={portfolioOwner.id === userState.user?.id}
-                />
-              </Row>
-              <Row className="mb-3">
-                <Careers
-                  portfolioOwnerId={portfolioOwner.id}
-                  isEditable={portfolioOwner.id === userState.user?.id}
-                />
-              </Row>
-            </Col>
-          </Row>
-        </Container>
-      )}
+            </Row>
+            <Row className="mb-3">
+              <Projects
+                portfolioOwnerId={portfolioOwner.id}
+                isEditable={portfolioOwner.id === userState.user?.id}
+              />
+            </Row>
+            <Row className="mb-3">
+              <Certificate
+                portfolioOwnerId={portfolioOwner.id}
+                isEditable={portfolioOwner.id === userState.user?.id}
+              />
+            </Row>
+            <Row className="mb-3">
+              <Careers
+                portfolioOwnerId={portfolioOwner.id}
+                isEditable={portfolioOwner.id === userState.user?.id}
+              />
+            </Row>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }

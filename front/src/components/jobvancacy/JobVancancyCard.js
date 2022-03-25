@@ -14,9 +14,9 @@ function JobVancancyCard({ currentJob, isEditable, setJobs }) {
   const handleDelete = async (e) => {
     const companyId = currentJob.company_id;
     e.preventDefault();
-    await Api.delete(`jobvancancy/${currentJob.id}`);
+    await Api.delete(`jobVacancy/${currentJob.id}`);
 
-    const res = await Api.get("jobvancancies", companyId);
+    const res = await Api.get("jobVacancies", companyId);
     setJobs(res.data);
   };
 
@@ -30,8 +30,9 @@ function JobVancancyCard({ currentJob, isEditable, setJobs }) {
         />
       ) : (
         <Col>
-          <div>{currentJob.title}</div>
-          <div>{currentJob.description}</div>
+          <div>{currentJob?.jobname}</div>
+          <div>{currentJob?.description}</div>
+          <div>{currentJob?.open ? "채용중" : "채용마감"}</div>
         </Col>
       )}
       {isEditable && isEditing === false && (

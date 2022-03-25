@@ -27,7 +27,7 @@ function JobVancancy({ isEditable, portfolioOwnerId }) {
           />
         ))}
 
-        {isEditable && (
+        {isEditable && !isAdding && (
           <Row className="text-center">
             <Col sm={{ span: 20 }} className="mb-3">
               <Button onClick={() => setIsAdding(true)}>+</Button>

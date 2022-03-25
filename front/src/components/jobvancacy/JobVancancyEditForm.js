@@ -10,14 +10,14 @@ function JobVancancyEditForm({ currentJob, setIsEditing, setJobs }) {
   const handleSubmit = async (e) => {
     const companyId = currentJob.company_id;
     e.preventDefault();
-    await Api.put(`jobvancancy/${currentJob.id}`, {
+    await Api.put(`jobVacancy/${currentJob.id}`, {
       company_id: companyId,
       jobname,
       description,
       open,
     });
 
-    const res = await Api.get("jobvancancies", companyId);
+    const res = await Api.get("jobVacancies", companyId);
     setJobs(res.data);
     setIsEditing(false);
   };
@@ -33,6 +33,16 @@ function JobVancancyEditForm({ currentJob, setIsEditing, setJobs }) {
           onChange={(e) => setJobname(e.target.value)}
         />
         <textarea
+          style={{
+            width: "100%",
+            height: "200px",
+            padding: "10px",
+            margin: "auto",
+            resize: "none",
+            fontSize: "15px",
+            borderRadius: "6px",
+            border: "solid 1px #d2d2d2",
+          }}
           className="mb-2"
           type="description"
           placeholder="채용 공고 내용을 넣어주세요(ex.업무소개, 우대사항)"

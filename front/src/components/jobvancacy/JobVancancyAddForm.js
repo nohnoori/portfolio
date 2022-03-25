@@ -11,7 +11,7 @@ function JobVancancyAddForm({ setIsAdding, setJobs, portfolioOwnerId }) {
     e.preventDefault();
     const companyId = portfolioOwnerId;
 
-    await Api.post("jobVancancy", {
+    await Api.post("jobVacancy", {
       company_id: companyId,
       jobname,
       description,
@@ -33,6 +33,16 @@ function JobVancancyAddForm({ setIsAdding, setJobs, portfolioOwnerId }) {
           onChange={(e) => setJobname(e.target.value)}
         />
         <textarea
+          style={{
+            width: "100%",
+            height: "200px",
+            padding: "10px",
+            margin: "auto",
+            resize: "none",
+            fontSize: "15px",
+            borderRadius: "6px",
+            border: "solid 1px #d2d2d2",
+          }}
           className="mb-2"
           type="description"
           placeholder="채용 공고 내용을 넣어주세요(ex.업무소개, 우대사항)"

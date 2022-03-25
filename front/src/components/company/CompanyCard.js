@@ -10,26 +10,26 @@ function CompanyCard({ user, setIsEditing, isEditable }) {
         <Row className="justify-content-md-center">
           <Card.Img
             style={{ width: "10rem", height: "8rem" }}
+            src={user?.description.img}
             className="mb-3"
-            src={user.description.img}
             alt="회사 사진을 넣어주세요"
           />
         </Row>
-        <Card.Title>{user.name}</Card.Title>
+        <Card.Title>{user?.name}</Card.Title>
         <Card.Subtitle className="mb-3 text-muted">
           {user?.description.summary}
         </Card.Subtitle>
         <hr />
         <div>사원수</div>
         <div className="mb-2 text-muted mb-1">
-          {user.description.headCount}명
+          {user?.description.headCount}명
         </div>
         <div>복지</div>
-        <div className="mb-2 text-muted mb-1">{user.description.benefit}</div>
+        <div className="mb-2 text-muted mb-1">{user?.description.benefit}</div>
         <div>위치</div>
-        <div className="mb-2 text-muted mb-1">{user.description.location}</div>
+        <div className="mb-2 text-muted mb-1">{user?.description.location}</div>
         <div>홈페이지</div>
-        <div className="mb-2 text-muted mb-1">{user.description.homepage}</div>
+        <div className="mb-2 text-muted mb-1">{user?.description.homepage}</div>
 
         {isEditable && (
           <Col>
