@@ -76,5 +76,11 @@ class JobVacancyAuthService {
 
     return jobVacancy;
   }
+
+  //project 삭제
+  static async deleteJobVacancy({ id }) {
+    const jobVacancy = await JobVacancy.delete({ id });
+    return jobVacancy;
+  }
 }
 export { JobVacancyAuthService };

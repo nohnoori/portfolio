@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 
@@ -6,10 +6,21 @@ import { EducationsContext } from "./Educations";
 
 function EducationAddForm({ setIsAdding, portfolioOwnerId }) {
   const { setEducations } = useContext(EducationsContext);
-  const [schoolLevel, setSchoolLevel] = useState("고등학교");
+  const [schoolLevel, setSchoolLevel] = useState("HIGH");
   const [school, setSchool] = useState("");
   const [major, setMajor] = useState("");
   const [position, setPosition] = useState("재학중");
+
+  // 대학교/대학원 선택 시 전공을 작성하였는지 여부 확인
+  const [isMajorValid, setIsMajorValid] = useState(true);
+
+  useEffect(() => {
+    if (schoolLevel === "UNIV") {
+      setIsMajorValid(major.length > 0);
+    } else {
+      setIsMajorValid(true);
+    }
+  }, [schoolLevel, major]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,8 +51,8 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId }) {
           id="level1"
           type="checkbox"
           name="level"
-          value="고등학교"
-          checked={schoolLevel === "고등학교"}
+          value="HIGH"
+          checked={schoolLevel === "HIGH"}
           onChange={(e) => setSchoolLevel(e.target.value)}
         />
 
@@ -51,13 +62,13 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId }) {
           id="level2"
           type="checkbox"
           name="level"
-          value="대학교/대학원"
-          checked={schoolLevel === "대학교/대학원"}
+          value="UNIV"
+          checked={schoolLevel === "UNIV"}
           onChange={(e) => setSchoolLevel(e.target.value)}
         />
       </div>
 
-      {schoolLevel === "고등학교" && (
+      {schoolLevel === "HIGH" && (
         <>
           <Form.Group className="mb-2">
             <Form.Control
@@ -93,7 +104,7 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId }) {
           </div>
         </>
       )}
-      {schoolLevel === "대학교/대학원" && (
+      {schoolLevel === "UNIV" && (
         <>
           <Form.Group>
             <Form.Control
@@ -111,6 +122,11 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId }) {
               value={major}
               onChange={(e) => setMajor(e.target.value)}
             ></Form.Control>
+            {!isMajorValid && (
+              <Form.Text className="text-success">
+                전공을 입력해주세요
+              </Form.Text>
+            )}
           </Form.Group>
 
           <div key={`inline-radio`} className="mb-3 mt-3">
@@ -163,7 +179,12 @@ function EducationAddForm({ setIsAdding, portfolioOwnerId }) {
 
       <Form.Group as={Row} className="mt-3 text-center">
         <Col sm={{ span: 20 }}>
-          <Button variant="primary" type="submit" className="me-3">
+          <Button
+            variant="primary"
+            type="submit"
+            className="me-3"
+            disabled={!isMajorValid}
+          >
             확인
           </Button>
           <Button variant="secondary" onClick={() => setIsAdding(false)}>
