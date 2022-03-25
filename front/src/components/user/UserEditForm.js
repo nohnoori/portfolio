@@ -19,6 +19,8 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   // 비밀번호와 확인용 비밀번호가 일치하는지 여부를 확인함.
   const isPasswordSame = password === confirmPassword;
 
+  const isFormValid = isPasswordSame && isPasswordValid;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -103,7 +105,12 @@ function UserEditForm({ user, setIsEditing, setUser }) {
 
           <Form.Group as={Row} className="mt-3 text-center">
             <Col sm={{ span: 20 }}>
-              <Button variant="primary" type="submit" className="me-3">
+              <Button
+                variant="primary"
+                type="submit"
+                className="me-3"
+                disabled={!isFormValid}
+              >
                 확인
               </Button>
               <Button variant="secondary" onClick={() => setIsEditing(false)}>
