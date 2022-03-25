@@ -8,11 +8,16 @@ import User from "./user/User";
 import Certificate from "./certificate/Certificates";
 
 import Company from "./company/Company";
+<<<<<<< HEAD
+=======
+import CompanyDetail from "./company/CompanyDetail";
+>>>>>>> cc6d4e9ab688d98ae6d679af35b906b36a613680
 
 import Careers from "./career/Careers";
 import Projects from "./project/Projects";
 import Awards from "./award/Awards";
 import Education from "./education/Educations";
+import JobVancancy from "./jobvancacy/JobVancancy";
 
 function Portfolio() {
   const navigate = useNavigate();
@@ -23,9 +28,12 @@ function Portfolio() {
   // 아래 코드를 보면, isFetchCompleted가 false이면 "loading..."만 반환되어서, 화면에 이 로딩 문구만 뜨게 됨.
   const [isFetchCompleted, setIsFetchCompleted] = useState(false);
 
+<<<<<<< HEAD
   // 임시로 둔 회사 구별 코드
   const [isCompany, setIsCompany] = useState(true);
 
+=======
+>>>>>>> cc6d4e9ab688d98ae6d679af35b906b36a613680
   const userState = useContext(UserStateContext);
 
   const fetchPorfolioOwner = async (ownerId) => {

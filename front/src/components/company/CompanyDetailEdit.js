@@ -3,20 +3,15 @@ import { Card, Form, Row, Col, Button } from "react-bootstrap";
 import * as Api from "../../api";
 
 function CompanyDetailEdit({ user, setUser, setIsEditing }) {
-  useEffect(() => {
-    // "users/유저id" 엔드포인트로 GET 요청을 하고, user를 response의 data로 세팅함.
-    Api.get("company", userId).then((res) => setUser(res.data));
-  });
-
   const userId = user.id;
-  const [description, setDescription] = useState(user?.description);
+  const [detail, setDetail] = useState(user?.description.detail);
 
   // 값 post, get 추가
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     await Api.put(`company/${user.id}/detail`, {
-      description,
+      detail,
     });
     // 유저 정보는 response의 data임.
     await Api.get("company", userId).then((res) => setUser(res.data));
@@ -41,10 +36,8 @@ function CompanyDetailEdit({ user, setUser, setIsEditing }) {
           }}
           type="text"
           placeholder="회사 상세 소개 페이지"
-          value={description.detail}
-          onChange={(e) =>
-            setDescription({ ...description, detail: e.target.value })
-          }
+          value={detail}
+          onChange={(e) => setDetail(e.target.value)}
         />
       </Form.Group>
       <Form.Group as={Row} className="mt-3 text-center">

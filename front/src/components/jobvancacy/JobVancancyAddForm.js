@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
+import Tag from "./Tag";
 
 function JobVancancyAddForm({ setIsAdding, setJobs, portfolioOwnerId }) {
   const [jobname, setJobname] = useState("");
   const [description, setDescription] = useState("");
   const [open, setOpen] = useState(true);
+  const [tagItem, setTagItem] = useState("");
+  const [tags, setTags] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,11 +19,25 @@ function JobVancancyAddForm({ setIsAdding, setJobs, portfolioOwnerId }) {
       jobname,
       description,
       open,
+      tags,
     });
 
     await Api.get("jobVacancies", companyId).then((res) => setJobs(res.data));
 
     setIsAdding(false);
+  };
+  const onKeyPress = (e) => {
+    if (e.target.value.length !== 0 && e.key === "Enter") {
+      e.preventDefault();
+      submitTagItem();
+    }
+  };
+
+  const submitTagItem = () => {
+    let updatedTagList = [...tags];
+    updatedTagList.push(tagItem);
+    setTags(updatedTagList);
+    setTagItem("");
   };
   return (
     <Form onSubmit={handleSubmit}>
@@ -67,6 +84,24 @@ function JobVancancyAddForm({ setIsAdding, setJobs, portfolioOwnerId }) {
             name="open"
             value={false}
             onChange={(e) => setOpen(e.target.value)}
+          />
+        </div>
+        <div>
+          {tags.map((currentTag) => (
+            <Tag
+              key={currentTag}
+              currentTag={currentTag}
+              tags={tags}
+              setTagList={setTags}
+            />
+          ))}
+          <Form.Control
+            style={{ margin: "5px" }}
+            type="text"
+            placeholder="Press enter to add tags"
+            onChange={(e) => setTagItem(e.target.value)}
+            value={tagItem}
+            onKeyPress={onKeyPress}
           />
         </div>
 

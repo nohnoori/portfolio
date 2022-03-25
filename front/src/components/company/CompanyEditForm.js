@@ -1,21 +1,25 @@
-import react, { useState, useEffect } from "react";
+import react, { useState } from "react";
 import { Card, Form, Row, Col, Button } from "react-bootstrap";
 import * as Api from "../../api";
 
 function CompanyEditForm({ user, setIsEditing, setUser }) {
-  useEffect(() => {
-    // "users/유저id" 엔드포인트로 GET 요청을 하고, user를 response의 data로 세팅함.
-    Api.get("company", userId).then((res) => setUser(res.data));
-  }, []);
-
-  const userId = user.id;
-  const [description, setDescription] = useState(user?.description);
+  const [summary, setSummary] = useState(user?.description.summary);
+  const [location, setLocation] = useState(user?.description.location);
+  const [headCount, setHeadCount] = useState(user?.description.headCount);
+  const [benefit, setBenefit] = useState(user?.description.benefit);
+  const [homepage, setHomepage] = useState(user?.description.homepage);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userId = user.id;
     await Api.put(`company/${user.id}`, {
-      description,
+      description: {
+        summary,
+        location,
+        headCount,
+        benefit,
+        homepage,
+      },
     });
 
     await Api.get("company", userId).then((res) => setUser(res.data));
@@ -35,10 +39,8 @@ function CompanyEditForm({ user, setIsEditing, setUser }) {
               size="sm"
               type="text"
               placeholder="Detail"
-              value={description.summary}
-              onChange={(e) =>
-                setDescription({ ...description, summary: e.target.value })
-              }
+              value={summary}
+              onChange={(e) => setSummary(e.target.value)}
             />
           </Form.Group>
           <Form.Group controlId="EditLocation" className="mb-3">
@@ -50,10 +52,8 @@ function CompanyEditForm({ user, setIsEditing, setUser }) {
               size="sm"
               type="text"
               placeholder="위치"
-              value={description.location}
-              onChange={(e) =>
-                setDescription({ ...description, location: e.target.value })
-              }
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
             />
           </Form.Group>
           <Form.Group controlId="EditHeadCount" className="mb-3">
@@ -65,10 +65,8 @@ function CompanyEditForm({ user, setIsEditing, setUser }) {
               size="sm"
               type="text"
               placeholder="사원수"
-              value={Number(description.headCount)}
-              onChange={(e) =>
-                setDescription({ ...description, headCount: e.target.value })
-              }
+              value={Number(headCount)}
+              onChange={(e) => setHeadCount(e.target.value)}
             />
           </Form.Group>
           <Form.Group controlId="EditBenefit" className="mb-3">
@@ -80,10 +78,8 @@ function CompanyEditForm({ user, setIsEditing, setUser }) {
               size="sm"
               type="text"
               placeholder="복지"
-              value={description.benefit}
-              onChange={(e) =>
-                setDescription({ ...description, benefit: e.target.value })
-              }
+              value={benefit}
+              onChange={(e) => setBenefit(e.target.value)}
             />
           </Form.Group>
           <Form.Group controlId="EditHomepage" className="mb-3">
@@ -92,10 +88,8 @@ function CompanyEditForm({ user, setIsEditing, setUser }) {
               size="sm"
               type="text"
               placeholder="홈페이지"
-              value={description.homepage}
-              onChange={(e) =>
-                setDescription({ ...description, homepage: e.target.value })
-              }
+              value={homepage}
+              onChange={(e) => setHomepage(e.target.value)}
             />
           </Form.Group>
 

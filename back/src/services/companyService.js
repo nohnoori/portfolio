@@ -106,10 +106,38 @@ class companyAuthService {
     }
     // 업데이트 대상에 description이 있다면, 즉 description 값이 null 이 아니라면 업데이트 진행
     if (toUpdate.description) {
+      const { detail } = company.description;
       const fieldToUpdate = "description";
-      const newValue = toUpdate.description;
+      const newValue = { ...toUpdate.description, detail };
       company = await Company.update({ companyId, fieldToUpdate, newValue });
     }
+
+    return company;
+  }
+
+  static async setCompanyDetail({ companyId, toUpdateDetail }) {
+    // 우선 해당 id 의 회사가 db에 존재하는지 여부 확인
+    let company = await Company.findById({ companyId });
+
+    // db에서 찾지 못한 경우, 에러 메시지 반환
+    if (!company) {
+      const errorMessage = "가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
+      return { errorMessage };
+    }
+    const { img, location, headCount, homepage, summary, benefit } =
+      company.description;
+
+    const fieldToUpdate = "description";
+    const newValue = {
+      img,
+      location,
+      headCount,
+      homepage,
+      summary,
+      benefit,
+      detail: toUpdateDetail,
+    };
+    company = await Company.update({ companyId, fieldToUpdate, newValue });
 
     return company;
   }
