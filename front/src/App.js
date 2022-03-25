@@ -96,7 +96,11 @@ function App() {
               <Route path="/users/:userId" element={<Portfolio />} />
               <Route path="/network" element={<Network />} />
               <Route path="/companyNetwork" element={<CompanyNetwork />} />
-              <Route path="/companys/:companyId" element={<CompanyInfo />} />
+              <Route
+                path="/companys/:companyId"
+                element={<CompanyPortfolio />}
+              />
+              <Route path="/job/:jobId" element={<CompanyInfo />} />
               <Route path="*" element={<Portfolio />} />
             </Routes>
           </Router>

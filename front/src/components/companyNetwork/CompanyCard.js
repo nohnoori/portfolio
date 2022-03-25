@@ -41,7 +41,7 @@ function CompanyCard({ company, isCompanyNetwork }) {
             className="mt-3"
             href="#"
             onClick={() => {
-              navigate(`/companys/${company.company_id}`);
+              navigate(`/job/${company.id}`);
             }}
           >
             공고상세보기

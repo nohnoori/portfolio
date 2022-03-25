@@ -8,20 +8,37 @@ import CompanySimpleInfo from "./CompanySimpleInfo";
 import { UserStateContext } from "../../App";
 
 function CompanyInfo() {
-  const [user, setUser] = useState([]);
-  const portfolioOwnerId = useParams();
+  const [job, setJob] = useState([]);
+  const params = useParams();
+  const [isFetchCompleted, setIsFetchCompleted] = useState(false);
   // console.log(portfolioOwnerId.companyId);
   // const userId = portfolioOwnerId;
 
   // useEffect(async () => {
   //   // "users/유저id" 엔드포인트로 GET 요청을 하고, user를 response의 data로 세팅함.
 
-  //   const test = await Api.get("company", portfolioOwnerId.companyId).then((res) => {
-  //     console.log(portfolioOwnerId)
-  //     console.log(test);
-  //     setUser(res.data);
-  //   });
-  // }, [portfolioOwnerId]);
+  //   await Api.get("job", portfolioOwnerId.jobId).then((res) =>
+  //     setJob(res.data)
+  //   );
+  // }, [portfolioOwnerId.jobId]);
+
+  const fetchPorfolioOwner = async (ownerId) => {
+    const res = await Api.get("jobVacancy", ownerId);
+    const ownerData = res.data;
+    setJob(ownerData);
+    setIsFetchCompleted(true);
+  };
+
+  useEffect(() => {
+    if (params.jobId) {
+      const ownerId = params.jobId;
+      fetchPorfolioOwner(ownerId);
+    }
+  }, [params]);
+
+  if (!isFetchCompleted) {
+    return "loading...";
+  }
 
   return (
     <Container fluid>
@@ -30,9 +47,7 @@ function CompanyInfo() {
           <Company></Company>
         </Col>
         <Col xs lg="3">
-          <CompanySimpleInfo
-            portfolioOwnerId={portfolioOwnerId.companyId}
-          ></CompanySimpleInfo>
+          <CompanySimpleInfo companyId={job.company_id}></CompanySimpleInfo>
         </Col>
       </Row>
     </Container>

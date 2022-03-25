@@ -77,7 +77,7 @@ function Portfolio() {
 
   return (
     <>
-      {isCompany ? (
+      {!isCompany ? (
         <Container fluid>
           <Row>
             <Col md="3" lg="3">
