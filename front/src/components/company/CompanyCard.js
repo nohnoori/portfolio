@@ -13,7 +13,6 @@ function CompanyCard({ user, setIsEditing, isEditable }) {
       IdentityPoolId: "ap-northeast-2:ab728621-f9a4-43d8-8b6a-26672cce00ea", // cognito 인증 풀에서 받아온 키를 문자열로 입력합니다. (Ex. "ap-northeast-2...")
     }),
   });
-
   const handleFileInput = (e) => {
     // input 태그를 통해 선택한 파일 객체
     const file = e.target.files[0];

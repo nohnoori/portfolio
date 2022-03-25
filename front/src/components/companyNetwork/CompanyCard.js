@@ -7,7 +7,7 @@ import * as Api from "../../api";
 
 function CompanyCard({ company, isCompanyNetwork }) {
   const navigate = useNavigate();
-
+  console.log(company.company_id, "여기");
   return (
     <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
       <Card.Body>
@@ -41,7 +41,7 @@ function CompanyCard({ company, isCompanyNetwork }) {
             className="mt-3"
             href="#"
             onClick={() => {
-              navigate(`/companys/${company.id}`);
+              navigate(`/companys/${company.company_id}`);
             }}
           >
             공고상세보기
