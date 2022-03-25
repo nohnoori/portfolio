@@ -19,14 +19,16 @@ function CompanyPortfolio() {
   const [isFetchCompleted, setIsFetchCompleted] = useState(false);
   const userState = useContext(UserStateContext);
 
-  //처음 렌더링 됐을 때 한번만 localStorage에 company 값 넣어주기
-  //어차피 user 판단은 userState에서 하기 때문에
-  //새로고침 시 App파일에서 userType을 다시 초기화하는데 이미 localStorage는 company로 바뀌어있기때문에
-  //company 페이지 유지가 가능함
-  useEffect(() => {
-    window.localStorage.setItem("state", "company");
-  }, []);
-
+  const fetchPorfolioOwner = async (ownerId) => {
+    // 유저 id를 가지고 "/users/유저id" 엔드포인트로 요청해 사용자 정보를 불러옴.
+    const res = await Api.get("company", ownerId);
+    // 사용자 정보는 response의 data임.
+    const ownerData = res.data;
+    // portfolioOwner을 해당 사용자 정보로 세팅함.
+    setPortfolioOwner(ownerData);
+    // fetchPorfolioOwner 과정이 끝났으므로, isFetchCompleted를 true로 바꿈.
+    setIsFetchCompleted(true);
+  };
   useEffect(() => {
     // 전역 상태의 user가 null이라면 로그인이 안 된 상태이므로, 로그인 페이지로 돌림.
     if (!userState.user) {

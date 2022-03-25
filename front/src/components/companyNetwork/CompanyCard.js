@@ -14,11 +14,11 @@ function CompanyCard({ company, isCompanyNetwork }) {
             alt="회사 로고"
           />
         </Row>
-        <Card.Title>{company?.name}</Card.Title>
+        <Card.Title>{company?.jobname}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">
-          {company?.email}
+          {company?.description}
         </Card.Subtitle>
-        <Card.Text>{company?.description}</Card.Text>
+        <Card.Text>{company?.open === true ? "채용중" : "채용 마감"}</Card.Text>
 
         {isCompanyNetwork && (
           <Card.Link
