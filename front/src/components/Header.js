@@ -19,6 +19,9 @@ function Header() {
     sessionStorage.removeItem("userToken");
     // dispatch 함수를 이용해 로그아웃함.
     dispatch({ type: "LOGOUT" });
+
+    //로그아웃 시 App.js로 다시 렌더링 되기 때문에 state를 null로 바꾸어 login 페이지로 가도록 함
+    window.localStorage.setItem("state", null);
     // 기본 페이지로 돌아감.
     navigate("/");
   };
