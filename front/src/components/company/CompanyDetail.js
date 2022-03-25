@@ -26,7 +26,10 @@ function CompanyDetail({ portfolioOwnerId, isEditable }) {
           />
         ) : (
           <Card.Text>
-            <ReactMarkdown children={user?.description.detail} />
+            <ReactMarkdown
+              children={user?.description.detail}
+              remarkPlugins={[remarkGfm]}
+            />
           </Card.Text>
         )}
         {isEditable && isEditing === false && (

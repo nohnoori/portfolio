@@ -32,9 +32,8 @@ function JobVancancyCard({ currentJob, isEditable, setJobs }) {
         />
       ) : (
         <Col>
-          <div className="m-1">{currentJob?.jobname}</div>
-          <div className="m-1">{currentJob?.description}</div>
-          <div className="m-1">
+          <div className="m-2">{currentJob?.jobname}</div>
+          <div className="m-2">
             <span id="open">{currentJob?.open ? "채용중" : "채용마감"}</span>
           </div>
           {currentJob?.tags.map((currentTag) => (
