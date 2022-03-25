@@ -19,37 +19,46 @@ const CompanySchema = new Schema(
       required: true,
     },
     description: {
-      img: {
-        type: String,
-        required: false,
-        default: "default-profile.png",
-      },
-      location: {
-        type: String,
-        required: true,
-      },
-      headCount: {
-        type: Number,
-        required: true,
-      },
-      homepage: {
-        type: String,
-        required: false,
-        default: "설정 된 홈페이지가 없습니다.",
-      },
-      summary: {
-        type: String,
-        required: true,
-      },
-      benefit: {
-        type: String,
-        required: true,
-      },
-      detail: {
-        type: String,
-        required: true,
+      type: {
+        img: {
+          type: String,
+          required: false,
+          default: "default-profile.png",
+        },
+        location: {
+          type: String,
+          required: true,
+        },
+        headCount: {
+          type: Number,
+          required: true,
+        },
+        homepage: {
+          type: String,
+          required: false,
+          default: "홈페이지가 아직 설정되지 않았습니다. 추가해주세요.",
+        },
+        summary: {
+          type: String,
+          required: true,
+        },
+        benefit: {
+          type: String,
+          required: true,
+        },
+        detail: {
+          type: String,
+          required: true,
+        },
       },
       required: false,
+      default: {
+        location: "위치가 아직 설정되지 않았습니다. 추가해주세요.",
+        headCount: 0,
+        summary: "간단 설명이 아직 설정되지 않았습니다. 추가해주세요.",
+        benefit: "복지가 아직 설정되지 않았습니다. 추가해주세요.",
+        detail: "상세 설명이 아직 설정되지 않았습니다. 추가해주세요.",
+      },
     },
   },
   {
