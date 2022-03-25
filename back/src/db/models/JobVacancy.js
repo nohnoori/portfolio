@@ -30,6 +30,10 @@ class JobVacancy {
 
     return updatedJobVacancy;
   }
+  static async delete({ id }) {
+    const deletedJobVacancy = await JobVacancyModel.deleteOne({ id });
+    return deletedJobVacancy;
+  }
 }
 
 export { JobVacancy };
