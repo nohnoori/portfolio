@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import JobVancancyEditForm from "./JobVancancyEditForm";
+import JobVacancyEditForm from "./JobVacancyEditForm";
 import { Row, Col, Button, Modal } from "react-bootstrap";
 import * as Api from "../../api";
 import "./Tag.css";
 import Tag from "./Tag";
 
-function JobVancancyCard({ currentJob, isEditable, setJobs }) {
+function JobVacancyCard({ currentJob, isEditable, setJobs }) {
   // 삭제 모듈할때 필요한 변수들
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -24,7 +24,7 @@ function JobVancancyCard({ currentJob, isEditable, setJobs }) {
   return (
     <Row className="mb-3">
       {isEditing ? (
-        <JobVancancyEditForm
+        <JobVacancyEditForm
           setIsEditing={setIsEditing}
           setJobs={setJobs}
           currentJob={currentJob}
@@ -42,7 +42,7 @@ function JobVancancyCard({ currentJob, isEditable, setJobs }) {
               key={currentTag}
               currentTag={currentTag}
               tags={currentJob?.tags}
-              isJobVancancyCard
+              isJobVacancyCard
             />
           ))}
         </Col>
@@ -84,4 +84,4 @@ function JobVancancyCard({ currentJob, isEditable, setJobs }) {
     </Row>
   );
 }
-export default JobVancancyCard;
+export default JobVacancyCard;

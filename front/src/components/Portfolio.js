@@ -14,7 +14,6 @@ import Careers from "./career/Careers";
 import Projects from "./project/Projects";
 import Awards from "./award/Awards";
 import Education from "./education/Educations";
-import JobVancancy from "./jobvancacy/JobVancancy";
 
 function Portfolio() {
   const navigate = useNavigate();

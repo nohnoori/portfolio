@@ -1,20 +1,20 @@
-import { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 import Tag from "./Tag";
 
-function JobVancancyEditForm({ currentJob, setIsEditing, setJobs }) {
-  const [jobname, setJobname] = useState(currentJob.jobname);
-  const [description, setDescription] = useState(currentJob.description);
-  const [open, setOpen] = useState(currentJob.open);
-
+function JobVacancyAddForm({ setIsAdding, setJobs, portfolioOwnerId }) {
+  const [jobname, setJobname] = useState("");
+  const [description, setDescription] = useState("");
+  const [open, setOpen] = useState(true);
   const [tagItem, setTagItem] = useState("");
-  const [tags, setTags] = useState(currentJob.tags);
+  const [tags, setTags] = useState([]);
 
   const handleSubmit = async (e) => {
-    const companyId = currentJob.company_id;
     e.preventDefault();
-    await Api.put(`jobVacancy/${currentJob.id}`, {
+    const companyId = portfolioOwnerId;
+
+    await Api.post("jobVacancy", {
       company_id: companyId,
       jobname,
       description,
@@ -22,11 +22,10 @@ function JobVancancyEditForm({ currentJob, setIsEditing, setJobs }) {
       tags,
     });
 
-    const res = await Api.get("jobVacancies", companyId);
-    setJobs(res.data);
-    setIsEditing(false);
-  };
+    await Api.get("jobVacancies", companyId).then((res) => setJobs(res.data));
 
+    setIsAdding(false);
+  };
   const onKeyPress = (e) => {
     if (e.target.value.length !== 0 && e.key === "Enter") {
       e.preventDefault();
@@ -40,7 +39,6 @@ function JobVancancyEditForm({ currentJob, setIsEditing, setJobs }) {
     setTags(updatedTagList);
     setTagItem("");
   };
-
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-2">
@@ -106,19 +104,19 @@ function JobVancancyEditForm({ currentJob, setIsEditing, setJobs }) {
             onKeyPress={onKeyPress}
           />
         </div>
-      </Form.Group>
 
-      <Form.Group as={Row} className="mt-3 text-center">
-        <Col sm={{ span: 20 }}>
-          <Button variant="primary" type="submit" className="me-3">
-            확인
-          </Button>
-          <Button variant="secondary" onClick={() => setIsEditing(false)}>
-            취소
-          </Button>
-        </Col>
+        <Form.Group as={Row} className="mt-3 text-center">
+          <Col sm={{ span: 20 }}>
+            <Button variant="primary" type="submit" className="me-3">
+              확인
+            </Button>
+            <Button variant="secondary" onClick={() => setIsAdding(false)}>
+              취소
+            </Button>
+          </Col>
+        </Form.Group>
       </Form.Group>
     </Form>
   );
 }
-export default JobVancancyEditForm;
+export default JobVacancyAddForm;

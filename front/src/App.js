@@ -13,8 +13,10 @@ import { loginReducer } from "./reducer";
 import Header from "./components/Header";
 import LoginForm from "./components/user/LoginForm";
 import Network from "./components/user/Network";
+import CompanyNetwork from "./components/company/CompanyNetwork";
 import RegisterForm from "./components/user/RegisterForm";
 import Portfolio from "./components/Portfolio";
+import JobInfo from "./components/company/JobInfo";
 import CompanyPortfolio from "./components/CompanyPortfolio";
 import EmailSend from "./components/user/EmailSend";
 
@@ -93,6 +95,12 @@ function App() {
               <Route path="/register" element={<RegisterForm />} />
               <Route path="/users/:userId" element={<Portfolio />} />
               <Route path="/network" element={<Network />} />
+              <Route path="/companyNetwork" element={<CompanyNetwork />} />
+              <Route
+                path="/companys/:companyId"
+                element={<CompanyPortfolio />}
+              />
+              <Route path="/JobInfo/:id" element={<JobInfo />} />
               <Route path="*" element={<Portfolio />} />
             </Routes>
           </Router>

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Row, Col, Button } from "react-bootstrap";
 import AWS from "aws-sdk";
@@ -40,21 +40,28 @@ function CompanyCard({ user, setIsEditing, isEditable }) {
   };
 
   return (
-    <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
+    <Card>
       <Card.Body>
-        <Row className="justify-content-md-center">
-          <input
-            type="file"
-            id="upload"
-            className="image-upload"
-            onChange={handleFileInput}
-            disabled={!isEditable}
-          />
+        <Row>
+          {isEditable && (
+            <input
+              type="file"
+              id="upload"
+              className="image-upload"
+              onChange={handleFileInput}
+              disabled={!isEditable}
+            />
+          )}
+
           <label htmlFor="upload" className="image-upload-wrapper">
             <img
-              style={{ width: "14rem" }}
+              style={{
+                width: "14rem",
+                display: "block",
+                margin: "0px auto",
+              }}
               alt="profile"
-              className="profile-img"
+              className="profile-img,  mb-3"
               ref={imgRef}
               src={`https://pss-image.s3.ap-northeast-2.amazonaws.com/${user?.id}.png`}
               onError={() => {
