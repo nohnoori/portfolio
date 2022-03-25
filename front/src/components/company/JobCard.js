@@ -1,24 +1,51 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Row } from "react-bootstrap";
 import "../jobvacancy/Tag.css";
 import Tag from "../jobvacancy/Tag";
 import * as Api from "../../api";
+import AWS from "aws-sdk";
 
 function JobCard({ job }) {
+  const navigate = useNavigate();
+  const [company, setCompany] = useState();
+  const imgRef = useRef(null);
+  AWS.config.update({
+    region: "ap-northeast-2", // 버킷이 존재하는 리전을 문자열로 입력합니다. (Ex. "ap-northeast-2")
+    credentials: new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: "ap-northeast-2:ab728621-f9a4-43d8-8b6a-26672cce00ea", // cognito 인증 풀에서 받아온 키를 문자열로 입력합니다. (Ex. "ap-northeast-2...")
+    }),
+  });
   console.log(job.id);
   console.log(job);
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    const res = Api.get("company", job?.company_id).then((res) =>
+      setCompany(res.data)
+    );
+  }, [job?.company_id]);
+
   return (
     <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
       <Card.Body>
-        <Row className="justify-content-md-center">
-          <Card.Img
-            style={{ width: "10rem", height: "8rem" }}
-            className="mb-3"
-            src={job.img}
-            alt="회사 로고"
-          />
+        <Row>
+          <label htmlFor="upload" className="image-upload-wrapper">
+            <img
+              style={{
+                width: "14rem",
+                display: "block",
+                margin: "0px auto",
+              }}
+              alt="profile"
+              className="profile-img, mb-3"
+              ref={imgRef}
+              src={`https://pss-image.s3.ap-northeast-2.amazonaws.com/${company?.id}.png`}
+              onError={() => {
+                return (imgRef.current.src =
+                  "https://pss-image.s3.ap-northeast-2.amazonaws.com/default-profile.png");
+              }}
+            />
+          </label>
         </Row>
         <Card.Title>{job?.jobname}</Card.Title>
         <div>
