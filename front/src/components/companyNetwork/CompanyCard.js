@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Card, Row } from "react-bootstrap";
+import "../jobvancacy/Tag.css";
+import Tag from "../jobvancacy/Tag";
 
 function CompanyCard({ company, isCompanyNetwork }) {
   const navigate = useNavigate();
@@ -18,7 +20,18 @@ function CompanyCard({ company, isCompanyNetwork }) {
         <Card.Subtitle className="mb-2 text-muted">
           {company?.description}
         </Card.Subtitle>
-        <Card.Text>{company?.open === true ? "채용중" : "채용 마감"}</Card.Text>
+        <Card.Text>{company?.open ? "채용중" : "채용 마감"}</Card.Text>
+        <Card.Text>
+          {company?.tags.map((currentTag) => (
+            <Tag
+              className="m-2"
+              key={currentTag}
+              currentTag={currentTag}
+              tags={company?.tags}
+              isJobVancancyCard
+            />
+          ))}
+        </Card.Text>
 
         {isCompanyNetwork && (
           <Card.Link
