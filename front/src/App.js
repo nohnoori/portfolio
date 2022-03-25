@@ -18,6 +18,7 @@ import RegisterForm from "./components/user/RegisterForm";
 import Portfolio from "./components/Portfolio";
 import CompanyInfo from "./components/companyNetwork/CompanyInfo";
 import CompanyPortfolio from "./components/CompanyPortfolio";
+import EmailSend from "./components/user/EmailSend";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -89,6 +90,7 @@ function App() {
                   userType === "user" ? <Portfolio /> : <CompanyPortfolio />
                 }
               />
+              <Route path="/reset" element={<EmailSend />} />
               <Route path="/login" element={<LoginForm />} />
               <Route path="/register" element={<RegisterForm />} />
               <Route path="/users/:userId" element={<Portfolio />} />
