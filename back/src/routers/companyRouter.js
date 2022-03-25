@@ -123,6 +123,33 @@ companyAuthRouter.put(
   }
 );
 
+companyAuthRouter.put(
+  "/company/:id/detail",
+  login_required,
+  async function (req, res, next) {
+    try {
+      // URL로부터 company id를 추출함.
+      const companyId = req.params.id;
+      // body data 로부터 업데이트할 사용자 정보를 추출함.
+      const toUpdateDetail = req.body.detail;
+
+      // 해당 company 아이디로 회사 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
+      const updatedCompany = await companyAuthService.setCompanyDetail({
+        companyId,
+        toUpdateDetail,
+      });
+
+      if (updatedCompany.errorMessage) {
+        throw new Error(updatedCompany.errorMessage);
+      }
+
+      res.status(200).json(updatedCompany);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 //비밀번호 찾기 API
 companyAuthRouter.post("/company/reset_password", async (req, res, next) => {
   try {
