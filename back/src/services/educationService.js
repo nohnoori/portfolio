@@ -39,8 +39,8 @@ class EducationAuthService {
       const newValue = toUpdate.school;
       education = await Education.update({ id, fieldToUpdate, newValue });
     }
-    // 업데이트 대상에 major가 있다면, 즉 major 값이 null 이 아니라면 업데이트 진행
-    if (toUpdate.major) {
+    // 업데이트 대상에 major가 현재 major값과 다르다면 업데이트 진행
+    if (toUpdate.major !== education.major) {
       const fieldToUpdate = "major";
       const newValue = toUpdate.major;
       education = await Education.update({ id, fieldToUpdate, newValue });
