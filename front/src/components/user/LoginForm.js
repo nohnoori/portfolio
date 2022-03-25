@@ -10,7 +10,7 @@ import "../../index.css";
 function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
-  const setUserType = useContext(ClassifierContext); //FIXME
+  const setUserType = useContext(ClassifierContext);
 
   // 유저/회사 구분하기 위한 classifier 상태 생성
   const [classifier, setClassifier] = useState("");
@@ -41,10 +41,9 @@ function LoginForm() {
 
     // 유저 계정인지 회사 계정인지 구분
     const apiUrl = classifier === "user" ? "user/login" : "company/login";
-    console.log("로그인 시 classifier값: ", classifier); //FIXME
     const checkType = classifier === "user" ? "user" : "company";
-    setUserType(checkType); //FIXME
-    console.log("로그인 시 setUserType 설정 값: ", checkType); //FIXME
+    setUserType(checkType);
+
     try {
       // "user/login" 엔드포인트로 post요청함.
       const res = await Api.post(apiUrl, {
