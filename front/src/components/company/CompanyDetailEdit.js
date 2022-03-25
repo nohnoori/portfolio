@@ -15,7 +15,7 @@ function CompanyDetailEdit({ user, setUser, setIsEditing }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await Api.put(`company/${user.id}`, {
+    await Api.put(`company/${user.id}/detail`, {
       description,
     });
     // 유저 정보는 response의 data임.

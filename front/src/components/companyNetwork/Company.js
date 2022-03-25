@@ -11,14 +11,7 @@ function Company({ portfolioOwnerId }) {
   const navigate = useNavigate();
   const userState = useContext(UserStateContext);
 
-  const [companys, setCompanys] = useState([]);
-
   useEffect(() => {
-    // 만약 전역 상태의 user가 null이라면, 로그인 페이지로 이동함.
-    if (!userState.user) {
-      navigate("/login");
-      return;
-    }
     // "userlist" 엔드포인트로 GET 요청을 하고, users를 response의 data로 세팅함.
     Api.get("company").then((res) => setUser(res.data));
   }, [userState, navigate]);
@@ -27,7 +20,7 @@ function Company({ portfolioOwnerId }) {
     <Card>
       <Card.Body>
         <Card.Title>공고 정보</Card.Title>
-        <Card.Text>{user?.description.detail}</Card.Text>
+        <Card.Text>{user?.description.type.detail}</Card.Text>
       </Card.Body>
     </Card>
   );
