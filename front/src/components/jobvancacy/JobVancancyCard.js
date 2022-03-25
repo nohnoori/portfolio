@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import JobVancancyEditForm from "./JobVancancyEditForm";
 import { Row, Col, Button, Modal } from "react-bootstrap";
 import * as Api from "../../api";
+import "./Tag.css";
+import Tag from "./Tag";
 
 function JobVancancyCard({ currentJob, isEditable, setJobs }) {
   // 삭제 모듈할때 필요한 변수들
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const [isEditing, setIsEditing] = useState(false);
 
   const handleDelete = async (e) => {
@@ -27,12 +28,24 @@ function JobVancancyCard({ currentJob, isEditable, setJobs }) {
           setIsEditing={setIsEditing}
           setJobs={setJobs}
           currentJob={currentJob}
+          isEditing={isEditing}
         />
       ) : (
         <Col>
-          <div>{currentJob?.jobname}</div>
-          <div>{currentJob?.description}</div>
-          <div>{currentJob?.open ? "채용중" : "채용마감"}</div>
+          <div className="m-1">{currentJob?.jobname}</div>
+          <div className="m-1">{currentJob?.description}</div>
+          <div className="m-1">
+            <span id="open">{currentJob?.open ? "채용중" : "채용마감"}</span>
+          </div>
+          {currentJob?.tags.map((currentTag) => (
+            <Tag
+              className="m-2"
+              key={currentTag}
+              currentTag={currentTag}
+              tags={currentJob?.tags}
+              isJobVancancyCard
+            />
+          ))}
         </Col>
       )}
       {isEditable && isEditing === false && (

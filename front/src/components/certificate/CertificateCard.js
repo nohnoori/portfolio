@@ -24,7 +24,7 @@ function CertificateCard({
   };
 
   return (
-    <Card.Text>
+    <Card.Text as="div">
       <Row className="align-items-center">
         <Col>
           <span>{certificate.title}</span>

@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
+import Tag from "./Tag";
 
 function JobVancancyEditForm({ currentJob, setIsEditing, setJobs }) {
   const [jobname, setJobname] = useState(currentJob.jobname);
   const [description, setDescription] = useState(currentJob.description);
   const [open, setOpen] = useState(currentJob.open);
+
+  const [tagItem, setTagItem] = useState("");
+  const [tags, setTags] = useState(currentJob.tags);
 
   const handleSubmit = async (e) => {
     const companyId = currentJob.company_id;
@@ -15,11 +19,26 @@ function JobVancancyEditForm({ currentJob, setIsEditing, setJobs }) {
       jobname,
       description,
       open,
+      tags,
     });
 
     const res = await Api.get("jobVacancies", companyId);
     setJobs(res.data);
     setIsEditing(false);
+  };
+
+  const onKeyPress = (e) => {
+    if (e.target.value.length !== 0 && e.key === "Enter") {
+      e.preventDefault();
+      submitTagItem();
+    }
+  };
+
+  const submitTagItem = () => {
+    let updatedTagList = [...tags];
+    updatedTagList.push(tagItem);
+    setTags(updatedTagList);
+    setTagItem("");
   };
 
   return (
@@ -69,17 +88,35 @@ function JobVancancyEditForm({ currentJob, setIsEditing, setJobs }) {
             onChange={(e) => setOpen(e.target.value)}
           />
         </div>
+        <div>
+          {tags.map((currentTag) => (
+            <Tag
+              key={currentTag}
+              currentTag={currentTag}
+              tags={tags}
+              setTagList={setTags}
+            />
+          ))}
+          <Form.Control
+            style={{ margin: "5px" }}
+            type="text"
+            placeholder="Press enter to add tags"
+            onChange={(e) => setTagItem(e.target.value)}
+            value={tagItem}
+            onKeyPress={onKeyPress}
+          />
+        </div>
+      </Form.Group>
 
-        <Form.Group as={Row} className="mt-3 text-center">
-          <Col sm={{ span: 20 }}>
-            <Button variant="primary" type="submit" className="me-3">
-              확인
-            </Button>
-            <Button variant="secondary" onClick={() => setIsEditing(false)}>
-              취소
-            </Button>
-          </Col>
-        </Form.Group>
+      <Form.Group as={Row} className="mt-3 text-center">
+        <Col sm={{ span: 20 }}>
+          <Button variant="primary" type="submit" className="me-3">
+            확인
+          </Button>
+          <Button variant="secondary" onClick={() => setIsEditing(false)}>
+            취소
+          </Button>
+        </Col>
       </Form.Group>
     </Form>
   );

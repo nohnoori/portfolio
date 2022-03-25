@@ -10,7 +10,7 @@ import "../../index.css";
 function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
-  const setUserType = useContext(ClassifierContext); //FIXME
+  const setUserType = useContext(ClassifierContext);
 
   // 유저/회사 구분하기 위한 classifier 상태 생성
   const [classifier, setClassifier] = useState("");
@@ -41,10 +41,9 @@ function LoginForm() {
 
     // 유저 계정인지 회사 계정인지 구분
     const apiUrl = classifier === "user" ? "user/login" : "company/login";
-    console.log("로그인 시 classifier값: ", classifier); //FIXME
-    const userType = classifier === "user" ? "user" : "company";
-    setUserType(userType); //FIXME
-    console.log("로그인 시 setUserType 설정 값: ", userType); //FIXME
+    const checkType = classifier === "user" ? "user" : "company";
+    setUserType(checkType);
+
     try {
       // "user/login" 엔드포인트로 post요청함.
       const res = await Api.post(apiUrl, {
@@ -67,6 +66,9 @@ function LoginForm() {
       // 기본 페이지로 이동함.
       navigate("/", { replace: true });
     } catch (err) {
+      alert(
+        `유저 로그인에 실패했습니다.\n이메일 혹은 비밀번호를 다시 확인해주세요.`
+      );
       console.log("유저 로그인에 실패하였습니다.\n", err);
     }
   };
@@ -149,7 +151,13 @@ function LoginForm() {
                 </Button>
               </Col>
             </Form.Group>
-
+            <Form.Group as={Row} className="mt-3 text-center">
+              <Col sm={{ span: 20 }}>
+                <Button variant="primary" onClick={() => navigate("/reset")}>
+                  비밀번호 찾기
+                </Button>
+              </Col>
+            </Form.Group>
             <Form.Group as={Row} className="mt-3 text-center">
               <Col sm={{ span: 20 }}>
                 <Button variant="light" onClick={() => navigate("/register")}>

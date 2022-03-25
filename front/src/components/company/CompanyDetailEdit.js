@@ -3,11 +3,6 @@ import { Card, Form, Row, Col, Button } from "react-bootstrap";
 import * as Api from "../../api";
 
 function CompanyDetailEdit({ user, setUser, setIsEditing }) {
-  useEffect(() => {
-    // "users/유저id" 엔드포인트로 GET 요청을 하고, user를 response의 data로 세팅함.
-    Api.get("company", userId).then((res) => setUser(res.data));
-  });
-
   const userId = user.id;
   const [description, setDescription] = useState(user?.description);
 

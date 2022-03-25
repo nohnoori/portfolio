@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useReducer, createContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useReducer,
+  createContext,
+  useContext,
+} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import * as Api from "./api";
@@ -10,6 +16,7 @@ import Network from "./components/user/Network";
 import RegisterForm from "./components/user/RegisterForm";
 import Portfolio from "./components/Portfolio";
 import CompanyPortfolio from "./components/CompanyPortfolio";
+import EmailSend from "./components/user/EmailSend";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -20,7 +27,12 @@ function App() {
   const [userState, dispatch] = useReducer(loginReducer, {
     user: null,
   });
-  const [userType, setUserType] = useState(); //FiXME 밑에 return에도 나중에 고치기
+
+  //userType의 초기값을 localStorage에 있는 값으로 초기화
+  //처음에는 빈 값(null)
+  const [userType, setUserType] = useState(
+    window.localStorage.getItem("state")
+  );
 
   // 아래의 fetchCurrentUser 함수가 실행된 다음에 컴포넌트가 구현되도록 함.
   // 아래 코드를 보면 isFetchCompleted 가 true여야 컴포넌트가 구현됨.
@@ -33,13 +45,11 @@ function App() {
     });
     console.log("새로고침 후 setUserType값: ", userType);
     console.log("새로고침 후 apiUrl값: ", apiUrl); //FIXME
+
     try {
       // 이전에 발급받은 토큰이 있다면, 이를 가지고 유저 정보를 받아옴.
-      console.log("새로고침하면 함수 실행!"); // FIXME
       const res = await Api.get(apiUrl);
       const currentUser = res.data;
-      console.log("currentUser 값: ", currentUser); //FIXME
-      console.log("새로고침 후 userType 값: ", userType); //FIXME
 
       // dispatch 함수를 통해 로그인 성공 상태로 만듦.
       dispatch({
@@ -78,6 +88,7 @@ function App() {
                   userType === "user" ? <Portfolio /> : <CompanyPortfolio />
                 }
               />
+              <Route path="/reset" element={<EmailSend />} />
               <Route path="/login" element={<LoginForm />} />
               <Route path="/register" element={<RegisterForm />} />
               <Route path="/users/:userId" element={<Portfolio />} />
