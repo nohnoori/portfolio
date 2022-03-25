@@ -10,6 +10,15 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   //useState로 description 상태를 생성함.
   const [description, setDescription] = useState(user.description);
 
+  //비밀번호 바꾸기 위한 변수
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  // 비밀번호가 4글자 이상인지 여부를 확인함.
+  const isPasswordValid = password.length >= 4;
+  // 비밀번호와 확인용 비밀번호가 일치하는지 여부를 확인함.
+  const isPasswordSame = password === confirmPassword;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -17,6 +26,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     const res = await Api.put(`users/${user.id}`, {
       name,
       email,
+      password,
       description,
     });
     // 유저 정보는 response의 data임.
@@ -26,6 +36,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
 
     // isEditing을 false로 세팅함.
     setIsEditing(false);
+    alert("정보를 수정했습니다.");
   };
 
   return (
@@ -58,6 +69,36 @@ function UserEditForm({ user, setIsEditing, setUser }) {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
+          </Form.Group>
+
+          <Form.Group controlId="registerPassword" className="mt-3">
+            <Form.Label>비밀번호</Form.Label>
+            <Form.Control
+              type="password"
+              autoComplete="off"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {!isPasswordValid && (
+              <Form.Text className="text-success">
+                비밀번호는 4글자 이상으로 설정해 주세요.
+              </Form.Text>
+            )}
+          </Form.Group>
+
+          <Form.Group controlId="registerConfirmPassword" className="mt-3">
+            <Form.Label>비밀번호 재확인</Form.Label>
+            <Form.Control
+              type="password"
+              autoComplete="off"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            {!isPasswordSame && (
+              <Form.Text className="text-success">
+                비밀번호가 일치하지 않습니다.
+              </Form.Text>
+            )}
           </Form.Group>
 
           <Form.Group as={Row} className="mt-3 text-center">

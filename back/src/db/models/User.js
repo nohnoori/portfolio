@@ -33,6 +33,19 @@ class User {
     );
     return updatedUser;
   }
+
+  static async updatePassword({ email, fieldToUpdate, newValue }) {
+    const filter = { email: email };
+    const update = { [fieldToUpdate]: newValue };
+    const option = { returnOriginal: false };
+
+    const updatedUser = await UserModel.findOneAndUpdate(
+      filter,
+      update,
+      option
+    );
+    return updatedUser;
+  }
 }
 
 export { User };

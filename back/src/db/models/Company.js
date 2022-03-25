@@ -28,6 +28,19 @@ class Company {
     );
     return updatedCompany;
   }
+
+  static async updatePassword({ email, fieldToUpdate, newValue }) {
+    const filter = { email: email };
+    const update = { [fieldToUpdate]: newValue };
+    const option = { returnOriginal: false };
+
+    const updatedCompany = await CompanyModel.findOneAndUpdate(
+      filter,
+      update,
+      option
+    );
+    return updatedCompany;
+  }
 }
 
 export { Company };
