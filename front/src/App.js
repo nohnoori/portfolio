@@ -22,7 +22,7 @@ function App() {
   const [userState, dispatch] = useReducer(loginReducer, {
     user: null,
   });
-  const [userType, setUserType] = useState("user"); //FiXME 밑에 return에도 나중에 고치기
+  const [userType, setUserType] = useState(); //FiXME 밑에 return에도 나중에 고치기
 
   // 아래의 fetchCurrentUser 함수가 실행된 다음에 컴포넌트가 구현되도록 함.
   // 아래 코드를 보면 isFetchCompleted 가 true여야 컴포넌트가 구현됨.
@@ -30,6 +30,9 @@ function App() {
 
   const fetchCurrentUser = async () => {
     const apiUrl = userType === "user" ? "user/current" : "company/current";
+    setUserType(() => {
+      apiUrl === "user/current" ? "user" : "company";
+    });
     console.log("새로고침 후 setUserType값: ", userType);
     console.log("새로고침 후 apiUrl값: ", apiUrl); //FIXME
     try {
