@@ -47,6 +47,7 @@ function JobCard({ job }) {
             />
           </label>
         </Row>
+        <Card.Title style={{ textAlign: "center" }}>{company?.name}</Card.Title>
         <Card.Title>{job?.jobname}</Card.Title>
         <div>
           <span id="open">{job?.open ? "채용중" : "채용마감"}</span>

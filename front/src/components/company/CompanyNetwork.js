@@ -24,7 +24,7 @@ function CompanyNetwork({ portfolioOwnerId }) {
   }, [userState, navigate]);
 
   return (
-    <Container fluid>
+    <Container>
       <Row xs="auto" className="jusify-content-center2">
         {jobs.map((job) => (
           <JobCard key={job.id} job={job} company={company} />
