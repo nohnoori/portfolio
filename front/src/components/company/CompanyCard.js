@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Row, Col, Button } from "react-bootstrap";
 import AWS from "aws-sdk";
+import "../../index.css";
 
 function CompanyCard({ user, setIsEditing, isEditable }) {
   const navigate = useNavigate();
@@ -61,7 +62,7 @@ function CompanyCard({ user, setIsEditing, isEditable }) {
                 margin: "0px auto",
               }}
               alt="profile"
-              className="profile-img,  mb-3"
+              className="profile-img"
               ref={imgRef}
               src={`https://pss-image.s3.ap-northeast-2.amazonaws.com/${user?.id}.png`}
               onError={() => {

@@ -25,7 +25,7 @@ function CompanySimpleInfo({ company }) {
                 margin: "0px auto",
               }}
               alt="profile"
-              className="profile-img, mb-3"
+              className="profile-img"
               ref={imgRef}
               src={`https://pss-image.s3.ap-northeast-2.amazonaws.com/${company?.id}.png`}
               onError={() => {

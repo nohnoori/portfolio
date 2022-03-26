@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Card, Row } from "react-bootstrap";
 import "../jobvacancy/Tag.css";
 import Tag from "../jobvacancy/Tag";
+import "../../index.css";
 import * as Api from "../../api";
 import AWS from "aws-sdk";
 
@@ -33,12 +34,11 @@ function JobCard({ job }) {
             <img
               style={{
                 width: "14rem",
-                height: "12rem",
                 display: "block",
                 margin: "0px auto",
               }}
               alt="profile"
-              className="profile-img, mb-3"
+              className="profile-img"
               ref={imgRef}
               src={`https://pss-image.s3.ap-northeast-2.amazonaws.com/${company?.id}.png`}
               onError={() => {
