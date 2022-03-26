@@ -3,8 +3,39 @@ import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import { userAuthService } from "../services/userService";
 import nodemailer from "nodemailer";
+import axios from "axios";
 
 const userAuthRouter = Router();
+
+userAuthRouter.post("/kakao/register", async (req, res, next) => {
+  try {
+    if (is.emptyObject(req.body)) {
+      throw new Error(
+        "headers의 Content-Type을 application/json으로 설정해주세요"
+      );
+    }
+
+    // req (request) 에서 데이터 가져오기
+    const name = req.body.name;
+    const email = req.body.email;
+    const img = req.body.img;
+
+    // 위 데이터를 유저 db에 추가하기
+    const newUser = await userAuthService.addUser({
+      name,
+      email,
+      img,
+    });
+
+    if (newUser.errorMessage) {
+      throw new Error(newUser.errorMessage);
+    }
+
+    res.status(200).json(newUser);
+  } catch (error) {
+    next(error);
+  }
+});
 
 userAuthRouter.post("/user/register", async function (req, res, next) {
   try {
@@ -188,6 +219,53 @@ userAuthRouter.post("/user/reset_password", async (req, res, next) => {
       message: "Sent Auth Email",
     });
   } catch (error) {
+    next(error);
+  }
+});
+
+const KAKAO_OAUTH_TOKEN_API_URL = "https://kauth.kakao.com/oauth/token";
+const KAKAO_GRANT_TYPE = "authorization_code";
+const KAKAO_CLIENT_id = "c41b31038c2c2190244abc6aad763213";
+const KAKAO_REDIRECT_URL = "http://localhost:5001/kakao/code";
+
+userAuthRouter.get("/kakao/code", async (req, res, next) => {
+  // let code = req.query.code;
+  // console.log(code);
+  // try {
+  //   await axios
+  //     .post(
+  //       `${KAKAO_OAUTH_TOKEN_API_URL}?grant_type=authorization_code&client_id=c41b31038c2c2190244abc6aad763213&redirect_uri=http://localhost:5001/kakao/code&code=${code}`,
+  //       {
+  //         headers: {
+  //           "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+  //         },
+  //       }
+  //     )
+  //     .then((result) => {
+  //       console.log(result.data["access_token"]);
+  //       // 토큰을 활용한 로직을 적어주면된다.
+  //       res.json(result);
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //       res.json(e);
+  //     });
+  // } catch (e) {
+  //   console.log(e);
+  //   res.json(e);
+  // }
+  try {
+    const access_token = req.query.access;
+    console.log(access_token);
+    const userRequest = await axios.get("https://kapi.kakao.com/v2/user/me", {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+        "Content-type": "application/json",
+      },
+    });
+    res.json(userRequest.data);
+  } catch (error) {
+    console.log(error);
     next(error);
   }
 });

@@ -13,6 +13,7 @@ class Company {
 
   static async findById({ companyId }) {
     const company = await CompanyModel.findOne({ id: companyId });
+    console.log(companyId);
     return company;
   }
 

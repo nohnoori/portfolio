@@ -70,6 +70,7 @@ class companyAuthService {
 
   static async getCompanyInfo({ companyId }) {
     const company = await Company.findById({ companyId });
+    console.log(companyId);
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!company) {
