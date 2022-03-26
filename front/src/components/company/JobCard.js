@@ -17,13 +17,9 @@ function JobCard({ job }) {
       IdentityPoolId: "ap-northeast-2:ab728621-f9a4-43d8-8b6a-26672cce00ea", // cognito 인증 풀에서 받아온 키를 문자열로 입력합니다. (Ex. "ap-northeast-2...")
     }),
   });
-  console.log(job.id);
-  console.log(job);
 
   useEffect(() => {
-    const res = Api.get("company", job?.company_id).then((res) =>
-      setCompany(res.data)
-    );
+    Api.get("company", job?.company_id).then((res) => setCompany(res.data));
   }, [job?.company_id]);
 
   return (

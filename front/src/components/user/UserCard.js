@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import "../../index.css";
-import AWS, { ApiGatewayManagementApi } from "aws-sdk";
+import AWS from "aws-sdk";
 import * as Api from "../../api";
 
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
@@ -35,7 +35,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
 
     const promise = upload.promise();
     promise.then(
-      function (data) {
+      function () {
         alert("이미지 업로드에 성공했습니다.");
         window.location.reload();
       },
@@ -92,7 +92,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
         {isNetwork && (
           <Card.Link
             className="mt-3"
-            href="#"
+            href="javascript:;"
             onClick={() => navigate(`/users/${user.id}`)}
           >
             포트폴리오

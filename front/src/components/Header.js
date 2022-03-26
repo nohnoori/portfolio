@@ -1,12 +1,11 @@
 import React, { useContext } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import { UserStateContext, DispatchContext } from "../App";
 import { Container, Navbar } from "react-bootstrap";
 
 function Header() {
   const navigate = useNavigate();
-  const location = useLocation();
 
   const userState = useContext(UserStateContext);
   const dispatch = useContext(DispatchContext);

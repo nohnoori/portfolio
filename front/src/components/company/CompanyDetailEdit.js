@@ -1,5 +1,5 @@
-import react, { useState, useEffect } from "react";
-import { Card, Form, Row, Col, Button } from "react-bootstrap";
+import { useState } from "react";
+import { Form, Row, Col, Button } from "react-bootstrap";
 import * as Api from "../../api";
 
 function CompanyDetailEdit({ user, setUser, setIsEditing }) {
@@ -18,7 +18,6 @@ function CompanyDetailEdit({ user, setUser, setIsEditing }) {
 
     setIsEditing(false);
   };
-  console.log("회사소개", user);
   return (
     <Form onSubmit={handleSubmit}>
       <div className="mb-2 text-muted mb-1">마크다운으로 적어주세요!</div>

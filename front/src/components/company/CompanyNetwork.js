@@ -1,12 +1,12 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Row, Card } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import "../../index.css";
 import * as Api from "../../api";
 import JobCard from "./JobCard";
 import { UserStateContext } from "../../App";
 
-function CompanyNetwork({ portfolioOwnerId }) {
+function CompanyNetwork() {
   const navigate = useNavigate();
   const userState = useContext(UserStateContext);
 

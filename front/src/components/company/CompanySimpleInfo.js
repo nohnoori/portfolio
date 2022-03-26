@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Col, Row, Card, Link } from "react-bootstrap";
-import * as Api from "../../api";
+import { Row, Card } from "react-bootstrap";
 import AWS from "aws-sdk";
 
 function CompanySimpleInfo({ company }) {

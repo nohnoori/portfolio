@@ -1,4 +1,4 @@
-import react, { useState } from "react";
+import { useState } from "react";
 import { Card, Form, Row, Col, Button } from "react-bootstrap";
 import * as Api from "../../api";
 
@@ -17,8 +17,6 @@ function CompanyEditForm({ user, setIsEditing, setUser }) {
   const isPasswordValid = password.length >= 4;
 
   const isPasswordSame = password === confirmPassword;
-
-  const isFormValid = isPasswordSame && isPasswordValid;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,7 +37,6 @@ function CompanyEditForm({ user, setIsEditing, setUser }) {
     setIsEditing(false);
     alert("정보를 수정했습니다.");
   };
-  console.log("회사 간단", user);
   return (
     <Card className="mb-2">
       <Card.Body>

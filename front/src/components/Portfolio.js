@@ -6,10 +6,6 @@ import { UserStateContext } from "../App";
 import * as Api from "../api";
 import User from "./user/User";
 import Certificate from "./certificate/Certificates";
-
-import Company from "./company/Company";
-import CompanyDetail from "./company/CompanyDetail";
-
 import Careers from "./career/Careers";
 import Projects from "./project/Projects";
 import Awards from "./award/Awards";
@@ -47,7 +43,6 @@ function Portfolio() {
   }, []);
 
   useEffect(() => {
-    console.log(userState);
     // 전역 상태의 user가 null이라면 로그인이 안 된 상태이므로, 로그인 페이지로 돌림.
     if (!userState.user) {
       navigate("/login", { replace: true });

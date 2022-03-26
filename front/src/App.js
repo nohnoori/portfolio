@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useReducer,
-  createContext,
-  useContext,
-} from "react";
+import React, { useState, useEffect, useReducer, createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import * as Api from "./api";
@@ -36,7 +30,6 @@ function App() {
   const [userType, setUserType] = useState(
     window.localStorage.getItem("state")
   );
-  console.log("넹", window.localStorage.getItem("state"));
   // 아래의 fetchCurrentUser 함수가 실행된 다음에 컴포넌트가 구현되도록 함.
   // 아래 코드를 보면 isFetchCompleted 가 true여야 컴포넌트가 구현됨.
   const [isFetchCompleted, setIsFetchCompleted] = useState(false);
@@ -46,15 +39,11 @@ function App() {
     setUserType(() => {
       return apiUrl === "user/current" ? "user" : "company";
     });
-    console.log("새로고침 후 setUserType값: 여기!!!!!!!!", userType);
-    console.log("새로고침 후 apiUrl값: ", apiUrl); //FIXME
 
     try {
       // 이전에 발급받은 토큰이 있다면, 이를 가지고 유저 정보를 받아옴.
-      console.log(apiUrl);
       const res = await Api.get(apiUrl);
       const currentUser = res.data;
-      console.log("안녕", currentUser);
       // dispatch 함수를 통해 로그인 성공 상태로 만듦.
       dispatch({
         type: "LOGIN_SUCCESS",
@@ -67,7 +56,6 @@ function App() {
     }
     // fetchCurrentUser 과정이 끝났으므로, isFetchCompleted 상태를 true로 바꿔줌
     setIsFetchCompleted(true);
-    console.log("^^^^^^");
   };
 
   // useEffect함수를 통해 fetchCurrentUser 함수를 실행함.
@@ -76,7 +64,6 @@ function App() {
   }, []); // 한번만 실행하게 됨
 
   if (!isFetchCompleted) {
-    console.log("!!!!!", userType);
     return "loading...";
   }
   return (

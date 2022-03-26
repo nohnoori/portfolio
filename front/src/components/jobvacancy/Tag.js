@@ -1,4 +1,4 @@
-import { Button, Form, Col, Row } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import "./Tag.css";
 function tag({ currentTag, tags, setTagList, isJobVacancyCard }) {
   const deleteTagItem = (e) => {

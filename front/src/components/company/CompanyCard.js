@@ -1,12 +1,10 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Row, Col, Button } from "react-bootstrap";
 import AWS from "aws-sdk";
 import "../../index.css";
 
 function CompanyCard({ user, setIsEditing, isEditable }) {
-  const navigate = useNavigate();
-
   const imgRef = useRef(null);
   AWS.config.update({
     region: "ap-northeast-2", // 버킷이 존재하는 리전을 문자열로 입력합니다. (Ex. "ap-northeast-2")
@@ -30,7 +28,7 @@ function CompanyCard({ user, setIsEditing, isEditable }) {
     const promise = upload.promise();
 
     promise.then(
-      function (data) {
+      function () {
         alert("이미지 업로드에 성공했습니다.");
         window.location.reload();
       },
