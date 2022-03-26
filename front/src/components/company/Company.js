@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CompanyEditForm from "./CompanyEditForm";
 import CompanyCard from "./CompanyCard";
-import { Button, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import * as Api from "../../api";
 
 function Company({ portfolioOwnerId, isEditable }) {

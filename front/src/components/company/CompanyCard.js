@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import { Card, Row, Col, Button } from "react-bootstrap";
 import AWS from "aws-sdk";
 import "../../index.css";
