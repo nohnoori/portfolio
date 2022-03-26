@@ -20,6 +20,7 @@ function CompanyPortfolio() {
   const userState = useContext(UserStateContext);
 
   const fetchPorfolioOwner = async (ownerId) => {
+    console.log("회사 포토폴리오");
     // 유저 id를 가지고 "/users/유저id" 엔드포인트로 요청해 사용자 정보를 불러옴.
     const res = await Api.get("company", ownerId);
     // 사용자 정보는 response의 data임.

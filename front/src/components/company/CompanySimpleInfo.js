@@ -22,7 +22,7 @@ function CompanySimpleInfo({ company }) {
               style={{
                 width: "14rem",
                 display: "block",
-                margin: "0px auto",
+                margin: "auto",
               }}
               alt="profile"
               className="profile-img"
