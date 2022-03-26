@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import { UserStateContext, DispatchContext } from "../App";
+import { Container, Navbar } from "react-bootstrap";
 
 function Header() {
   const navigate = useNavigate();
@@ -27,27 +28,23 @@ function Header() {
   };
 
   return (
-    <Nav activeKey={location.pathname}>
-      <Nav.Item className="me-auto mb-5">
-        <Nav.Link disabled>안녕하세요, 포트폴리오 공유 서비스입니다.</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link onClick={() => navigate("/")}>나의 페이지</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link onClick={() => navigate("/network")}>네트워크</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link onClick={() => navigate("/companyNetwork")}>
-          회사공고 네트워크
-        </Nav.Link>
-      </Nav.Item>
-      {isLogin && (
-        <Nav.Item>
-          <Nav.Link onClick={logout}>로그아웃</Nav.Link>
-        </Nav.Item>
-      )}
-    </Nav>
+    <>
+      <Navbar bg="dark" variant="dark" className="mb-3">
+        <Container>
+          <Navbar.Brand href="#home" id="navbar__title">
+            Portfo<span style={{ color: "#ffcd4a" }}>11</span>o
+          </Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link onClick={() => navigate("/")}>나의 페이지</Nav.Link>
+            <Nav.Link onClick={() => navigate("/network")}>네트워크</Nav.Link>
+            <Nav.Link onClick={() => navigate("/companyNetwork")}>
+              회사공고 네트워크
+            </Nav.Link>
+          </Nav>
+          <Nav>{isLogin && <Nav.Link onClick={logout}>로그아웃</Nav.Link>}</Nav>
+        </Container>
+      </Navbar>
+    </>
   );
 }
 
