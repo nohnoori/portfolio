@@ -41,9 +41,9 @@ function JobInfo() {
             }}
           >
             <Col>
-              <div className="m-3">{job?.jobname}</div>
-              <div className="m-3">
-                <span id="open">{job?.open ? "채용중" : "채용마감"}</span>
+              <div id="jobtitle">
+                {job?.jobname}{" "}
+                <span id="open">{job?.open ? "채용중" : "채용마감"}</span>{" "}
               </div>
               <div className="m-3" style={{ minHeight: "70%" }}>
                 <ReactMarkdown
