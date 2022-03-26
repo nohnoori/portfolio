@@ -7,6 +7,10 @@ import * as Api from "../api";
 import User from "./user/User";
 import Certificate from "./certificate/Certificates";
 
+import Company from "./company/Company";
+import CompanyDetail from "./company/CompanyDetail";
+
+import Careers from "./career/Careers";
 import Projects from "./project/Projects";
 import Awards from "./award/Awards";
 import Education from "./education/Educations";
@@ -19,6 +23,7 @@ function Portfolio() {
   // fetchPorfolioOwner 함수가 완료된 이후에만 (isFetchCompleted가 true여야) 컴포넌트가 구현되도록 함.
   // 아래 코드를 보면, isFetchCompleted가 false이면 "loading..."만 반환되어서, 화면에 이 로딩 문구만 뜨게 됨.
   const [isFetchCompleted, setIsFetchCompleted] = useState(false);
+
   const userState = useContext(UserStateContext);
 
   const fetchPorfolioOwner = async (ownerId) => {
@@ -32,7 +37,17 @@ function Portfolio() {
     setIsFetchCompleted(true);
   };
 
+  //companyPortfolio와 같은 상황!
+  //처음 렌더링 됐을 때 한번만 localStorage에 user 값 넣어주기
+  //어차피 user 판단은 userState에서 하기 때문에
+  //새로고침 시 App파일에서 userType을 다시 초기화하는데 이미 localStorage는 user로 바뀌어있기때문에
+  //user 페이지 유지가 가능함
   useEffect(() => {
+    window.localStorage.setItem("state", "user");
+  }, []);
+
+  useEffect(() => {
+    console.log(userState);
     // 전역 상태의 user가 null이라면 로그인이 안 된 상태이므로, 로그인 페이지로 돌림.
     if (!userState.user) {
       navigate("/login", { replace: true });
@@ -57,42 +72,50 @@ function Portfolio() {
   }
 
   return (
-    <Container fluid>
-      <Row>
-        <Col md="3" lg="3">
-          <User
-            portfolioOwnerId={portfolioOwner.id}
-            isEditable={portfolioOwner.id === userState.user?.id}
-          />
-        </Col>
-        <Col>
-          <Row className="mb-3">
-            <Education
+    <>
+      <Container>
+        <Row>
+          <Col lg="3">
+            <User
               portfolioOwnerId={portfolioOwner.id}
               isEditable={portfolioOwner.id === userState.user?.id}
             />
-          </Row>
-          <Row className="mb-3">
-            <Awards
-              portfolioOwnerId={portfolioOwner.id}
-              isEditable={portfolioOwner.id === userState.user?.id}
-            />
-          </Row>
-          <Row className="mb-3">
-            <Projects
-              portfolioOwnerId={portfolioOwner.id}
-              isEditable={portfolioOwner.id === userState.user?.id}
-            />
-          </Row>
-          <Row className="mb-3">
-            <Certificate
-              portfolioOwnerId={portfolioOwner.id}
-              isEditable={portfolioOwner.id === userState.user?.id}
-            />
-          </Row>
-        </Col>
-      </Row>
-    </Container>
+          </Col>
+          <Col>
+            <Row className="mb-3">
+              <Education
+                portfolioOwnerId={portfolioOwner.id}
+                isEditable={portfolioOwner.id === userState.user?.id}
+              />
+            </Row>
+            <Row className="mb-3">
+              <Awards
+                portfolioOwnerId={portfolioOwner.id}
+                isEditable={portfolioOwner.id === userState.user?.id}
+              />
+            </Row>
+            <Row className="mb-3">
+              <Projects
+                portfolioOwnerId={portfolioOwner.id}
+                isEditable={portfolioOwner.id === userState.user?.id}
+              />
+            </Row>
+            <Row className="mb-3">
+              <Certificate
+                portfolioOwnerId={portfolioOwner.id}
+                isEditable={portfolioOwner.id === userState.user?.id}
+              />
+            </Row>
+            <Row className="mb-3">
+              <Careers
+                portfolioOwnerId={portfolioOwner.id}
+                isEditable={portfolioOwner.id === userState.user?.id}
+              />
+            </Row>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 }
 

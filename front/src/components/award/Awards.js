@@ -23,7 +23,7 @@ function Awards({ isEditable, portfolioOwnerId }) {
   }, [portfolioOwnerId]);
 
   return (
-    <Card>
+    <Card style={{ width: "95%", margin: "auto " }}>
       <Card.Body>
         <Card.Title className="mb-3">수상 이력</Card.Title>
         {/* map을 사용하여 award 컴포넌트 반복 */}

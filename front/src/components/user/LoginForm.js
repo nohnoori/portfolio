@@ -3,12 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { Container, Col, Row, Form, Button } from "react-bootstrap";
 
 import * as Api from "../../api";
-import { DispatchContext } from "../../App";
+import { DispatchContext, ClassifierContext } from "../../App";
+
+import "../../index.css";
 
 function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
+  const { setUserType } = useContext(ClassifierContext);
 
+  // 유저/회사 구분하기 위한 classifier 상태 생성
+  const [classifier, setClassifier] = useState("");
   //useState로 email 상태를 생성함.
   const [email, setEmail] = useState("");
   //useState로 password 상태를 생성함.
@@ -34,9 +39,15 @@ function LoginForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // 유저 계정인지 회사 계정인지 구분
+    const apiUrl = classifier === "user" ? "user/login" : "company/login";
+    const checkType = classifier === "user" ? "user" : "company";
+    setUserType(checkType);
+
     try {
       // "user/login" 엔드포인트로 post요청함.
-      const res = await Api.post("user/login", {
+      window.localStorage.setItem("state", classifier);
+      const res = await Api.post(apiUrl, {
         email,
         password,
       });
@@ -55,15 +66,54 @@ function LoginForm() {
       // 기본 페이지로 이동함.
       navigate("/", { replace: true });
     } catch (err) {
-      console.log("로그인에 실패하였습니다.\n", err);
+      alert(
+        `유저 로그인에 실패했습니다.\n이메일 혹은 비밀번호를 다시 확인해주세요.`
+      );
+      console.log("유저 로그인에 실패하였습니다.\n", err);
     }
   };
 
   return (
-    <Container>
+    <Container style={{ marginTop: "100px" }}>
       <Row className="justify-content-md-center mt-5">
-        <Col lg={8}>
+        <Col lg={5}>
+          <div id="loginTitle">
+            <h1
+              style={{
+                fontSize: "50px",
+                fontWeight: "bolder",
+                color: "#191c1f",
+              }}
+            >
+              <div>Portfolio</div>
+              <div>Share-Service</div>
+            </h1>
+            <div>Welcome Team 11's service</div>
+          </div>
+        </Col>
+
+        <Col lg={6}>
           <Form onSubmit={handleSubmit}>
+            <div key={`inline-radio`} className="mb-3">
+              <Form.Check
+                inline
+                type="radio"
+                id="user"
+                label="유저"
+                value="user"
+                checked={classifier === "user"}
+                onChange={(e) => setClassifier(e.target.value)}
+              />
+              <Form.Check
+                inline
+                type="radio"
+                id="company"
+                label="회사"
+                value="company"
+                checked={classifier === "company"}
+                onChange={(e) => setClassifier(e.target.value)}
+              />
+            </div>
             <Form.Group controlId="loginEmail">
               <Form.Label>이메일 주소</Form.Label>
               <Form.Control
@@ -101,7 +151,13 @@ function LoginForm() {
                 </Button>
               </Col>
             </Form.Group>
-
+            <Form.Group as={Row} className="mt-3 text-center">
+              <Col sm={{ span: 20 }}>
+                <Button variant="primary" onClick={() => navigate("/reset")}>
+                  비밀번호 찾기
+                </Button>
+              </Col>
+            </Form.Group>
             <Form.Group as={Row} className="mt-3 text-center">
               <Col sm={{ span: 20 }}>
                 <Button variant="light" onClick={() => navigate("/register")}>

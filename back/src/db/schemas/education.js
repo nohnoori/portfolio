@@ -16,10 +16,15 @@ const EducationSchema = new Schema(
     },
     major: {
       type: String,
-      required: true,
+      required: false,
     },
     position: {
       type: String,
+      required: true,
+    },
+    schoolLevel: {
+      type: String,
+      enum: ["UNIV", "HIGH"],
       required: true,
     },
   },

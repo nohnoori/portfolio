@@ -18,6 +18,11 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+    img: {
+      type: String,
+      required: false,
+      default: "default-profile",
+    },
     description: {
       type: String,
       required: false,

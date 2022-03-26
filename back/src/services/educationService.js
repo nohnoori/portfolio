@@ -2,10 +2,10 @@ import { Education } from "../db";
 import { v4 as uuidv4 } from "uuid";
 
 class EducationAuthService {
-  static async addEducation({ user_id, school, major, position }) {
+  static async addEducation({ user_id, school, major, position, schoolLevel }) {
     const id = uuidv4();
 
-    const newEducation = { id, user_id, school, major, position };
+    const newEducation = { id, user_id, school, major, position, schoolLevel };
     const createdNewEducation = await Education.create({ newEducation });
 
     return createdNewEducation;
@@ -39,8 +39,8 @@ class EducationAuthService {
       const newValue = toUpdate.school;
       education = await Education.update({ id, fieldToUpdate, newValue });
     }
-    // 업데이트 대상에 major가 있다면, 즉 major 값이 null 이 아니라면 업데이트 진행
-    if (toUpdate.major) {
+    // 업데이트 대상에 major가 현재 major값과 다르다면 업데이트 진행
+    if (toUpdate.major !== education.major) {
       const fieldToUpdate = "major";
       const newValue = toUpdate.major;
       education = await Education.update({ id, fieldToUpdate, newValue });
@@ -49,6 +49,12 @@ class EducationAuthService {
     if (toUpdate.position) {
       const fieldToUpdate = "position";
       const newValue = toUpdate.position;
+      education = await Education.update({ id, fieldToUpdate, newValue });
+    }
+    // 업데이트 대상에 schoolLevel이 있다면, 즉 schoolLevel 값이 null 이 아니라면 업데이트 진행
+    if (toUpdate.schoolLevel) {
+      const fieldToUpdate = "schoolLevel";
+      const newValue = toUpdate.schoolLevel;
       education = await Education.update({ id, fieldToUpdate, newValue });
     }
 
