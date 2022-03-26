@@ -77,9 +77,38 @@ class JobVacancyAuthService {
     return jobVacancy;
   }
 
-  //project 삭제
+  //jobVacancy 삭제
   static async deleteJobVacancy({ id }) {
     const jobVacancy = await JobVacancy.delete({ id });
+    return jobVacancy;
+  }
+
+  //jobVacancy applicants 조회
+  static async getApplicants({ id }) {
+    const applicants = await JobVacancy.findApplicantsById({ id });
+
+    if (!applicants) {
+      const errorMessage = "지원자가 존재하지 않습니다.";
+      return { errorMessage };
+    }
+
+    return applicants;
+  }
+
+  //jobVacancy 수정
+  static async setApplicants({ id, userId }) {
+    let jobVacancy = await JobVacancy.findById({ id });
+    console.log(jobVacancy);
+
+    if (!jobVacancy) {
+      const errorMessage = "채용공고 내역이 없습니다.";
+      return { errorMessage };
+    }
+    jobVacancy = await JobVacancy.updateApplicants({
+      id,
+      userId,
+    });
+
     return jobVacancy;
   }
 }

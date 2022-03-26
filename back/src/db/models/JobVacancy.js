@@ -1,4 +1,5 @@
 import { JobVacancyModel } from "../schemas/jobVacancy";
+import { UserModel } from "../schemas/user";
 
 class JobVacancy {
   static async create({ newJobVacancy }) {
@@ -33,6 +34,25 @@ class JobVacancy {
   static async delete({ id }) {
     const deletedJobVacancy = await JobVacancyModel.deleteOne({ id });
     return deletedJobVacancy;
+  }
+
+  static async findApplicantsById({ id }) {
+    const jobVacancy = await JobVacancyModel.findOne({ id });
+    await UserModel.populate(jobVacancy, { path: "applicants" });
+    const { applicants } = jobVacancy;
+    return applicants;
+  }
+
+  static async updateApplicants({ id, userId }) {
+    console.log("here");
+    const user = await UserModel.findOne({ id: userId });
+    console.log(user);
+    const updatedJobVacancy = await JobVacancyModel.updateOne(
+      { id },
+      { $push: { applicants: user } }
+    );
+
+    return updatedJobVacancy;
   }
 }
 

@@ -127,6 +127,52 @@ jobVacancyAuthRouter.put("/jobVacancy/:id", async (req, res, next) => {
   }
 });
 
+//jobVacancy applicants 조회 API
+jobVacancyAuthRouter.get(
+  "/jobVacancy/:id/applicants",
+  async (req, res, next) => {
+    try {
+      const id = req.params.id;
+
+      const applicants = await JobVacancyAuthService.getApplicants({ id });
+
+      if (applicants.errorMessage) {
+        throw new Error(applicants.errorMessage);
+      }
+
+      res.status(200).json(applicants);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+//jobVacancy applicants 수정 API
+jobVacancyAuthRouter.put(
+  "/jobVacancy/:id/applicants",
+  async (req, res, next) => {
+    try {
+      const id = req.params.id;
+
+      const userId = req.body.userId;
+      console.log(userId);
+
+      const jobVacancy = await JobVacancyAuthService.setApplicants({
+        id,
+        userId,
+      });
+      console.log(jobVacancy);
+      if (jobVacancy.errorMessage) {
+        throw new Error(jobVacancy.errorMessage);
+      }
+
+      res.status(200).json(jobVacancy);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
 jobVacancyAuthRouter.get("/afterlogin", (req, res) => {
   res
