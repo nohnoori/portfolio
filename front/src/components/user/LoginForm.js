@@ -10,7 +10,7 @@ import "../../index.css";
 function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
-  const setUserType = useContext(ClassifierContext);
+  const { setUserType } = useContext(ClassifierContext);
 
   // 유저/회사 구분하기 위한 classifier 상태 생성
   const [classifier, setClassifier] = useState("");
@@ -51,7 +51,6 @@ function LoginForm() {
         email,
         password,
       });
-
       // 유저 정보는 response의 data임.
       const user = res.data;
       // JWT 토큰은 유저 정보의 token임.

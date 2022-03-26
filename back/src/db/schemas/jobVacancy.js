@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import UserSchema from "./user";
 
 const JobVacancySchema = new Schema(
   {
@@ -27,6 +28,16 @@ const JobVacancySchema = new Schema(
       type: Boolean,
       required: false,
       default: true,
+    },
+    applicants: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "User",
+        },
+      ],
+      required: false,
+      default: [],
     },
   },
   {

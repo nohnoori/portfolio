@@ -21,7 +21,7 @@ const UserSchema = new Schema(
     img: {
       type: String,
       required: false,
-      default: "default-profile.png",
+      default: "default-profile",
     },
     description: {
       type: String,

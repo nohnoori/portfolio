@@ -19,6 +19,7 @@ import Portfolio from "./components/Portfolio";
 import JobInfo from "./components/company/JobInfo";
 import CompanyPortfolio from "./components/CompanyPortfolio";
 import EmailSend from "./components/user/EmailSend";
+import JobApplicants from "./components/company/JobApplicants";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -81,7 +82,7 @@ function App() {
   return (
     <DispatchContext.Provider value={dispatch}>
       <UserStateContext.Provider value={userState}>
-        <ClassifierContext.Provider value={setUserType}>
+        <ClassifierContext.Provider value={{ setUserType, userType }}>
           <Router>
             <Header />
             <Routes>
@@ -103,6 +104,10 @@ function App() {
                 element={<CompanyPortfolio />}
               />
               <Route path="/JobInfo/:id" element={<JobInfo />} />
+              <Route
+                path="/JobInfo/:id/applicants"
+                element={<JobApplicants />}
+              />
               <Route path="*" element={<Portfolio />} />
             </Routes>
           </Router>

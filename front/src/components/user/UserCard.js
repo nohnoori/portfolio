@@ -2,7 +2,8 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import "../../index.css";
-import AWS from "aws-sdk";
+import AWS, { ApiGatewayManagementApi } from "aws-sdk";
+import * as Api from "../../api";
 
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const navigate = useNavigate();
@@ -15,9 +16,14 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
     }),
   });
 
-  const handleFileInput = (e) => {
+  const handleFileInput = async (e) => {
     // input 태그를 통해 선택한 파일 객체
     const file = e.target.files[0];
+
+    // img 필드에 id값 업로드
+    await Api.put(`users/${user.id}`, {
+      img: user.id,
+    });
 
     const upload = new AWS.S3.ManagedUpload({
       params: {
@@ -52,14 +58,14 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
           />
           <label htmlFor="upload" className="image-upload-wrapper">
             <img
-              alt="profile"
+              alt=""
               className="profile-img"
               ref={imgRef}
-              src={`https://pss-image.s3.ap-northeast-2.amazonaws.com/${user?.id}.png`}
-              onError={() => {
-                return (imgRef.current.src =
-                  "https://pss-image.s3.ap-northeast-2.amazonaws.com/default-profile.png");
-              }}
+              src={`https://pss-image.s3.ap-northeast-2.amazonaws.com/${user?.img}.png`}
+              // onError={() => {
+              //   return (imgRef.current.src =
+              //     "https://pss-image.s3.ap-northeast-2.amazonaws.com/default-profile.png");
+              // }}
             />
           </label>
         </Row>
@@ -84,7 +90,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
         {isNetwork && (
           <Card.Link
             className="mt-3"
-            href="javascript:;"
+            href="#"
             onClick={() => navigate(`/users/${user.id}`)}
           >
             포트폴리오
