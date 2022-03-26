@@ -1,17 +1,17 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, Row, Button, Col } from "react-bootstrap";
-import "../../index.css";
+import { Card, Row, Col, Button } from "react-bootstrap";
 import AWS from "aws-sdk";
+import "../../index.css";
 
-function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
+function CompanyCard({ user, setIsEditing, isEditable }) {
   const navigate = useNavigate();
 
   const imgRef = useRef(null);
   AWS.config.update({
     region: "ap-northeast-2", // 버킷이 존재하는 리전을 문자열로 입력합니다. (Ex. "ap-northeast-2")
     credentials: new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: process.env.REACT_APP_POOL_ID, // cognito 인증 풀에서 받아온 키를 문자열로 입력합니다. (Ex. "ap-northeast-2...")
+      IdentityPoolId: "ap-northeast-2:ab728621-f9a4-43d8-8b6a-26672cce00ea", // cognito 인증 풀에서 받아온 키를 문자열로 입력합니다. (Ex. "ap-northeast-2...")
     }),
   });
 
@@ -28,6 +28,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
     });
 
     const promise = upload.promise();
+
     promise.then(
       function (data) {
         alert("이미지 업로드에 성공했습니다.");
@@ -40,18 +41,26 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   };
 
   return (
-    <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
+    <Card>
       <Card.Body>
-        <Row className="justify-content-md-center">
-          <input
-            type="file"
-            id="upload"
-            className="image-upload"
-            onChange={handleFileInput}
-            disabled={!isEditable}
-          />
+        <Row>
+          {isEditable && (
+            <input
+              type="file"
+              id="upload"
+              className="image-upload"
+              onChange={handleFileInput}
+              disabled={!isEditable}
+            />
+          )}
+
           <label htmlFor="upload" className="image-upload-wrapper">
             <img
+              style={{
+                width: "14rem",
+                display: "block",
+                margin: "0px auto",
+              }}
               alt="profile"
               className="profile-img"
               ref={imgRef}
@@ -64,8 +73,20 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
           </label>
         </Row>
         <Card.Title>{user?.name}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
-        <Card.Text>{user?.description}</Card.Text>
+        <Card.Subtitle className="mb-3 text-muted">
+          {user?.description.summary}
+        </Card.Subtitle>
+        <hr />
+        <div>사원수</div>
+        <div className="mb-2 text-muted mb-1">
+          {user?.description.headCount}명
+        </div>
+        <div>복지</div>
+        <div className="mb-2 text-muted mb-1">{user?.description.benefit}</div>
+        <div>위치</div>
+        <div className="mb-2 text-muted mb-1">{user?.description.location}</div>
+        <div>홈페이지</div>
+        <div className="mb-2 text-muted mb-1">{user?.description.homepage}</div>
 
         {isEditable && (
           <Col>
@@ -82,19 +103,8 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
             </Row>
           </Col>
         )}
-
-        {isNetwork && (
-          <Card.Link
-            className="mt-3"
-            href="javascript:;"
-            onClick={() => navigate(`/users/${user.id}`)}
-          >
-            포트폴리오
-          </Card.Link>
-        )}
       </Card.Body>
     </Card>
   );
 }
-
-export default UserCard;
+export default CompanyCard;
