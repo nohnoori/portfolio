@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
-import { JobVacancyAuthService } from "../services/JobVacancyService";
+import { JobVacancyAuthService } from "../services/jobVacancyService";
 import is from "@sindresorhus/is";
 
 const jobVacancyAuthRouter = Router();
