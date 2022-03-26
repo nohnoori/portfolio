@@ -46,6 +46,7 @@ function LoginForm() {
 
     try {
       // "user/login" 엔드포인트로 post요청함.
+      window.localStorage.setItem("state", classifier);
       const res = await Api.post(apiUrl, {
         email,
         password,

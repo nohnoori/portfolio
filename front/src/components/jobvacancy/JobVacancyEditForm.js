@@ -3,7 +3,7 @@ import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 import Tag from "./Tag";
 
-function JobVancancyEditForm({ currentJob, setIsEditing, setJobs }) {
+function JobVacancyEditForm({ currentJob, setIsEditing, setJobs }) {
   const [jobname, setJobname] = useState(currentJob.jobname);
   const [description, setDescription] = useState(currentJob.description);
   const [open, setOpen] = useState(currentJob.open);
@@ -64,7 +64,7 @@ function JobVancancyEditForm({ currentJob, setIsEditing, setJobs }) {
           }}
           className="mb-2"
           type="description"
-          placeholder="채용 공고 내용을 넣어주세요(ex.업무소개, 우대사항)"
+          placeholder="채용 공고 내용을 넣어주세요(ex.업무소개, 우대사항) 마크다운 문법을 사용해주세요!"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
@@ -121,4 +121,4 @@ function JobVancancyEditForm({ currentJob, setIsEditing, setJobs }) {
     </Form>
   );
 }
-export default JobVancancyEditForm;
+export default JobVacancyEditForm;

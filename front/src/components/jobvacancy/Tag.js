@@ -1,6 +1,6 @@
 import { Button, Form, Col, Row } from "react-bootstrap";
 import "./Tag.css";
-function tag({ currentTag, tags, setTagList, isJobVancancyCard }) {
+function tag({ currentTag, tags, setTagList, isJobVacancyCard }) {
   const deleteTagItem = (e) => {
     const deleteTagItem = e.target.parentElement.firstChild.innerText;
     const filteredTagList = tags.filter((tagItem) => tagItem !== deleteTagItem);
@@ -8,12 +8,12 @@ function tag({ currentTag, tags, setTagList, isJobVancancyCard }) {
   };
   return (
     <>
-      {isJobVancancyCard ? (
+      {isJobVacancyCard ? (
         <span id="body">
-          <span id="tag">{currentTag}</span>
+          <span id="jobCard">{currentTag}</span>
         </span>
       ) : (
-        <span id="body">
+        <span>
           <span id="tag">{currentTag}</span>
           <Button id="button" size="sm" onClick={deleteTagItem}>
             X

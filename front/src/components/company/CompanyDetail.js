@@ -10,6 +10,7 @@ function CompanyDetail({ portfolioOwnerId, isEditable }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    console.log("회사 디테일");
     // "users/유저id" 엔드포인트로 GET 요청을 하고, user를 response의 data로 세팅함.
     Api.get("company", portfolioOwnerId).then((res) => setUser(res.data));
   }, [portfolioOwnerId]);

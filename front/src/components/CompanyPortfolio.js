@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container, Col, Row } from "react-bootstrap";
 
-import JobVancancy from "./jobvancacy/JobVancancy";
+import JobVacancy from "./jobvacancy/JobVacancy";
 import Company from "./company/Company";
 import CompanyDetail from "./company/CompanyDetail";
 import * as Api from "../api";
@@ -20,6 +20,7 @@ function CompanyPortfolio() {
   const userState = useContext(UserStateContext);
 
   const fetchPorfolioOwner = async (ownerId) => {
+    console.log("회사 포토폴리오");
     // 유저 id를 가지고 "/users/유저id" 엔드포인트로 요청해 사용자 정보를 불러옴.
     const res = await Api.get("company", ownerId);
     // 사용자 정보는 response의 data임.
@@ -43,9 +44,9 @@ function CompanyPortfolio() {
       navigate("/login", { replace: true });
       return;
     }
-    if (params.userId) {
+    if (params.companyId) {
       // 만약 현재 URL이 "/users/:userId" 라면, 이 userId를 유저 id로 설정함.
-      const ownerId = params.userId;
+      const ownerId = params.companyId;
       // 해당 유저 id로 fetchPorfolioOwner 함수를 실행함.
       fetchPorfolioOwner(ownerId);
     } else {
@@ -60,9 +61,9 @@ function CompanyPortfolio() {
     return "loading...";
   }
   return (
-    <Container fluid>
+    <Container>
       <Row>
-        <Col md="3" lg="3">
+        <Col lg="3">
           <Company
             portfolioOwnerId={portfolioOwner.id}
             isEditable={portfolioOwner.id === userState.user?.id}
@@ -70,7 +71,7 @@ function CompanyPortfolio() {
         </Col>
         <Col>
           <Row>
-            <JobVancancy
+            <JobVacancy
               portfolioOwnerId={portfolioOwner.id}
               isEditable={portfolioOwner.id === userState.user?.id}
             />

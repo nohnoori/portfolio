@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { Row, Button, Card, Col } from "react-bootstrap";
 import * as Api from "../../api";
 
-import JobVancancyCard from "./JobVancancyCard";
-import JobVancancyAddForm from "./JobVancancyAddForm";
+import JobVacancyCard from "./JobVacancyCard";
+import JobVacancyAddForm from "./JobVacancyAddForm";
 
-function JobVancancy({ isEditable, portfolioOwnerId }) {
+function JobVacancy({ isEditable, portfolioOwnerId }) {
   const [Jobs, setJobs] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
 
@@ -18,7 +18,7 @@ function JobVancancy({ isEditable, portfolioOwnerId }) {
       <Card.Body>
         <Card.Title className="mb-3">채용 공고</Card.Title>
         {Jobs.map((currentJob) => (
-          <JobVancancyCard
+          <JobVacancyCard
             // AwardCard 컴포넌트로 정보전달
             key={currentJob.id}
             currentJob={currentJob}
@@ -36,7 +36,7 @@ function JobVancancy({ isEditable, portfolioOwnerId }) {
         )}
 
         {isAdding && (
-          <JobVancancyAddForm
+          <JobVacancyAddForm
             setIsAdding={setIsAdding}
             setJobs={setJobs}
             portfolioOwnerId={portfolioOwnerId}
@@ -46,4 +46,4 @@ function JobVancancy({ isEditable, portfolioOwnerId }) {
     </Card>
   );
 }
-export default JobVancancy;
+export default JobVacancy;

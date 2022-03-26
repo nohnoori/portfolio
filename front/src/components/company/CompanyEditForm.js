@@ -3,6 +3,7 @@ import { Card, Form, Row, Col, Button } from "react-bootstrap";
 import * as Api from "../../api";
 
 function CompanyEditForm({ user, setIsEditing, setUser }) {
+  const [name, setSName] = useState(user?.name);
   const [summary, setSummary] = useState(user?.description.summary);
   const [location, setLocation] = useState(user?.description.location);
   const [headCount, setHeadCount] = useState(user?.description.headCount);
@@ -13,6 +14,7 @@ function CompanyEditForm({ user, setIsEditing, setUser }) {
     e.preventDefault();
     const userId = user.id;
     await Api.put(`company/${user.id}`, {
+      name,
       description: {
         summary,
         location,
@@ -31,6 +33,17 @@ function CompanyEditForm({ user, setIsEditing, setUser }) {
       <Card.Body>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="Editdetail" className="mb-3">
+            <Form.Label>
+              회사 이름
+              <span style={{ fontSize: "13px", color: "orange" }}>*</span>
+            </Form.Label>
+            <Form.Control
+              size="sm"
+              type="text"
+              placeholder="Detail"
+              value={name}
+              onChange={(e) => setSName(e.target.value)}
+            />
             <Form.Label>
               짧은 회사 소개를 적어주세요.
               <span style={{ fontSize: "13px", color: "orange" }}>*</span>

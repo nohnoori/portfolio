@@ -18,6 +18,11 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+    img: {
+      type: String,
+      required: false,
+      default: "default-profile.png",
+    },
     description: {
       type: String,
       required: false,
