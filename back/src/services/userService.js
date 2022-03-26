@@ -74,9 +74,9 @@ class userAuthService {
     return users;
   }
 
-  static async setUser({ user_id, toUpdate }) {
+  static async setUser({ userId, toUpdate }) {
     // 우선 해당 id 의 유저가 db에 존재하는지 여부 확인
-    let user = await User.findById({ user_id });
+    let user = await User.findById({ userId });
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!user) {
@@ -88,34 +88,39 @@ class userAuthService {
     if (toUpdate.name) {
       const fieldToUpdate = "name";
       const newValue = toUpdate.name;
-      user = await User.update({ user_id, fieldToUpdate, newValue });
+      user = await User.update({ userId, fieldToUpdate, newValue });
     }
 
     if (toUpdate.email) {
       const fieldToUpdate = "email";
       const newValue = toUpdate.email;
-      user = await User.update({ user_id, fieldToUpdate, newValue });
+      user = await User.update({ userId, fieldToUpdate, newValue });
     }
 
     if (toUpdate.password) {
-      console.log(toUpdate.password);
       const hashedPassword = await bcrypt.hash(toUpdate.password, 10);
       const fieldToUpdate = "password";
       const newValue = hashedPassword;
-      user = await User.update({ user_id, fieldToUpdate, newValue });
+      user = await User.update({ userId, fieldToUpdate, newValue });
+    }
+
+    if (toUpdate.img) {
+      const fieldToUpdate = "img";
+      const newValue = toUpdate.img;
+      user = await User.update({ userId, fieldToUpdate, newValue });
     }
 
     if (toUpdate.description) {
       const fieldToUpdate = "description";
       const newValue = toUpdate.description;
-      user = await User.update({ user_id, fieldToUpdate, newValue });
+      user = await User.update({ userId, fieldToUpdate, newValue });
     }
 
     return user;
   }
 
-  static async getUserInfo({ user_id }) {
-    const user = await User.findById({ user_id });
+  static async getUserInfo({ userId }) {
+    const user = await User.findById({ userId });
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!user) {
@@ -139,7 +144,6 @@ class userAuthService {
     }
 
     if (toUpdate.password) {
-      console.log(toUpdate);
       const hashedPassword = await bcrypt.hash(toUpdate.password, 10);
       const fieldToUpdate = "password";
       const newValue = hashedPassword;
