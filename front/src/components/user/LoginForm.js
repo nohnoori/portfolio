@@ -10,7 +10,7 @@ import "../../index.css";
 function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
-  const setUserType = useContext(ClassifierContext);
+  const { setUserType } = useContext(ClassifierContext);
 
   // 유저/회사 구분하기 위한 classifier 상태 생성
   const [classifier, setClassifier] = useState("");

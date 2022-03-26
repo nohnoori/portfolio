@@ -82,7 +82,7 @@ function App() {
   return (
     <DispatchContext.Provider value={dispatch}>
       <UserStateContext.Provider value={userState}>
-        <ClassifierContext.Provider value={setUserType}>
+        <ClassifierContext.Provider value={{ setUserType, userType }}>
           <Router>
             <Header />
             <Routes>
