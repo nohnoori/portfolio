@@ -27,7 +27,7 @@ function Projects({ isEditable, portfolioOwnerId }) {
 
   return (
     <ProjectsContext.Provider value={{ setProjects }}>
-      <Card>
+      <Card style={{ width: "95%", margin: "auto " }}>
         <Card.Body>
           <Card.Title>프로젝트</Card.Title>
           {projects.map((project) => (

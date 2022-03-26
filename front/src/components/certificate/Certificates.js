@@ -16,7 +16,7 @@ function Certificates({ isEditable, portfolioOwnerId }) {
   }, [portfolioOwnerId]);
 
   return (
-    <Card>
+    <Card style={{ width: "95%", margin: "auto " }}>
       <Card.Body>
         <Card.Title>자격증</Card.Title>
         {certificates.map((certificate) => (

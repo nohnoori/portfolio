@@ -27,18 +27,13 @@ function JobCard({ job }) {
   }, [job?.company_id]);
 
   return (
-    <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
+    <Card className="ms-4 m-3 mt-0" style={{ width: "18rem" }}>
       <Card.Body>
         <Row>
-          <label htmlFor="upload" className="image-upload-wrapper">
+          <label htmlFor="upload">
             <img
-              style={{
-                width: "14rem",
-                display: "block",
-                margin: "0px auto",
-              }}
               alt="profile"
-              className="profile-img"
+              className="profile-img2"
               ref={imgRef}
               src={`https://pss-image.s3.ap-northeast-2.amazonaws.com/${company?.id}.png`}
               onError={() => {

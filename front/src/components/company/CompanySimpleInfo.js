@@ -14,18 +14,13 @@ function CompanySimpleInfo({ company }) {
     }),
   });
   return (
-    <Card>
+    <Card style={{ width: "18rem" }}>
       <Card.Body>
         <Row>
-          <label htmlFor="upload" className="image-upload-wrapper">
+          <label htmlFor="upload">
             <img
-              style={{
-                width: "14rem",
-                display: "block",
-                margin: "auto",
-              }}
               alt="profile"
-              className="profile-img"
+              className="profile-img2"
               ref={imgRef}
               src={`https://pss-image.s3.ap-northeast-2.amazonaws.com/${company?.id}.png`}
               onError={() => {

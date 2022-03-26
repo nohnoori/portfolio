@@ -44,3 +44,8 @@
   margin: 5px;
   font-size: 35px;
 }
+
+#send {
+  margin: 6px;
+  float: right;
+}

@@ -10,11 +10,22 @@ function CompanyEditForm({ user, setIsEditing, setUser }) {
   const [benefit, setBenefit] = useState(user?.description.benefit);
   const [homepage, setHomepage] = useState(user?.description.homepage);
 
+  //비밀번호 바꾸기 위한 변수
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const isPasswordValid = password.length >= 4;
+
+  const isPasswordSame = password === confirmPassword;
+
+  const isFormValid = isPasswordSame && isPasswordValid;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userId = user.id;
     await Api.put(`company/${user.id}`, {
       name,
+      password,
       description: {
         summary,
         location,
@@ -26,6 +37,7 @@ function CompanyEditForm({ user, setIsEditing, setUser }) {
 
     await Api.get("company", userId).then((res) => setUser(res.data));
     setIsEditing(false);
+    alert("정보를 수정했습니다.");
   };
   console.log("회사 간단", user);
   return (
@@ -104,6 +116,36 @@ function CompanyEditForm({ user, setIsEditing, setUser }) {
               value={homepage}
               onChange={(e) => setHomepage(e.target.value)}
             />
+          </Form.Group>
+
+          <Form.Group controlId="registerPassword" className="mt-3">
+            <Form.Label>비밀번호</Form.Label>
+            <Form.Control
+              type="password"
+              autoComplete="off"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {!isPasswordValid && (
+              <Form.Text className="text-success">
+                비밀번호는 4글자 이상으로 설정해 주세요.
+              </Form.Text>
+            )}
+          </Form.Group>
+
+          <Form.Group controlId="registerConfirmPassword" className="mt-3">
+            <Form.Label>비밀번호 재확인</Form.Label>
+            <Form.Control
+              type="password"
+              autoComplete="off"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            {!isPasswordSame && (
+              <Form.Text className="text-success">
+                비밀번호가 일치하지 않습니다.
+              </Form.Text>
+            )}
           </Form.Group>
 
           <Form.Group as={Row} className="mt-3 text-center">

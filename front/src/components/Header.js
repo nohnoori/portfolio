@@ -29,7 +29,7 @@ function Header() {
 
   return (
     <>
-      <Navbar bg="dark" variant="dark" className="mb-3">
+      <Navbar bg="dark" variant="dark" className="mb-4">
         <Container>
           <Navbar.Brand href="#home" id="navbar__title">
             Portfo<span style={{ color: "#ffcd4a" }}>11</span>o

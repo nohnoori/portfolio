@@ -60,25 +60,28 @@ function JobInfo() {
                 {job?.jobname}{" "}
                 <span id="open">{job?.open ? "채용중" : "채용마감"}</span>{" "}
               </div>
-              <div className="m-3" style={{ minHeight: "70%" }}>
+              <div className="m-3" style={{ minHeight: "60%" }}>
                 <ReactMarkdown
                   children={job?.description}
                   remarkPlugins={[remarkGfm]}
                 />
               </div>
+              <hr style={{ margin: "1px" }} />
               {!(isApplicable && job?.open) ? (
                 ""
               ) : (
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  disabled={!job?.open}
-                  onClick={handleApply}
-                >
-                  지원하기
-                </Button>
+                <div>
+                  <Button
+                    id="send"
+                    variant="secondary"
+                    size="md"
+                    disabled={!job?.open}
+                    onClick={handleApply}
+                  >
+                    지원하기
+                  </Button>
+                </div>
               )}
-              <hr style={{ margin: "1px" }} />
               <div style={{ padding: "5px" }}>
                 {job?.tags.map((currentTag) => (
                   <Tag
