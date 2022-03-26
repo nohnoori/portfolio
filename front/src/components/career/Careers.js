@@ -20,7 +20,7 @@ function Careers({ isEditable, portfolioOwnerId }) {
 
   return (
     <CareersContext.Provider value={{ setCareers }}>
-      <Card>
+      <Card style={{ width: "95%", margin: "auto " }}>
         <Card.Body>
           <Card.Title>경력</Card.Title>
           {careers.map((currentCareer) => (

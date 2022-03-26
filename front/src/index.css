@@ -30,7 +30,7 @@ body {
   z-index: -1;
 }
 
-.image-upload-wrapper {
+/* .image-upload-wrapper {
   position: inherit;
   width: 120px !important;
   height: 120px !important;
@@ -43,10 +43,12 @@ body {
   display: block !important;
   border-radius: 50% !important;
   cursor: pointer;
-}
+} */
 
 .profile-img {
-  position: inherit;
+  display: block;
+  margin: auto;
+  /* position: inherit; */
   width: 120px !important;
   height: 120px !important;
   font-size: 100px;
@@ -54,6 +56,19 @@ body {
   outline: none;
   cursor: inherit;
   display: block !important;
+  border-radius: 10% !important;
+  cursor: pointer;
+}
+
+.profile-img2 {
+  display: block;
+  margin: auto;
+  width: 120px !important;
+  height: 120px !important;
+  font-size: 100px;
+  min-width: 0 !important;
+  outline: none;
+  cursor: inherit;
   border-radius: 10% !important;
   cursor: pointer;
 }

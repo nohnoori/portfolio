@@ -40,7 +40,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   };
 
   return (
-    <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
+    <Card className="m-3 ms-4 mt-0" style={{ width: "18rem" }}>
       <Card.Body>
         <Row className="justify-content-md-center">
           <input
@@ -63,7 +63,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
             />
           </label>
         </Row>
-        <Card.Title>{user?.name}</Card.Title>
+        <Card.Title className="mt-3">{user?.name}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
         <Card.Text>{user?.description}</Card.Text>
 
