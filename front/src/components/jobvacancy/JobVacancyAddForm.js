@@ -62,7 +62,7 @@ function JobVacancyAddForm({ setIsAdding, setJobs, portfolioOwnerId }) {
           }}
           className="mb-2"
           type="description"
-          placeholder="채용 공고 내용을 넣어주세요(ex.업무소개, 우대사항)"
+          placeholder="채용 공고 내용을 넣어주세요(ex.업무소개, 우대사항) 마크다운 문법을 사용해주세요!"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />

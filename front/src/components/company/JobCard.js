@@ -33,6 +33,7 @@ function JobCard({ job }) {
             <img
               style={{
                 width: "14rem",
+                height: "12rem",
                 display: "block",
                 margin: "0px auto",
               }}
