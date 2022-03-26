@@ -1,4 +1,5 @@
 import { JobVacancyModel } from "../schemas/jobVacancy";
+import { UserModel } from "../schemas/user";
 
 class JobVacancy {
   static async create({ newJobVacancy }) {
@@ -33,6 +34,32 @@ class JobVacancy {
   static async delete({ id }) {
     const deletedJobVacancy = await JobVacancyModel.deleteOne({ id });
     return deletedJobVacancy;
+  }
+
+  static async findApplicantsById({ id }) {
+    const jobVacancy = await JobVacancyModel.findOne({ id });
+    await UserModel.populate(jobVacancy, { path: "applicants" });
+    const { applicants } = jobVacancy;
+    return applicants;
+  }
+
+  static async updateApplicants({ id, userId }) {
+    const user = await UserModel.findOne({ id: userId });
+    const found = await JobVacancyModel.find({
+      id,
+      applicants: { $in: [user] },
+    });
+    if (found.length > 0) {
+      const errorMessage = "이미 지원하셨습니다.";
+      return { errorMessage };
+    }
+
+    const updatedJobVacancy = await JobVacancyModel.updateOne(
+      { id },
+      { $push: { applicants: user } }
+    );
+
+    return updatedJobVacancy;
   }
 }
 

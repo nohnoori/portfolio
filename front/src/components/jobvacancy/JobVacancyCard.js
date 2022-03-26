@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import JobVacancyEditForm from "./JobVacancyEditForm";
 import { Row, Col, Button, Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import * as Api from "../../api";
 import "./Tag.css";
 import Tag from "./Tag";
@@ -11,6 +12,7 @@ function JobVacancyCard({ currentJob, isEditable, setJobs }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [isEditing, setIsEditing] = useState(false);
+  const navigate = useNavigate();
 
   const handleDelete = async (e) => {
     const companyId = currentJob.company_id;
@@ -49,6 +51,13 @@ function JobVacancyCard({ currentJob, isEditable, setJobs }) {
       )}
       {isEditable && isEditing === false && (
         <Col lg="2">
+          <Button
+            variant="outline-secondary"
+            size="sm"
+            onClick={() => navigate(`/JobInfo/${currentJob?.id}/applicants`)}
+          >
+            지원자
+          </Button>
           <Button
             className="m-1"
             variant="outline-info"
