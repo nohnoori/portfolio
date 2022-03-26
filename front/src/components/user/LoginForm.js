@@ -51,7 +51,6 @@ function LoginForm() {
         email,
         password,
       });
-
       // 유저 정보는 response의 data임.
       const user = res.data;
       // JWT 토큰은 유저 정보의 token임.
