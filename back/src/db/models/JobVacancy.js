@@ -44,9 +44,16 @@ class JobVacancy {
   }
 
   static async updateApplicants({ id, userId }) {
-    console.log("here");
     const user = await UserModel.findOne({ id: userId });
-    console.log(user);
+    const found = await JobVacancyModel.find({
+      id,
+      applicants: { $in: [user] },
+    });
+    if (found.length > 0) {
+      const errorMessage = "이미 지원하셨습니다.";
+      return { errorMessage };
+    }
+
     const updatedJobVacancy = await JobVacancyModel.updateOne(
       { id },
       { $push: { applicants: user } }

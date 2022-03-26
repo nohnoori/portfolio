@@ -155,18 +155,16 @@ jobVacancyAuthRouter.put(
       const id = req.params.id;
 
       const userId = req.body.userId;
-      console.log(userId);
 
       const jobVacancy = await JobVacancyAuthService.setApplicants({
         id,
         userId,
       });
-      console.log(jobVacancy);
       if (jobVacancy.errorMessage) {
-        throw new Error(jobVacancy.errorMessage);
+        res.status(200).json(jobVacancy);
+      } else {
+        res.status(200).json(jobVacancy);
       }
-
-      res.status(200).json(jobVacancy);
     } catch (error) {
       next(error);
     }

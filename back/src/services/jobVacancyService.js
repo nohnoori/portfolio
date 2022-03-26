@@ -98,10 +98,11 @@ class JobVacancyAuthService {
   //jobVacancy 수정
   static async setApplicants({ id, userId }) {
     let jobVacancy = await JobVacancy.findById({ id });
-    console.log(jobVacancy);
 
-    if (!jobVacancy) {
-      const errorMessage = "채용공고 내역이 없습니다.";
+    if (!jobVacancy || jobVacancy.errorMessage) {
+      const errorMessage = !jobVacancy.errorMessage
+        ? "채용공고 내역이 없습니다."
+        : jobVacancy.errorMessage;
       return { errorMessage };
     }
     jobVacancy = await JobVacancy.updateApplicants({
